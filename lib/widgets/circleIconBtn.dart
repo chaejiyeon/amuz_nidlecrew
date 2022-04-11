@@ -9,9 +9,7 @@ class CircleIconBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){},
-      child: Container(
-        child: Image.asset("assets/icons/"+icon),
-      ),
+      child:  Image.asset("assets/icons/"+icon),
     );
   }
 }

@@ -1,4 +1,7 @@
+import 'package:amuz_nidlecrew/main.dart';
 import 'package:amuz_nidlecrew/widgets/baseAppbar.dart';
+import 'package:amuz_nidlecrew/widgets/circleCheckBtn.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -37,23 +40,64 @@ class _AgreeTermsState extends State<AgreeTerms> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(27),
                 shape: BoxShape.rectangle,
+                border: Border.all(
+                  width: 1,
+                  color: HexColor("#d5d5d5"),
+                ),
               ),
               child: TextButton(
-                onPressed: () {
-                },
-                child: Text(
-                  "약관 전체동의",
-                  style: TextStyle(color: Colors.black, fontSize: 16),
+                onPressed: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      CupertinoIcons.checkmark_alt,
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "약관 전체동의",
+                      style: TextStyle(
+                        color: HexColor("#404040"),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-              ),),
-            Container(),
+              ),
+            ),
+            Container(
+              width: 370,
+              margin: EdgeInsets.only(top: 41),
+              child: Column(
+                children: [
+                  CircleCheckBtn(list: "개인정보 처리방침(필수)", listInfo: MyApp()),
+                  CircleCheckBtn(list: "서비스 이용 약관(필수)", listInfo: MyApp()),
+                  CircleCheckBtn(list: "혜택 정보 앱 푸시 알림 수신(선택)", listInfo: MyApp()),
+                  CircleCheckBtn(list: "개인정보 처리방침(필수)", listInfo: MyApp()),
+                ],
+              ),
+            ),
+            Container(
+              child: FloatingActionButton(
+                onPressed: (){},
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-
+  // TextButton(
+  // onPressed: () {},
+  // child: Text(
+  // "약관 전체동의",
+  // style: TextStyle(color: Colors.black, fontSize: 16),
+  // ),
+  // ),
   // titleText style
   Widget titleText(String text) {
     return Text(
