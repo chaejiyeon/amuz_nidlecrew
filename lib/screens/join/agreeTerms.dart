@@ -1,6 +1,9 @@
 import 'package:amuz_nidlecrew/main.dart';
+import 'package:amuz_nidlecrew/screens/join/chooseGender.dart';
 import 'package:amuz_nidlecrew/widgets/baseAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/circleCheckBtn.dart';
+import 'package:amuz_nidlecrew/widgets/floatingNextBtn.dart';
+import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -13,6 +16,8 @@ class AgreeTerms extends StatefulWidget {
 }
 
 class _AgreeTermsState extends State<AgreeTerms> {
+  bool whole_checked = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +33,22 @@ class _AgreeTermsState extends State<AgreeTerms> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  titleText("환영합니다 :D"),
-                  subtitleText("니들크루 서비 이용에 필요한 사항을"),
-                  subtitleText("안내해드릴께요."),
+                  FontStyle(
+                      text: "환영합니다 :D",
+                      fontbold: "bold",
+                      fontcolor: Colors.black,
+                      fontsize: "lg"),
+                  FontStyle(
+                      text: "니들크루 서비 이용에 필요한 사항을",
+                      fontbold: "",
+                      fontcolor: HexColor("#606060"),
+                      fontsize: "md"),
+                  FontStyle(
+                    text: "안내해드릴께요.",
+                    fontbold: "",
+                    fontcolor: HexColor("#606060"),
+                    fontsize: "md",
+                  ),
                 ],
               ),
             ),
@@ -46,7 +64,11 @@ class _AgreeTermsState extends State<AgreeTerms> {
                 ),
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    whole_checked = true;
+                  });
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -73,49 +95,31 @@ class _AgreeTermsState extends State<AgreeTerms> {
               margin: EdgeInsets.only(top: 41),
               child: Column(
                 children: [
-                  CircleCheckBtn(list: "개인정보 처리방침(필수)", listInfo: MyApp()),
-                  CircleCheckBtn(list: "서비스 이용 약관(필수)", listInfo: MyApp()),
-                  CircleCheckBtn(list: "혜택 정보 앱 푸시 알림 수신(선택)", listInfo: MyApp()),
-                  CircleCheckBtn(list: "개인정보 처리방침(필수)", listInfo: MyApp()),
+                  CircleCheckBtn(
+                      list: "개인정보 처리방침(필수)",
+                      listInfo: MyApp(),
+                      checked: whole_checked),
+                  CircleCheckBtn(
+                      list: "서비스 이용 약관(필수)",
+                      listInfo: MyApp(),
+                      checked: whole_checked),
+                  CircleCheckBtn(
+                      list: "혜택 정보 앱 푸시 알림 수신(선택)",
+                      listInfo: MyApp(),
+                      checked: whole_checked),
+                  CircleCheckBtn(
+                      list: "개인정보 처리방침(필수)",
+                      listInfo: MyApp(),
+                      checked: whole_checked),
                 ],
               ),
             ),
-            Container(
-              child: FloatingActionButton(
-                onPressed: (){},
-              ),
+            SizedBox(
+              height: 130,
             ),
+            FloatingNextBtn(page: ChooseGender()),
           ],
         ),
-      ),
-    );
-  }
-
-  // TextButton(
-  // onPressed: () {},
-  // child: Text(
-  // "약관 전체동의",
-  // style: TextStyle(color: Colors.black, fontSize: 16),
-  // ),
-  // ),
-  // titleText style
-  Widget titleText(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-
-  // subtitleText sytle
-  Widget subtitleText(String text) {
-    return Text(
-      text,
-      style: TextStyle(
-        fontSize: 16,
-        color: HexColor("#606060"),
       ),
     );
   }

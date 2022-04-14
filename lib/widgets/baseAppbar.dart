@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-class BaseAppBar extends StatelessWidget implements PreferredSizeWidget{
+class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appbar;
 
   const BaseAppBar({Key? key, required this.appbar}) : super(key: key);
@@ -18,7 +19,9 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget{
         ),
       ),
       backgroundColor: Colors.transparent,
+      brightness: Brightness.light,
       elevation: 0,
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
     );
   }
 

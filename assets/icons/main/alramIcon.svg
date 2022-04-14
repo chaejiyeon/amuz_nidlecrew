@@ -1,0 +1,10 @@
+<svg data-name="구성 요소 57 – 448" xmlns="http://www.w3.org/2000/svg" width="20.5" height="23" viewBox="0 0 20.5 23">
+    <g data-name="그룹 556">
+        <path data-name="패스 5080" d="M0 0h20v20H0z" style="fill:none" transform="translate(0 3)"/>
+        <path data-name="패스 5081" d="M18 16.651H2v-1.628h.8V9.351A7.277 7.277 0 0 1 10 2a7.277 7.277 0 0 1 7.2 7.351v5.672h.8zM4.4 15.023h11.2V9.351A5.663 5.663 0 0 0 10 3.628a5.663 5.663 0 0 0-5.6 5.723zM8 17.465h4a2 2 0 1 1-4 0z" style="fill:#fff" transform="translate(0 3)"/>
+    </g>
+    <g data-name="타원 81" transform="translate(10.5)" style="fill:#fd9a03;stroke:#fff">
+        <circle cx="5" cy="5" r="5" style="stroke:none"/>
+        <circle cx="5" cy="5" r="4.5" style="fill:none"/>
+    </g>
+</svg>

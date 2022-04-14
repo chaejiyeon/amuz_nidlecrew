@@ -14,11 +14,16 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent
+    ));
+
     return GetMaterialApp(
       title: 'Nidlecrew',
       debugShowCheckedModeBanner: false,
@@ -26,9 +31,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'NotoSansCJKkrRegular',
         primaryColor: Colors.white,
         appBarTheme: AppBarTheme(
-          systemOverlayStyle: SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-          ),
+          brightness: Brightness.light,
         ),
       ),
       home: const MyHomePage(),

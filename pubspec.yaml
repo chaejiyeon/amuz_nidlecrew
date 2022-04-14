@@ -37,9 +37,11 @@ dependencies:
 #  GetX plugin
   get: ^4.6.1
 #  image slider plugin
-  flutter_multi_carousel: ^1.0.0
+  carousel_slider: ^4.0.0
 #  hexcolor plugin
   hexcolor: ^2.0.6
+#  svg image plugin
+  flutter_svg: ^1.0.3
 
 dev_dependencies:
   flutter_test:
@@ -65,11 +67,16 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/icons/naver.png
-    - assets/icons/google.png
-    - assets/icons/kakao.png
-    - assets/icons/facebook.png
+#    - assets/icons/naver.png
+#    - assets/icons/google.png
+#    - assets/icons/kakao.png
+#    - assets/icons/facebook.png
+#    - assets/icons/floatingNext.svg
+    - assets/icons/main/
     - assets/images/
+    - assets/icons/
+    - assets/icons/useinfo/
+#    - assets/images/loadinpage_1.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

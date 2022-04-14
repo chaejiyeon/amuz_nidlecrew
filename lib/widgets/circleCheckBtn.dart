@@ -6,8 +6,10 @@ import 'package:hexcolor/hexcolor.dart';
 class CircleCheckBtn extends StatefulWidget {
   final String list;
   final Widget listInfo;
+  final bool checked;
 
-  const CircleCheckBtn({Key? key, required this.list, required this.listInfo})
+
+  const CircleCheckBtn({Key? key, required this.list, required this.listInfo, required this.checked})
       : super(key: key);
 
   @override
@@ -16,6 +18,7 @@ class CircleCheckBtn extends StatefulWidget {
 
 class _RadioBtnState extends State<CircleCheckBtn> {
   bool ischecked = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class _RadioBtnState extends State<CircleCheckBtn> {
             side: BorderSide(
               color: HexColor("#d5d5d5"),
             ),
-            value: ischecked,
+            value: widget.checked == true ? ischecked == false : ischecked == true,
             onChanged: (value) {
               setState(() {
                 ischecked = value!;
