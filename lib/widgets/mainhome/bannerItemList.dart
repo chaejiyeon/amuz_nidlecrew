@@ -1,17 +1,20 @@
+import 'package:amuz_nidlecrew/screens/main/alramInfo.dart';
+import 'package:amuz_nidlecrew/screens/main/cartInfo.dart';
+import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
+import 'package:amuz_nidlecrew/screens/main/mainhome/priceInfo.dart';
 import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:amuz_nidlecrew/models/bannerItem.dart';
+import 'package:get/get.dart';
 
 class BannerItem extends StatelessWidget {
   final String img;
   final String text1;
   final String text2;
   final String btnText;
+
   const BannerItem(
       {Key? key,
       required this.img,
@@ -22,14 +25,20 @@ class BannerItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Container(
       child: Stack(
         children: [
+          // banner slide 이미지
           ClipRRect(
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10), bottomRight: Radius.circular(10),),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
             child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(10),
+                      bottomLeft: Radius.circular(10))),
               height: MediaQuery.of(context).size.height,
               width: double.infinity,
               child: FittedBox(
@@ -40,71 +49,34 @@ class BannerItem extends StatelessWidget {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.centerLeft,
+
+          // appbarItem, Image 위 텍스트 밑 버튼
+          Positioned(
+            bottom: 132,
             child: Container(
-              padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          padding: EdgeInsets.only(left: 8, top: 30),
-                          child: Row(
-                            children: [
-                              SvgPicture.asset(
-                                "assets/icons/main/priceinfoIcon.svg",
-                                color: Colors.white,
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Text(
-                                "가격표",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: Row(
-                          children: [
-                            appbarItem("cartIcon.svg"),
-                            appbarItem("alramIcon.svg"),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 36,
-                  ),
                   FontStyle(
-                      text: text1,
+                      text: text1 + "\n" + text2,
                       fontsize: "lg",
                       fontbold: "bold",
-                      fontcolor: Colors.white),
-                  FontStyle(
-                      text: text2,
-                      fontsize: "lg",
-                      fontbold: "bold",
-                      fontcolor: Colors.white),
+                      fontcolor: Colors.white,textdirectionright: false),
                   SizedBox(
                     height: 50,
                   ),
                   CircleLineBtn(
-                      btnText: btnText,
-                      fontboxwidth: 120,
-                      bordercolor: Colors.white,
-                      fontcolor: Colors.white,
-                      fontsize: "",
-                      btnIcon: "nextIcon.svg",
-                      btnColor: Colors.white,
+                    btnText: btnText,
+                    fontboxwidth: 120,
+                    bordercolor: Colors.white,
+                    fontcolor: Colors.white,
+                    fontsize: "",
+                    btnIcon: "nextIcon.svg",
+                    btnColor: Colors.transparent,
+                    widgetName: MainHome(),
+                    fontboxheight: "",
+                    iswidget: true,
                   ),
                 ],
               ),
@@ -116,9 +88,11 @@ class BannerItem extends StatelessWidget {
   }
 
   // appbarIcon
-  Widget appbarItem(String icon) {
+  Widget appbarItem(String icon, Widget getTo) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Get.to(getTo);
+      },
       child: Container(
         padding: EdgeInsets.only(right: 10, top: 30),
         child: SvgPicture.asset(

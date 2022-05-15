@@ -17,6 +17,9 @@ class LoginTextField extends StatefulWidget {
 
 class _LoginTextFieldState extends State<LoginTextField> {
   bool btnclick = false;
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _phonenumController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
         children: [
           Expanded(
             child: TextField(
+              controller: widget.hintText == "이름 입력" ? _nameController : _phonenumController,
               decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(

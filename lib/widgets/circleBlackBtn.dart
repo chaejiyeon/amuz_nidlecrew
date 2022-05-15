@@ -11,7 +11,8 @@ class CircleBlackBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 350,
+      height: 54,
+      width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(27),
         shape: BoxShape.rectangle,
@@ -19,7 +20,7 @@ class CircleBlackBtn extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: () {
-          Get.toNamed('/' + pageName);
+          pageName != "back" ? Get.toNamed('/' + pageName)  : Get.back() ;
         },
         child: Text(
           btnText,

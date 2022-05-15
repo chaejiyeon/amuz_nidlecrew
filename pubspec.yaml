@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.2
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
@@ -29,19 +29,57 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
+  http:
+#  http_parser:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 #  GetX plugin
-  get: ^4.6.1
+  get: ^4.6.3
 #  image slider plugin
   carousel_slider: ^4.0.0
 #  hexcolor plugin
   hexcolor: ^2.0.6
 #  svg image plugin
   flutter_svg: ^1.0.3
+#  dotted border_container
+  dotted_border: ^2.0.0+2
+
+
+
+
+#  dropdown button
+  dropdown_below: ^1.0.3
+  dropdown_button2: ^1.4.0 # 추후 수정 할때 사용 dropdown_below 버전 호환 안됨
+
+
+
+# intl
+  intl: ^0.17.0
+#  bottom_sheet
+  bottom_sheet: ^3.0.0
+#vertical scroll tabview
+  vertical_scrollable_tabview: ^0.0.7
+#  table calendar
+  table_calendar: ^3.0.5
+
+
+#  kakao_login
+  kakao_flutter_sdk: ^1.1.1
+  dio: ^4.0.6
+  json_annotation: ^4.5.0
+  shared_preferences: ^2.0.13
+  platform: ^3.1.0
+  packages_info: ^0.0.1-dev.1
+#  apple_login
+  sign_in_with_apple: ^3.3.0
+# naver_login
+  flutter_naver_login: ^1.4.0
+#  wordpress_api: ^1.2.0
+
+
+  flutter_woocommerce_api: ^0.0.1
+#  wordpress_client: ^6.3.3
 
 dev_dependencies:
   flutter_test:
@@ -74,8 +112,15 @@ flutter:
 #    - assets/icons/floatingNext.svg
     - assets/icons/main/
     - assets/images/
+    - assets/images/useguide/
+    - assets/images/takeFix/
+    - assets/images/startPage/
     - assets/icons/
     - assets/icons/useinfo/
+    - assets/icons/fixClothes/
+    - assets/icons/alramInfo/
+    - assets/icons/myPage/
+    - assets/icons/startPage/
 #    - assets/images/loadinpage_1.png
   #   - images/a_dot_ham.jpeg
 

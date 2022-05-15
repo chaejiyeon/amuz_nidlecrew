@@ -1,3 +1,4 @@
+import 'package:amuz_nidlecrew/modal/mainHomeModal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +12,8 @@ import 'main/myPage.dart';
 import 'main/useInfo.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  final int pageNum;
+  const MainPage({Key? key, required this.pageNum}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -19,19 +21,38 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
-  final List<Widget> pages=[MainHome(), UseInfo(), MyPage(), FixClothes()];
+  final List<Widget> pages = [MainHome(), UseInfo(), MyPage()];
 
-  void _onTap(int index){
-   setState(() {
-     _currentIndex = index;
-   });
+  @override
+  void initState() {
+    super.initState();
+
+    // 메인페이지 init dialog
+    Future.delayed(Duration.zero, (){
+      showDialog(context: context, builder: (BuildContext context){
+        return MainHomeModal();
+      });
+
+    });
+
+
+      _currentIndex = widget.pageNum;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.light
+        )
+    );
+
 
     return Scaffold(
       body: pages[_currentIndex],
@@ -42,7 +63,7 @@ class _MainPageState extends State<MainPage> {
           child: FloatingActionButton(
             onPressed: () {
               setState(() {
-                _currentIndex = 3;
+                Get.to(FixClothes());
               });
             },
             backgroundColor: HexColor("#fd9a03"),
@@ -72,7 +93,11 @@ class _MainPageState extends State<MainPage> {
             children: [
               bottomIcon(0, "홈", "homeIcon.svg"),
               bottomIcon(1, "이용내역", "useinfoIcon.svg"),
-              Padding(padding: EdgeInsets.only(right: 100,),child: bottomIcon(2, "MY", "userIcon.svg")),
+              Padding(
+                  padding: EdgeInsets.only(
+                    right: 100,
+                  ),
+                  child: bottomIcon(2, "MY", "userIcon.svg")),
             ],
           ),
         ),
@@ -80,18 +105,15 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-
   // bottomNavigation Icon
- Widget bottomIcon(int page, String title, String icon) {
-    bool ispressed = false;
+  Widget bottomIcon(int page, String title, String icon) {
     Color iconColor = Colors.white;
     Color titleColor = Colors.white;
 
     return InkWell(
-      onTap: (){
+      onTap: () {
         setState(() {
           _currentIndex = page;
-          ispressed = true;
         });
       },
       child: Container(
@@ -100,11 +122,17 @@ class _MainPageState extends State<MainPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SvgPicture.asset('assets/icons/main/' + icon, color: iconColor,),
-            Text(title, style: TextStyle(color: titleColor),),
+            SvgPicture.asset(
+              'assets/icons/main/' + icon,
+              color: iconColor,
+            ),
+            Text(
+              title,
+              style: TextStyle(color: titleColor),
+            ),
           ],
         ),
       ),
     );
- }
+  }
 }

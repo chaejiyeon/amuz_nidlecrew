@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class CircleLineBtn extends StatefulWidget {
   final String btnText;
@@ -10,16 +11,22 @@ class CircleLineBtn extends StatefulWidget {
   final Color bordercolor;
   final String btnIcon;
   final Color btnColor;
+  final Widget widgetName;
+  final bool iswidget;
+  final String fontboxheight;
 
   const CircleLineBtn(
       {Key? key,
       required this.btnText,
       required this.fontboxwidth,
+      required this.fontboxheight,
       required this.bordercolor,
       required this.fontcolor,
       required this.fontsize,
       required this.btnIcon,
-      required this.btnColor})
+      required this.btnColor,
+      required this.widgetName,
+      required this.iswidget})
       : super(key: key);
 
   @override
@@ -31,7 +38,11 @@ class _CircleLineBtnState extends State<CircleLineBtn> {
   Widget build(BuildContext context) {
     return Container(
       width: widget.fontboxwidth,
+      height: widget.fontboxheight == "sm"
+              ? 40
+              : 54,
       decoration: BoxDecoration(
+        color: widget.btnColor,
         borderRadius: BorderRadius.circular(25),
         border: Border.all(
           width: 1,
@@ -40,7 +51,7 @@ class _CircleLineBtnState extends State<CircleLineBtn> {
       ),
       child: TextButton(
         onPressed: () {
-          setState(() {});
+          widget.iswidget == true ? Get.to(widget.widgetName) : Get.dialog(widget.widgetName);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -48,12 +59,19 @@ class _CircleLineBtnState extends State<CircleLineBtn> {
             Text(
               widget.btnText,
               style: TextStyle(
-                fontSize: widget.fontsize == "md" ? 15 : null,
+                fontSize: widget.fontsize == "md" ? 16 : null,
                 color: widget.fontcolor,
               ),
             ),
-            if (widget.btnIcon != "")SizedBox(width: 7,),
-            if (widget.btnIcon != "") SvgPicture.asset("assets/icons/" + widget.btnIcon, color: widget.btnColor ,),
+            if (widget.btnIcon != "")
+              SizedBox(
+                width: 7,
+              ),
+            if (widget.btnIcon != "")
+              SvgPicture.asset(
+                "assets/icons/" + widget.btnIcon,
+                color: Colors.white,
+              ),
           ],
         ),
       ),

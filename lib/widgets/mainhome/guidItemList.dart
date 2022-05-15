@@ -1,6 +1,8 @@
 import 'package:amuz_nidlecrew/models/guideItem.dart';
+import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class GuideItemList extends StatelessWidget {
   final GuideItem items;
@@ -10,25 +12,60 @@ class GuideItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(10),
-        height: 220,
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                  width: double.infinity,
-                  child: FittedBox(
-                      fit: BoxFit.cover, child: Image.asset(items.img))),
+      padding: EdgeInsets.only(left: 24, right: 24),
+      margin: EdgeInsets.only(bottom: 25),
+      height: 220,
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
+              width: double.infinity,
+              child: Image.asset(
+                items.img,
+                fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
+              ),
             ),
-            Text(items.title),
-            Text(items.subTitle),
-            InkWell(
-              onTap: () {},
-              child: SvgPicture.asset("assets/icons/floatingNext.svg"),
-            )
-          ],
-        ),
+          ),
+          Align(
+            alignment: Alignment.bottomLeft,
+            child: InkWell(
+              onTap: (){
+                Get.to(items.widget);
+              },
+              child: Container(
+                padding: EdgeInsets.only(bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      height:50,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FontStyle(
+                              text: items.title,
+                              fontsize: "md",
+                              fontbold: "bold",
+                              fontcolor: Colors.white,textdirectionright: false),
+                          FontStyle(
+                              text: items.subTitle,
+                              fontsize: "",
+                              fontbold: "bold",
+                              fontcolor: Colors.white,textdirectionright: false),
+                        ],
+                      ),
+                    ),
+                    SvgPicture.asset("assets/icons/floatingNext.svg", color: Colors.white,),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+        ],
+      ),
     );
   }
 }

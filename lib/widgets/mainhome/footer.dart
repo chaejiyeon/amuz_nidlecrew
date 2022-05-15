@@ -39,18 +39,18 @@ class Footer extends StatelessWidget {
                     text: "통신판매신고 : 제 2022-서울강서-2020호",
                     fontsize: "sm",
                     fontbold: "",
-                    fontcolor: HexColor("#909090")),
+                    fontcolor: HexColor("#909090"),textdirectionright: false),
                 SizedBox(
                   height: 5,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    FontStyle(text: "주소 : ", fontsize: "sm", fontbold: "", fontcolor: HexColor("#909090")),
+                    FontStyle(text: "주소 : ", fontsize: "sm", fontbold: "", fontcolor: HexColor("#909090"),textdirectionright: false),
                     Column(
                       children: [
-                        FontStyle(text: "부산광역시 강서구 명지동 50길 21", fontsize: "sm", fontbold: "", fontcolor: HexColor("#909090")),
-                        FontStyle(text: "(우편번호 : 01234)", fontsize: "sm", fontbold: "", fontcolor: HexColor("#909090")),
+                        FontStyle(text: "부산광역시 강서구 명지동 50길 21", fontsize: "sm", fontbold: "", fontcolor: HexColor("#909090"),textdirectionright: false),
+                        FontStyle(text: "(우편번호 : 01234)", fontsize: "sm", fontbold: "", fontcolor: HexColor("#909090"),textdirectionright: false),
                       ],
                     )
                   ],
@@ -66,7 +66,7 @@ class Footer extends StatelessWidget {
                     text: "Copyright 2022 needlecrew All rights reserved.",
                     fontsize: "sm",
                     fontbold: "",
-                    fontcolor: HexColor("#909090")),
+                    fontcolor: HexColor("#909090"),textdirectionright: false),
               ],
             ),
           ),
@@ -82,17 +82,17 @@ class Footer extends StatelessWidget {
             text: text1,
             fontsize: "sm",
             fontbold: "",
-            fontcolor: HexColor("#909090")),
+            fontcolor: HexColor("#909090"),textdirectionright: false),
         FontStyle(
             text: " | ",
             fontsize: "sm",
             fontbold: "",
-            fontcolor: HexColor("#909090")),
+            fontcolor: HexColor("#909090"),textdirectionright: false),
         FontStyle(
             text: text2,
             fontsize: "sm",
             fontbold: "",
-            fontcolor: HexColor("#909090")),
+            fontcolor: HexColor("#909090"),textdirectionright: false),
       ],
     );
   }

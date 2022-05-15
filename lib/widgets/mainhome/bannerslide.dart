@@ -12,8 +12,10 @@ class BannerSlides extends StatefulWidget {
 
 class _BannerSlidesState extends State<BannerSlides> {
   CarouselController _carouselController =  CarouselController();
-  // DotPageBtn(this._carouselController);
   late int currentpage = 0;
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class _BannerSlidesState extends State<BannerSlides> {
                   btnText: banners.btnText);
             }).toList(),
             options: CarouselOptions(
-              height: 450,
+              height: 409,
               viewportFraction: 1,
               onPageChanged: (index, reason){
                 setState(() {
@@ -40,20 +42,20 @@ class _BannerSlidesState extends State<BannerSlides> {
               }
             ),
           ),
-          Align(
-            heightFactor: 13,
-            alignment: Alignment.bottomCenter,
+          Positioned(
+            bottom: 46,
+            // heightFactor: 13,
+            // alignment: Alignment.bottomCenter,
             child: Container(
-              padding: EdgeInsets.only(left: 20),
-                // child: DotPageBtn(dotColor: "white", item: banners),
+              padding: EdgeInsets.only(left: 24),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: banners.asMap().entries.map((entry) {
                     return GestureDetector(
                       onTap: () => _carouselController.animateToPage(entry.key),
                       child: Container(
-                        width: 12.0,
-                        height: 12.0,
+                        width: 7.0,
+                        height: 7.0,
                         margin:
                         EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                         decoration: BoxDecoration(

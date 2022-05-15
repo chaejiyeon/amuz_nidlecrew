@@ -1,3 +1,4 @@
+
 import 'package:amuz_nidlecrew/main.dart';
 import 'package:amuz_nidlecrew/screens/join/chooseGender.dart';
 import 'package:amuz_nidlecrew/widgets/baseAppbar.dart';
@@ -6,6 +7,8 @@ import 'package:amuz_nidlecrew/widgets/floatingNextBtn.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class AgreeTerms extends StatefulWidget {
@@ -21,14 +24,15 @@ class _AgreeTermsState extends State<AgreeTerms> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: BaseAppBar(
         appbar: AppBar(),
       ),
       body: Container(
+        padding: EdgeInsets.only(left: 24, right: 24, top: 30),
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(left: 24),
               alignment: Alignment.centerLeft,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,24 +41,27 @@ class _AgreeTermsState extends State<AgreeTerms> {
                       text: "환영합니다 :D",
                       fontbold: "bold",
                       fontcolor: Colors.black,
-                      fontsize: "lg"),
+                      fontsize: "lg",
+                      textdirectionright: false),
                   FontStyle(
                       text: "니들크루 서비 이용에 필요한 사항을",
                       fontbold: "",
                       fontcolor: HexColor("#606060"),
-                      fontsize: "md"),
+                      fontsize: "md",
+                      textdirectionright: false),
                   FontStyle(
-                    text: "안내해드릴께요.",
-                    fontbold: "",
-                    fontcolor: HexColor("#606060"),
-                    fontsize: "md",
-                  ),
+                      text: "안내해드릴께요.",
+                      fontbold: "",
+                      fontcolor: HexColor("#606060"),
+                      fontsize: "md",
+                      textdirectionright: false),
                 ],
               ),
             ),
             Container(
               margin: EdgeInsets.only(top: 72),
-              width: 350,
+              width: double.infinity,
+              height: 54,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(27),
                 shape: BoxShape.rectangle,
@@ -66,16 +73,17 @@ class _AgreeTermsState extends State<AgreeTerms> {
               child: TextButton(
                 onPressed: () {
                   setState(() {
-                    whole_checked = true;
+                    if(whole_checked == false) {
+                      whole_checked = true;
+                    }else{
+                      whole_checked = false;
+                    }
                   });
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      CupertinoIcons.checkmark_alt,
-                      color: Colors.black,
-                    ),
+                    SvgPicture.asset("assets/icons/startPage/allcheckIcon.svg"),
                     SizedBox(
                       width: 10,
                     ),
@@ -90,37 +98,39 @@ class _AgreeTermsState extends State<AgreeTerms> {
                 ),
               ),
             ),
-            Container(
-              width: 370,
-              margin: EdgeInsets.only(top: 41),
-              child: Column(
-                children: [
-                  CircleCheckBtn(
-                      list: "개인정보 처리방침(필수)",
-                      listInfo: MyApp(),
-                      checked: whole_checked),
-                  CircleCheckBtn(
-                      list: "서비스 이용 약관(필수)",
-                      listInfo: MyApp(),
-                      checked: whole_checked),
-                  CircleCheckBtn(
-                      list: "혜택 정보 앱 푸시 알림 수신(선택)",
-                      listInfo: MyApp(),
-                      checked: whole_checked),
-                  CircleCheckBtn(
-                      list: "개인정보 처리방침(필수)",
-                      listInfo: MyApp(),
-                      checked: whole_checked),
-                ],
+            Expanded(
+              child: Container(
+                margin: EdgeInsets.only(top: 17),
+                child: Column(
+                  children: [
+                    CircleCheckBtn(
+                        list: "개인정보 처리방침 (필수)",
+                        listInfo: MyApp(),
+                        checked: whole_checked),
+                    CircleCheckBtn(
+                        list: "서비스 이용 약관 (필수)",
+                        listInfo: MyApp(),
+                        checked: whole_checked),
+                    CircleCheckBtn(
+                        list: "혜택 정보 앱 푸시 알림 수신 (선택)",
+                        listInfo: MyApp(),
+                        checked: whole_checked),
+                    CircleCheckBtn(
+                        list: "추가비용 결제 안내 (필수)",
+                        listInfo: MyApp(),
+                        checked: whole_checked),
+                    SizedBox(
+                      height: 80,
+                    ),
+                  ],
+                ),
               ),
             ),
-            SizedBox(
-              height: 130,
-            ),
-            FloatingNextBtn(page: ChooseGender()),
           ],
         ),
       ),
+      floatingActionButton: whole_checked == true ? FloatingNextBtn(page: ChooseGender(),ischecked: true) : FloatingNextBtn(page: ChooseGender(),ischecked: false),
     );
   }
+
 }

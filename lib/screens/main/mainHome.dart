@@ -1,9 +1,12 @@
+import 'package:amuz_nidlecrew/widgets/baseAppbar.dart';
+import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:amuz_nidlecrew/widgets/mainhome/bannerslide.dart';
 import 'package:amuz_nidlecrew/widgets/mainhome/footer.dart';
 import 'package:amuz_nidlecrew/widgets/mainhome/guide.dart';
+import 'package:amuz_nidlecrew/widgets/mainhome/mainHomeAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/mainhome/myuseInfo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/rendering.dart';
 
 class MainHome extends StatefulWidget {
   const MainHome({Key? key}) : super(key: key);
@@ -12,28 +15,64 @@ class MainHome extends StatefulWidget {
   State<MainHome> createState() => _MainHomeState();
 }
 
-class _MainHomeState extends State<MainHome> {
+class _MainHomeState extends State<MainHome> with SingleTickerProviderStateMixin {
+  bool _showAppbar  = true;
+  ScrollController _scrollController = new ScrollController();
+  bool isScrollingDown = false;
+
+  @override
+  void initState() {
+    super.initState();
+    myScroll();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(() { });
+    super.dispose();
+  }
+
+
+  void myScroll() async {
+    _scrollController.addListener(() {
+      if(_scrollController.position.userScrollDirection == ScrollDirection.reverse){
+        if(!isScrollingDown){
+          isScrollingDown = true;
+          _showAppbar = false;
+        }
+      }
+      if(_scrollController.position.userScrollDirection == ScrollDirection.forward){
+        if(isScrollingDown){
+          isScrollingDown = false;
+          _showAppbar = true;
+        }
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarIconBrightness: Brightness.light
-        )
-    );
-
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: _showAppbar ? MainHomeAppBar(appbar: AppBar(),) : AppBar(leading: Container(),),
       body: ListView(
-        shrinkWrap: true,
+        controller: _scrollController,
+        padding: EdgeInsets.zero,
         children: [
           BannerSlides(),
           MyUseInfo(),
+          Container(
+            padding: EdgeInsets.only(left: 24, bottom: 10),
+            child: FontStyle(
+                text: "니들크루 가이드",
+                fontsize: "md",
+                fontbold: "bold",
+                fontcolor: Colors.black,textdirectionright: false),
+          ),
           Guide(),
           Footer(),
         ],
       ),
     );
   }
-
 }

@@ -14,19 +14,25 @@ class LoadingItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(height: 300, child: Image.asset(img)),
-          SizedBox(height: 52,),
-          FontStyle(
-              text: text1,
-              fontsize: "lg",
-              fontbold: "bold",
-              fontcolor: Colors.black),
-          FontStyle(
-              text: text2,
-              fontsize: "lg",
-              fontbold: "bold",
-              fontcolor: Colors.black)
+          Container(height: 308, child: Image.asset(img)),
+          Column(
+            children: [
+              FontStyle(
+                  text: text1,
+                  fontsize: "lg",
+                  fontbold: "bold",
+                  fontcolor: Colors.black,
+                  textdirectionright: false),
+              FontStyle(
+                  text: text2,
+                  fontsize: "lg",
+                  fontbold: "bold",
+                  fontcolor: Colors.black,
+                  textdirectionright: false),
+            ],
+          ),
         ],
       ),
     );

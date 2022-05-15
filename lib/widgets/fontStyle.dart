@@ -5,6 +5,7 @@ class FontStyle extends StatelessWidget {
   final String fontsize; // lg(26) = title , md(16) = subtitle, sm(10)
   final String fontbold;
   final Color fontcolor;
+  final bool textdirectionright;
 
   const FontStyle(
       {Key? key,
@@ -12,6 +13,7 @@ class FontStyle extends StatelessWidget {
       required this.fontsize,
       required this.fontbold,
       required this.fontcolor,
+        required this.textdirectionright,
       fontSize})
       : super(key: key);
 
@@ -19,9 +21,10 @@ class FontStyle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      textDirection: textdirectionright == true ? TextDirection.rtl : TextDirection.ltr,
       style: TextStyle(
         fontSize: fontsize == "lg"
-            ? 24
+            ? 20
             : fontsize == "md"
                 ? 16
                 : fontsize == "sm"
@@ -30,6 +33,7 @@ class FontStyle extends StatelessWidget {
         fontWeight: fontbold == "bold" ? FontWeight.bold : null,
         color: fontcolor,
       ),
+      // maxLines: 5,
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appbar;
@@ -11,12 +13,10 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leading: IconButton(
-        onPressed: () {},
-        icon: Icon(
-          CupertinoIcons.chevron_back,
-          size: 24,
-          color: Colors.black,
-        ),
+        onPressed: () {
+          Get.back();
+        },
+        icon: InkWell(child: SvgPicture.asset("assets/icons/prevIcon.svg", height: 19, width: 12,),),
       ),
       backgroundColor: Colors.transparent,
       brightness: Brightness.light,
