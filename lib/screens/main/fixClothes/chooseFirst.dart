@@ -1,7 +1,6 @@
-import 'dart:convert';
-import 'dart:math';
+import 'dart:developer';
 
-import 'package:amuz_nidlecrew/models/chooseClothes.dart';
+import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
 import 'package:amuz_nidlecrew/screens/main/fixClothes/chooseSecond.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/fixQuestion.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
@@ -13,27 +12,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
 
 class ChooseFirst extends StatefulWidget {
-  final int stepNum;
+  late int stepNum;
+  late int parentNum;
 
-  const ChooseFirst({Key? key, required this.stepNum}) : super(key: key);
+  ChooseFirst({Key? key, this.stepNum = 0, this.parentNum = 0}) : super(key: key);
 
   @override
   State<ChooseFirst> createState() => _ChooseFirstState();
 }
 
-
-
-
 class _ChooseFirstState extends State<ChooseFirst> {
   List<WooProductCategory> categories = [];
 
-  Future<void> getCategories() async {
-    categories = await wp_api.wooCommerceApi.getProductCategories();
+  Future<List<WooProductCategory>> getCategories() async {
+    categories = await wp_api.wooCommerceApi.getProductCategories(parent: widget.parentNum);
+    log(categories.toString());
+    return categories;
   }
-
 
   PageController _pageController = PageController();
   int currentPage = 0;
@@ -41,7 +38,6 @@ class _ChooseFirstState extends State<ChooseFirst> {
   @override
   void initState() {
     super.initState();
-    getCategories();
     _pageController = new PageController();
   }
 
@@ -53,9 +49,10 @@ class _ChooseFirstState extends State<ChooseFirst> {
 
   @override
   Widget build(BuildContext context) {
+    List step1 = [];
     // print(categories.first.name);
-    List<WooProductCategory> step1 = categories.where((element) => element.slug.toString().contains('홈')).toList();
-
+    // List<WooProductCategory> step1 = categories.where((element) => element.id == 2080).toList();
+    // print("step1: " + step1.toString());
     //
     // List<ChooseClothes> step1 = [
     //   ChooseClothes(1, "하의"),
@@ -99,6 +96,21 @@ class _ChooseFirstState extends State<ChooseFirst> {
                 ),
               ),
             ),
+
+            FutureBuilder(
+              future: getCategories(),
+              builder: (context, snapshot) {
+                if(snapshot.hasData){
+                  return Column(
+                    children: [
+                      Text('loaded!'),
+                    ],
+                  );
+                }else{
+                  return CircularProgressIndicator();
+                }
+              }
+            )
 
             // Expanded(
             //   child: Container(

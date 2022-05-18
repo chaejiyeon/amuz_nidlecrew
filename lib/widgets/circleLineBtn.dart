@@ -51,7 +51,7 @@ class _CircleLineBtnState extends State<CircleLineBtn> {
       ),
       child: TextButton(
         onPressed: () {
-          widget.iswidget == true ? Get.to(widget.widgetName) : Get.dialog(widget.widgetName);
+          widget.iswidget == true ? Get.to(() => widget.widgetName) : Get.dialog(widget.widgetName);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
