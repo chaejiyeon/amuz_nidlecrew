@@ -31,6 +31,7 @@ class FooterBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
+      color: Colors.white,
       padding: EdgeInsets.all(20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

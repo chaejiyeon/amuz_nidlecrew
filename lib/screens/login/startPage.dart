@@ -67,35 +67,12 @@ class _loadingPageState extends State<loadingPage> {
         ),
       ),
       bottomNavigationBar: Container(
-        height: 150,
+        height: 114,
         child: Column(
           children: [
             Container(
                 padding: EdgeInsets.only(left: 24, right: 24),
                 child: CircleBlackBtn(btnText: "시작하기", pageName: "login")),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "니들크루 회원이 아니신가요?",
-                ),
-                SizedBox(
-                  width: 25,
-                ),
-                TextButton(
-                  onPressed: () {
-                    Get.toNamed('/join');
-                  },
-                  child:Text(
-                    "회원가입",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
       ),

@@ -2,7 +2,7 @@ import 'package:amuz_nidlecrew/db/wp-api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
-import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -17,16 +17,35 @@ class CircleIconBtn extends StatefulWidget {
   State<CircleIconBtn> createState() => _CircleIconBtnState();
 }
 
-
 class _CircleIconBtnState extends State<CircleIconBtn> {
   late ValueSetter<AuthorizationCredentialAppleID> onSignIn;
 
   @override
   void initState() {
     super.initState();
-
   }
 
+  // google 로그인
+  void googleLogin() async {
+    try {
+      final GoogleSignIn _googleSignIn = GoogleSignIn(
+        scopes: ['displayName', 'email', 'id'],
+      );
+
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
+
+      await _googleSignIn;
+
+      joinUs('${googleUser.displayName}', '${googleUser.email}',
+          '${googleUser.id}');
+
+
+    } catch (error) {
+      print("isError $error");
+    }
+  }
 
   // apple 로그인
   void appleLogin() async {
@@ -41,18 +60,19 @@ class _CircleIconBtnState extends State<CircleIconBtn> {
       ),
     );
     onSignIn(credential);
+    joinUs('${credential.familyName}' + '${credential.givenName}',
+        '${credential.email}', '${credential.identityToken}');
   }
 
   // naver 로그인
   void naverLogin() async {
     try {
       NaverLoginResult res = await FlutterNaverLogin.logIn();
-      joinUs(res.account.name, res.account.email, res.accessToken.toString());
+      joinUs(res.account.name, res.account.email, res.account.id);
       print(res.account.name + '네이버 로그인 성공');
-    }catch(error){
+    } catch (error) {
       print("네이버 로그인 실패 isError $error");
     }
-
   }
 
   // 카카오 로그인
@@ -61,6 +81,10 @@ class _CircleIconBtnState extends State<CircleIconBtn> {
     if (await isKakaoTalkInstalled()) {
       try {
         OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
+        User user = await UserApi.instance.me();
+
+        joinUs('${user.kakaoAccount?.name}', '${user.kakaoAccount?.email}',
+            '${user.id}');
         print('카카오톡 로그인 성공 ${token.accessToken}');
       } catch (error) {
         print('카카오톡 로그인 실패 $error');
@@ -96,19 +120,21 @@ class _CircleIconBtnState extends State<CircleIconBtn> {
       height: 38,
       child: InkWell(
         onTap: () {
-            try {
-              if (widget.loginwith == "kakao") {
-                kakaoLogin();
-              } else if (widget.loginwith == "naver") {
-                naverLogin();
-              } else if (widget.loginwith == "apple") {
-                appleLogin();
-              }
-          } catch (error) {
-              print("isError $error");
-              return;
+          try {
+            if (widget.loginwith == "kakao") {
+              kakaoLogin();
+            } else if (widget.loginwith == "naver") {
+              naverLogin();
+            } else if (widget.loginwith == "apple") {
+              appleLogin();
+            } else if (widget.loginwith == "google") {
+              googleLogin();
             }
-          },
+          } catch (error) {
+            print("isError $error");
+            return;
+          }
+        },
         child: Image.asset(
           "assets/icons/" + widget.icon,
           fit: BoxFit.cover,

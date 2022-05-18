@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:amuz_nidlecrew/db/wp-api.dart';
 import 'package:amuz_nidlecrew/screens/login/startPage.dart';
@@ -14,6 +15,9 @@ import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
+import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
+
 import 'screens/join/agreeTerms.dart';
 import 'screens/main/myPage/payType.dart';
 
@@ -21,6 +25,12 @@ import 'screens/main/myPage/payType.dart';
 void main() {
   SharedPreferences.setMockInitialValues({});
   KakaoSdk.init(nativeAppKey: '4d9c4d62aa20a9e3dd6baffac8b0aa19', loggingEnabled: true);
+
+  wp_api.wooCommerceApi = FlutterWooCommerceApi(
+    baseUrl: 'https://needlecrew.com',
+    consumerKey: 'ck_75c6d6983771d3923a5dc58c1151039ab96167c1',
+    consumerSecret: 'cs_36e34b80b2ccc76c587069cb7b121f6df6758deb',
+  );
   runApp(const MyApp());
 }
 
@@ -70,11 +80,25 @@ class MyHomePage extends StatefulWidget {
 
 }
 
+
+
+
 class _MyHomePageState extends State<MyHomePage> {
+  late bool check = false;
+
   @override
   void initState() {
+    super.initState();
+    isLogged().then((value) {
+      setState((){
+        check = value;
+      });
+    });
+
+    print("ischeck" + check.toString());
+
     Timer(Duration(milliseconds: 2000), () {
-      if(isLogged() == false) {
+      if(check == false) {
         Get.to(loadingPage());
       }else{
         Get.toNamed('/mainHome');

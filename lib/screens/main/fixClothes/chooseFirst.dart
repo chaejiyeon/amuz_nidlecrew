@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:amuz_nidlecrew/models/chooseClothes.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/chooseSecond.dart';
@@ -9,9 +10,10 @@ import 'package:amuz_nidlecrew/widgets/fixClothes/header.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/progressbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:http/http.dart' as http;
+import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
 
 class ChooseFirst extends StatefulWidget {
   final int stepNum;
@@ -22,24 +24,16 @@ class ChooseFirst extends StatefulWidget {
   State<ChooseFirst> createState() => _ChooseFirstState();
 }
 
-List<ChooseClothes> parseCategories(response) {
-  final parsed = jsonDecode(response).cast<Map<String, dynamic>>();
-  return parsed
-      .map<ChooseClothes>((json) => ChooseClothes.fromJson(json))
-      .toList();
-}
 
-// Future<List<ChooseClothes>> fecthCategories() async {
-//   final response = await http.get("http://needlecrew.com/wp-json/wp/v2/product",
-//       headers: {
-//         "Content-Type": "application/json;charset=UTF-8",
-//         "Charset": "utf-8"
-//       });
-//   return compute(parseCategories, response.body);
-// }
+
 
 class _ChooseFirstState extends State<ChooseFirst> {
-  late Future<List<ChooseClothes>> categories;
+  List<WooProductCategory> categories = [];
+
+  Future<void> getCategories() async {
+    categories = await wp_api.wooCommerceApi.getProductCategories();
+  }
+
 
   PageController _pageController = PageController();
   int currentPage = 0;
@@ -47,7 +41,7 @@ class _ChooseFirstState extends State<ChooseFirst> {
   @override
   void initState() {
     super.initState();
-    // categories = fecthCategories();
+    getCategories();
     _pageController = new PageController();
   }
 
@@ -59,24 +53,16 @@ class _ChooseFirstState extends State<ChooseFirst> {
 
   @override
   Widget build(BuildContext context) {
-    List<ChooseClothes> step1 = [
-      ChooseClothes(1, "하의"),
-      ChooseClothes(2, "상의"),
-      ChooseClothes(3, "아우터"),
-      ChooseClothes(4, "원피스"),
-      ChooseClothes(5, "정장/교복"),
-    ];
-    // List<ChooseClothes> step2 = [
-    //   ChooseClothes(1, "바지"),
-    //   ChooseClothes(2, "스커트"),
-    //   ChooseClothes(3, "직접입력"),
-    // ];
-    // List<ChooseClothes> step3 = [
-    //   ChooseClothes(1, "일반바지"),
-    //   ChooseClothes(2, "청바지"),
-    //   ChooseClothes(3, "트레이닝바지"),
-    //   ChooseClothes(4, "가죽/레지바지"),
-    //   ChooseClothes(5, "직접입력"),
+    // print(categories.first.name);
+    List<WooProductCategory> step1 = categories.where((element) => element.slug.toString().contains('홈')).toList();
+
+    //
+    // List<ChooseClothes> step1 = [
+    //   ChooseClothes(1, "하의"),
+    //   ChooseClothes(2, "상의"),
+    //   ChooseClothes(3, "아우터"),
+    //   ChooseClothes(4, "원피스"),
+    //   ChooseClothes(5, "정장/교복"),
     // ];
 
     return Scaffold(
@@ -84,6 +70,7 @@ class _ChooseFirstState extends State<ChooseFirst> {
         appbar: AppBar(),
       ),
       body: Container(
+        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -107,7 +94,7 @@ class _ChooseFirstState extends State<ChooseFirst> {
                 child: ListView(
                   children: List.generate(
                     step1.length,
-                    (index) => ChooseBtn(step1[index]),
+                    (index) => ChooseBtn(step1[index], index),
                   ),
                 ),
               ),
@@ -166,10 +153,10 @@ class _ChooseFirstState extends State<ChooseFirst> {
     );
   }
 
-  Widget ChooseBtn(ChooseClothes clothes) {
+  Widget ChooseBtn(WooProductCategory category, int index) {
     return InkWell(
-      onTap: (){
-        Get.to(ChooseSecond(optionNum: clothes.optionNum));
+      onTap: () {
+        Get.to(ChooseSecond(optionNum: index));
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 10),
@@ -182,7 +169,11 @@ class _ChooseFirstState extends State<ChooseFirst> {
             color: HexColor("#d5d5d5"),
           ),
         ),
-        child: Text(clothes.chooseItem,textAlign: TextAlign.center, style: TextStyle(fontSize: 15),),
+        child: Text(
+          category.name.toString(),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 15),
+        ),
       ),
     );
   }

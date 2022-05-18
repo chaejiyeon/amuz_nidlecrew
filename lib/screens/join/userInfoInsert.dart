@@ -2,6 +2,7 @@ import 'package:amuz_nidlecrew/screens/mainPage.dart';
 import 'package:amuz_nidlecrew/widgets/baseAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/floatingNextBtn.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:amuz_nidlecrew/widgets/loginTextField.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -32,9 +33,6 @@ class _UserInfoInsertState extends State<UserInfoInsert> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -43,37 +41,37 @@ class _UserInfoInsertState extends State<UserInfoInsert> {
         appBar: BaseAppBar(
           appbar: AppBar(),
         ),
-        body: SingleChildScrollView(
-          controller: _scrollController,
-          child: Container(
-            padding: EdgeInsets.only(left: 24, right: 24),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(top: 30),
-                  alignment: Alignment.centerLeft,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      FontStyle(
-                          text: "고객님의 정보를",
-                          fontsize: "lg",
-                          fontbold: "bold",
-                          fontcolor: Colors.black,
-                          textdirectionright: false),
-                      FontStyle(
-                          text: "입력해주세요",
-                          fontsize: "lg",
-                          fontbold: "bold",
-                          fontcolor: Colors.black,
-                          textdirectionright: false),
-                    ],
-                  ),
+        body: Container(
+          padding: EdgeInsets.only(left: 24, right: 24),
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.only(top: 30),
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FontStyle(
+                        text: "고객님의 정보를",
+                        fontsize: "lg",
+                        fontbold: "bold",
+                        fontcolor: Colors.black,
+                        textdirectionright: false),
+                    FontStyle(
+                        text: "입력해주세요",
+                        fontsize: "lg",
+                        fontbold: "bold",
+                        fontcolor: Colors.black,
+                        textdirectionright: false),
+                  ],
                 ),
-                SizedBox(
-                  height: 50,
-                ),
-                Container(
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: _scrollController,
                   child: Column(
                     children: [
                       loginTextField("이름 입력", _editingController1),
@@ -81,15 +79,42 @@ class _UserInfoInsertState extends State<UserInfoInsert> {
                         height: 23,
                       ),
                       loginTextField("이메일 주소 입력", _editingController2),
-                      // LoginTextField(hintText: "휴대폰 번호 입력", btnText: "인증요청"),
-                      // SizedBox(height: 17,),
-                      // LoginTextField(hintText: "인증번호 입력", btnText: "재 요청"),
+                      SizedBox(
+                        height: 23.5,
+                      ),
+                      LoginTextField(
+                        hintText: "휴대폰 번호 입력",
+                        btnText: "인증요청",
+                        scrollController: _scrollController,
+                      ),
+                      SizedBox(
+                        height: 17,
+                      ),
+                      LoginTextField(
+                          hintText: "인증번호 입력",
+                          btnText: "재 요청",
+                          scrollController: _scrollController),
                     ],
                   ),
                 ),
-                // SizedBox(height: 170,),
-              ],
-            ),
+              ),
+              // Container(
+              //   child: Column(
+              //     children: [
+              //       loginTextField("이름 입력", _editingController1),
+              //       SizedBox(
+              //         height: 23,
+              //       ),
+              //       loginTextField("이메일 주소 입력", _editingController2),
+              //       SizedBox(height: 23.5,),
+              //       LoginTextField(hintText: "휴대폰 번호 입력", btnText: "인증요청", scrollController: _scrollController,),
+              //       SizedBox(height: 17,),
+              //       LoginTextField(hintText: "인증번호 입력", btnText: "재 요청", scrollController: _scrollController),
+              //     ],
+              //   ),
+              // ),
+              // SizedBox(height: 170,),
+            ],
           ),
         ),
         floatingActionButton: _editingController1.text.length > 0 &&
@@ -107,7 +132,8 @@ class _UserInfoInsertState extends State<UserInfoInsert> {
       child: TextField(
         controller: controller,
         onTap: () {
-          _scrollController.animateTo(120.0, duration: Duration(milliseconds: 500), curve: Curves.ease);
+          _scrollController.animateTo(120.0,
+              duration: Duration(milliseconds: 500), curve: Curves.ease);
         },
         decoration: InputDecoration(
           enabledBorder: UnderlineInputBorder(

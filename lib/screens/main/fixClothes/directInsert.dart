@@ -22,7 +22,7 @@ class _DirectInsertState extends State<DirectInsert> {
       body: InsertForm(
           titleText: "직접 입력하기",
           hintText:
-              "수선하고자 하는 부분을 상세히 기입해주셔야 \n수선진행에 차질이 없습니다! \n\n 예) 셔츠 팔꿈치 부분하고 목뒷부분 짜집기 부탁\n드립니다!",
+              "수선하고자 하는 부분을 상세히 기입해주셔야 수선진행에 차질이 없습니다! \n\n 예) 셔츠 팔꿈치 부분하고 목뒷부분 짜집기 부탁 드립니다!",
           iconImage: "cameraIcon.svg"),
 
       bottomNavigationBar: Container(

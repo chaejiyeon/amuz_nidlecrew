@@ -75,11 +75,14 @@ dependencies:
   sign_in_with_apple: ^3.3.0
 # naver_login
   flutter_naver_login: ^1.4.0
-#  wordpress_api: ^1.2.0
+#  google_login
+  google_sign_in: ^5.3.1
+  #  provider
+  provider: ^6.0.2
 
-
+#  flutter_woocommerce
   flutter_woocommerce_api: ^0.0.1
-#  wordpress_client: ^6.3.3
+
 
 dev_dependencies:
   flutter_test:

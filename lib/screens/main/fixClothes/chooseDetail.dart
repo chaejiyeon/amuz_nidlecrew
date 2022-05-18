@@ -32,8 +32,9 @@ class _ChooseDetailState extends State<ChooseDetail>
 
   @override
   void dispose() {
-    super.dispose();
     _tabController.dispose();
+    super.dispose();
+
   }
 
   @override
@@ -45,6 +46,7 @@ class _ChooseDetailState extends State<ChooseDetail>
         appbar: AppBar(),
       ),
       body: Container(
+        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -127,17 +129,18 @@ class _ChooseDetailState extends State<ChooseDetail>
             alignment: Alignment.center,
             width: 75,
             decoration: BoxDecoration(
+              color:  currentPage == currentpage ? HexColor("#fd9a03") : Colors.white,
               borderRadius: BorderRadius.circular(25),
               border: Border.all(
                 width: 1,
-                color: HexColor("#d5d5d5"),
+                color: currentPage == currentpage ? HexColor("#fd9a03") : HexColor("#d5d5d5"),
               ),
             ),
             child: Text(
               category,
               style: TextStyle(
                 fontSize: 16,
-                color: HexColor("#909090"),
+                color: currentPage == currentpage ? Colors.white : HexColor("#909090"),
               ),
             ),
         ),

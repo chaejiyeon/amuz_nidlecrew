@@ -1,18 +1,17 @@
-import 'package:amuz_nidlecrew/screens/main/fixClothes/chooseClothes.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/imageUpload.dart';
+import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/progressbar.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/subtitle.dart';
-import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/floatingNextBtn.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import 'chooseClothes.dart';
 
 class AddressInfo extends StatefulWidget {
   const AddressInfo({Key? key}) : super(key: key);
@@ -22,6 +21,8 @@ class AddressInfo extends StatefulWidget {
 }
 
 class _AddressInfoState extends State<AddressInfo> {
+  bool istouched = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +45,8 @@ class _AddressInfoState extends State<AddressInfo> {
                       text: "주소 안내",
                       fontsize: "lg",
                       fontbold: "bold",
-                      fontcolor: Colors.black,textdirectionright: false),
+                      fontcolor: Colors.black,
+                      textdirectionright: false),
                   SizedBox(
                     height: 10,
                   ),
@@ -71,14 +73,25 @@ class _AddressInfoState extends State<AddressInfo> {
                     height: 10,
                   ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Get.snackbar("주소 복사", "주소가 복사되었습니다!");
+                      setState(() {
+                        istouched = true;
+                      });
                     },
                     child: Row(
                       children: [
                         SvgPicture.asset(
-                            "assets/icons/fixClothes/speakerIcon.svg"),
-                        Text("터치하면 복사됩니다."),
+                          "assets/icons/fixClothes/speakerIcon.svg",
+                          color: istouched == true ? HexColor("#fd9a03") : null,
+                        ),
+                        Text(
+                          istouched == true ? "주소가 복사되었습니다." : "터치하면 복사됩니다.",
+                          style: TextStyle(
+                            color:
+                                istouched == true ? HexColor("#fd9a03") : null,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -98,27 +111,28 @@ class _AddressInfoState extends State<AddressInfo> {
                         text: "주문 내역 업로드",
                         fontsize: "lg",
                         fontbold: "bold",
-                        fontcolor: Colors.black,textdirectionright: false),
+                        fontcolor: Colors.black,
+                        textdirectionright: false),
                     SizedBox(
                       height: 10,
                     ),
                     SubtitleText(text: "결제 완료 후, 제품명과 옵션사항(컬러,사이즈 등)"),
                     SubtitleText(text: "내역이 정확히 보이도록 캡쳐해 올려주세요."),
-                    SizedBox(height: 20,),
+                    SizedBox(
+                      height: 20,
+                    ),
 
                     // 사진 업로드
                     ImageUpload(icon: "pictureIcon.svg"),
-
                   ],
                 ),
               ),
             ),
-
           ],
         ),
       ),
-
-      floatingActionButton: FloatingNextBtn(page: ChooseClothes(), ischecked: true),
+      floatingActionButton:
+          FloatingNextBtn(page: ChooseClothes(), ischecked: true),
     );
   }
 
@@ -132,6 +146,4 @@ class _AddressInfoState extends State<AddressInfo> {
       decoration: BoxDecoration(color: lineColor.withOpacity(opacity)),
     );
   }
-
-
 }
