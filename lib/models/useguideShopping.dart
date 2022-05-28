@@ -13,6 +13,7 @@ class UseGuideShopping{
 }
 
 List<UseGuideShopping> shoppingsteps = [
+  //add step
   UseGuideShopping(1, "수선의뢰", "아래의 가이드를 참고하여 의뢰를 진행해주세요!","useguideImage1.png", [for(int i=0; i<shoppingitems.length; i++)shoppingitems[i]]),
   UseGuideShopping(2, "주문내역 업로더", "쇼핑몰에서 캡처한 주문완료 페이지를 업로드해주세요.", "useguideImage2.png",[]),
   UseGuideShopping(3, "최종 가격 안내", "의류가 수선소에 돡하면 수선 전문가가 확인 후 최종 수선 가격이 안내됩니다.", "useguideImage3.png",[]),
