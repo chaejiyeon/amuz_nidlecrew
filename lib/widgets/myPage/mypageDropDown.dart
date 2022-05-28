@@ -74,7 +74,7 @@ class _PriceDropDownState extends State<MypageDropDown> {
         child: Column(
           children: [
             DropdownBelow(
-              itemWidth: widget.selectNum == 1 ? 140 : 350,
+              itemWidth: widget.selectNum == 1 ? 140 : 113,
               itemTextstyle: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
@@ -90,7 +90,7 @@ class _PriceDropDownState extends State<MypageDropDown> {
                 color: Colors.transparent,
                 border: Border.all(
                   width: 1,
-                  color: HexColor("#909090").withOpacity(0.5),
+                  color: HexColor("#ededed"),
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(5)),
               ),
@@ -98,12 +98,14 @@ class _PriceDropDownState extends State<MypageDropDown> {
                   ? Icon(
                 CupertinoIcons.chevron_down,
                 color: HexColor("#909090").withOpacity(0.5),
+                size: 20,
               )
                   : Icon(
                 CupertinoIcons.chevron_up,
                 color: HexColor("#909090").withOpacity(0.7),
+                size: 20,
               ),
-              hint: widget.hintCheck == true ? Text(widget.hint) : _dropdownTestItems[0],
+              hint: widget.hintCheck == true ? Text(widget.hint, style: TextStyle(color: HexColor("#909090")),) : _dropdownTestItems[0],
               value: _selectedTest,
               items: _dropdownTestItems,
               onChanged: onChangeDropdownTests,

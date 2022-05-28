@@ -21,6 +21,7 @@ class UserUpdate extends StatelessWidget {
     return Scaffold(
         appBar: MypageAppBar(title: "회원 정보 변경", icon: "", widget: MainHome(),appbar: AppBar()),
         body: Container(
+                color: Colors.white,
                 padding: EdgeInsets.all(10),
                 child: Column(
                   children: [

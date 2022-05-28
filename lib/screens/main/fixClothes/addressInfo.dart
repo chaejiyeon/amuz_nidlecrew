@@ -1,9 +1,11 @@
+import 'package:amuz_nidlecrew/modal/addressIsHomeModal.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/imageUpload.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/progressbar.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/subtitle.dart';
 import 'package:amuz_nidlecrew/widgets/floatingNextBtn.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -14,7 +16,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'chooseClothes.dart';
 
 class AddressInfo extends StatefulWidget {
-  const AddressInfo({Key? key}) : super(key: key);
+  final bool isHome;
+  const AddressInfo({Key? key, required this.isHome}) : super(key: key);
 
   @override
   State<AddressInfo> createState() => _AddressInfoState();
@@ -23,6 +26,23 @@ class AddressInfo extends StatefulWidget {
 class _AddressInfoState extends State<AddressInfo> {
   bool istouched = false;
 
+
+
+
+  @override
+  void initState(){
+    super.initState();
+    if(widget.isHome == false){
+      Future.delayed(Duration.zero, () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AddressIsHomeModal();
+            });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +50,7 @@ class _AddressInfoState extends State<AddressInfo> {
         appbar: AppBar(),
       ),
       body: Container(
+        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -123,7 +144,7 @@ class _AddressInfoState extends State<AddressInfo> {
                     ),
 
                     // 사진 업로드
-                    ImageUpload(icon: "pictureIcon.svg"),
+                    ImageUpload(icon: "pictureIcon.svg",isShopping: true)
                   ],
                 ),
               ),
@@ -132,7 +153,7 @@ class _AddressInfoState extends State<AddressInfo> {
         ),
       ),
       floatingActionButton:
-          FloatingNextBtn(page: ChooseClothes(), ischecked: true),
+          FloatingNextBtn(page: ChooseClothes(parentNum: 0), ischecked: true),
     );
   }
 

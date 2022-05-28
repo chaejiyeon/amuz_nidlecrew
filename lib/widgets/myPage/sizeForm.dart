@@ -22,19 +22,20 @@ class _SizeFormState extends State<SizeForm> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          FontStyle(
-              text: widget.title,
-              fontsize: "",
-              fontbold: "",
-              fontcolor: Colors.black,textdirectionright: false),
-          SizedBox(
-            height: 10,
-          ),
-          widget.isTextfield == true
-              ? TextField(
+      child: widget.isTextfield == true
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FontStyle(
+                    text: widget.title,
+                    fontsize: "",
+                    fontbold: "",
+                    fontcolor: Colors.black,
+                    textdirectionright: false),
+                SizedBox(
+                  height: 10,
+                ),
+                TextField(
                   style: TextStyle(height: 0.5),
                   decoration: InputDecoration(
                     hintText: widget.hintTxt,
@@ -51,28 +52,35 @@ class _SizeFormState extends State<SizeForm> {
                     ),
                   ),
                 )
-              : Container(
-            padding: EdgeInsets.all(10),
-                  width: double.infinity,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: HexColor("#d5d5d5")),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      FontStyle(
-                          text: widget.hintTxt,
-                          fontsize: "",
-                          fontbold: "",
-                          fontcolor: Colors.black,textdirectionright: false),
-                      FontStyle(text: "cm", fontsize: "", fontbold: "", fontcolor: Colors.black,textdirectionright: false),
-                    ],
+              ],
+            )
+          : Container(
+              padding: EdgeInsets.zero,
+              width: double.infinity,
+              height: 50,
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: HexColor("#ededed"),
                   ),
                 ),
-        ],
-      ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(widget.title),
+                  Row(
+                    children: [
+                      Text(widget.hintTxt),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text("cm"),
+                    ],
+                  )
+                ],
+              ),
+            ),
     );
   }
 }

@@ -1,16 +1,23 @@
 import 'package:amuz_nidlecrew/models/useguideShopping.dart';
 import 'package:amuz_nidlecrew/screens/main/alramInfo.dart';
 import 'package:amuz_nidlecrew/screens/main/cartInfo.dart';
+import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
 import 'package:amuz_nidlecrew/widgets/appbarItem.dart';
+import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/mainhome/useguide/useguideTabview.dart';
+import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:dropdown_button2/custom_dropdown_button2.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:vertical_scrollable_tabview/vertical_scrollable_tabview.dart';
 
 class UseGuideDetail extends StatefulWidget {
-  const UseGuideDetail({Key? key}) : super(key: key);
+  final String guide;
+  const UseGuideDetail({Key? key, required this.guide}) : super(key: key);
 
   @override
   State<UseGuideDetail> createState() => _UseGuideDetailState();
@@ -19,124 +26,215 @@ class UseGuideDetail extends StatefulWidget {
 class _UseGuideDetailState extends State<UseGuideDetail>
     with TickerProviderStateMixin {
   late TabController _tabcontroller = TabController(length: 5, vsync: this);
-  final scrollCotroller = ScrollController();
+
+  List<String> items = ["쇼핑몰에서 보낼 경우", "집에서 보낼 경우"];
+  String selectValue = "쇼핑몰에서 보낼 경우";
 
   @override
   void initState() {
     super.initState();
+    setState((){
+      selectValue = widget.guide;
+    });
+
     _tabcontroller = TabController(length: 5, vsync: this);
-    scrollCotroller.addListener(listenScrolling);
   }
 
   @override
   void dispose() {
     super.dispose();
     _tabcontroller.dispose();
-    scrollCotroller.dispose();
-  }
-
-  void listenScrolling() {
-    if (scrollCotroller.position.atEdge) {
-      final isTop = scrollCotroller.position.pixels == 0;
-
-      if (isTop) {
-        print("start");
-      } else {
-        print("end");
-      }
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+    int currentTab = 0;
+
     return Scaffold(
-      body: VerticalScrollableTabView(
-        tabController: _tabcontroller,
-        listItemData: shoppingsteps,
-        verticalScrollPosition: VerticalScrollPosition.begin,
-        eachItemChild: (object, index) => Container(
-          child: Container(
-            child: Column(
-              children: List.generate(
-                shoppingsteps.length,
-                (index) => UseGuideTabView(
-                    scrollController: scrollCotroller,
-                    step: index,
-                    items: shoppingsteps[index]),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        leading: Container(
+          child: IconButton(
+              padding: EdgeInsets.zero,
+              constraints: BoxConstraints(),
+              onPressed: () {
+                Get.back();
+              },
+              icon: Icon(
+                CupertinoIcons.back,
+                color: Colors.black,
+              )),
+        ),
+        backgroundColor: Colors.white,
+        title: Container(
+          width: double.infinity,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                      padding: EdgeInsets.only(left: 70),
+                      child: Text(
+                        "이용가이드",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      )),
+                ],
               ),
-            ),
+            ],
           ),
         ),
+        actions: [
+          AppbarItem(
+              icon: "cartIcon.svg",
+              iconColor: Colors.black,
+              iconFilename: "main",
+              widget: CartInfo()),
+          AppbarItem(
+              icon: "alramIcon.svg",
+              iconColor: Colors.black,
+              iconFilename: "main",
+              widget: AlramInfo()),
+        ],
+      ),
+      body: VerticalScrollableTabView(
+        tabController: _tabcontroller,
+        listItemData: selectValue == "쇼핑몰에서 보낼 경우" ? shoppingsteps : homesteps,
+        verticalScrollPosition: VerticalScrollPosition.begin,
+        eachItemChild: (object, index) => UseGuideTabView(
+            step: index,
+            items: object as UseGuideShopping),
         slivers: [
           SliverAppBar(
-            leading: IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: Icon(
-                  CupertinoIcons.back,
-                  color: Colors.black,
-                )),
             backgroundColor: Colors.white,
             expandedHeight: 100.0,
+            leadingWidth: 0,
+            titleSpacing: 0,
             title: Container(
+              padding:
+                  EdgeInsets.only(left: 24, right: 24, top: 22, bottom: 18),
               width: double.infinity,
-              child: Column(
+              child: Row(
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                          padding: EdgeInsets.only(left: 70),
-                          child: Text(
-                            "이용가이드",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold),
-                          )),
-                    ],
+                  Expanded(
+                    child: Container(
+                      child: Text(
+                        "니들크루 이용하기",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                  DropdownButtonHideUnderline(
+                    child: DropdownButton2(
+                      isExpanded: true,
+                      value: selectValue.isNotEmpty ? selectValue : null,
+                      onChanged: (value) {
+                        setState(() {
+                          // currentTab = value as int;
+                          selectValue = value as String;
+                        });
+                      },
+                      hint: Text(
+                        items[0],
+                        style: TextStyle(fontSize: 14),
+                      ),
+                      items: items
+                          .map((item) => DropdownMenuItem<String>(
+                                value: item,
+                                child: Container(
+                                  child: Text(
+                                    item,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ))
+                          .toList(),
+                      buttonWidth: 166,
+                      buttonHeight: 36,
+                      buttonPadding: EdgeInsets.only(left: 10, right: 14),
+                      buttonDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: HexColor("#f7f7f7")),
+                      icon: SvgPicture.asset(
+                        "assets/icons/dropdownIcon.svg",
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            actions: [
-              AppbarItem(
-                  icon: "cartIcon.svg",
-                  iconColor: Colors.black,
-                  iconFilename: "main",
-                  widget: CartInfo()),
-              AppbarItem(
-                  icon: "alramIcon.svg",
-                  iconColor: Colors.black,
-                  iconFilename: "main",
-                  widget: AlramInfo()),
-            ],
             pinned: true,
-            bottom: TabBar(
-              isScrollable: true,
-              controller: _tabcontroller,
-              indicatorPadding: const EdgeInsets.symmetric(horizontal: 16.0),
-              indicatorColor: Colors.cyan,
-              labelColor: Colors.cyan,
-              unselectedLabelColor: Colors.white,
-              indicatorWeight: 3.0,
-              tabs: shoppingsteps.map((e) {
-                return Tab(text: e.title);
-              }).toList(),
-              onTap: (index) {
-                VerticalScrollableTabBarStatus.setIndex(index);
-              },
+            bottom: DecoratedTabBar(
+              decoration: BoxDecoration(
+                  border:
+                      Border(bottom: BorderSide(color: HexColor("#d5d5d5")))),
+              tabBar: TabBar(
+                isScrollable: true,
+                controller: _tabcontroller,
+                // indicatorPadding: const EdgeInsets.symmetric(horizontal: 16.0),
+                indicatorColor: HexColor("#fd9a03"),
+                labelColor: HexColor("#fd9a03"),
+                unselectedLabelColor: HexColor("#909090"),
+                indicatorWeight: 1.0,
+                tabs: selectValue == "쇼핑몰에서 보낼 경우" ? shoppingsteps.map((e) {
+                  return Tab(
+                    text: "STEP" + e.step.toString(),
+                  );
+                }).toList() : homesteps.map((e) {
+                  return Tab(
+                    text: "STEP" + e.step.toString(),
+                  );
+                }).toList(),
+                onTap: (index) {
+                  // setState((){
+                  //   currentTab = index;
+                  // });
+                  VerticalScrollableTabBarStatus.setIndex(index);
+                },
+              ),
             ),
           ),
         ],
       ),
       floatingActionButton: InkWell(
         onTap: () {
-          scrollCotroller.animateTo(0,
-              duration: Duration(milliseconds: 1), curve: Curves.linear);
+          setState((){
+            VerticalScrollableTabBarStatus.setIndex(1);
+          });
         },
         child: SvgPicture.asset("assets/icons/upIcon.svg"),
       ),
+    );
+  }
+
+}
+
+// tabbar 밑줄 표시
+class DecoratedTabBar extends StatelessWidget implements PreferredSizeWidget {
+  final TabBar tabBar;
+  final BoxDecoration decoration;
+
+  DecoratedTabBar({required this.tabBar, required this.decoration});
+
+  @override
+  Size get preferredSize => tabBar.preferredSize;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(child: Container(decoration: decoration)),
+        tabBar,
+      ],
     );
   }
 }

@@ -1,10 +1,14 @@
 import 'package:amuz_nidlecrew/models/alramItem.dart';
 import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
+import 'package:amuz_nidlecrew/widgets/alramInfo/alramBtnText.dart';
 import 'package:amuz_nidlecrew/widgets/alramInfo/alramLitItem.dart';
 import 'package:amuz_nidlecrew/widgets/baseAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class AlramInfo extends StatefulWidget {
@@ -14,11 +18,15 @@ class AlramInfo extends StatefulWidget {
   State<AlramInfo> createState() => _AlramInfoState();
 }
 
+
 class _AlramInfoState extends State<AlramInfo> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(
+      appBar: AlramAppbar(
         appbar: AppBar(),
       ),
       body: Container(
@@ -33,19 +41,8 @@ class _AlramInfoState extends State<AlramInfo> {
                       text: "알림",
                       fontsize: "lg",
                       fontbold: "bold",
-                      fontcolor: Colors.black,textdirectionright: false),
-                  CircleLineBtn(
-                    btnText: "전체 삭제",
-                    fontboxwidth: 100,
-                    bordercolor: HexColor("#d5d5d5"),
-                    fontcolor: Colors.black,
-                    fontsize: "md",
-                    btnIcon: "",
-                    btnColor: Colors.transparent,
-                    widgetName: MainHome(),
-                    fontboxheight: "sm",
-                    iswidget: true,
-                  ),
+                      fontcolor: Colors.black,
+                      textdirectionright: false),
                 ],
               ),
             ),
@@ -54,8 +51,11 @@ class _AlramInfoState extends State<AlramInfo> {
             ),
             Expanded(
                 child: ListView(
-              children: List.generate(alrams.length,
-                  (index) => AlramListItem(alram: alrams[index])),
+              children: List.generate(
+                  alrams.length,
+                  (index) => AlramListItem(
+                        alram: alrams[index],
+                      )),
             )),
           ],
         ),
@@ -63,3 +63,71 @@ class _AlramInfoState extends State<AlramInfo> {
     );
   }
 }
+
+// alram appbar
+class AlramAppbar extends StatelessWidget implements PreferredSizeWidget {
+  final AppBar appbar;
+
+  const AlramAppbar({Key? key, required this.appbar}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Get.back();
+        },
+        icon: InkWell(
+          onTap: () {},
+          child: Icon(
+            CupertinoIcons.xmark,
+            color: Colors.black,
+            size: 20,
+          ),
+        ),
+      ),
+      backgroundColor: Colors.transparent,
+      brightness: Brightness.light,
+      elevation: 0,
+      actions: [
+        alramBtnText(text: "전체선택",textColor: Colors.black),
+        SizedBox(
+          width: 32,
+        ),
+        alramBtnText(text:  "삭제",textColor: Colors.red),
+        SizedBox(
+          width: 24,
+        ),
+      ],
+      // systemOverlayStyle: SystemUiOverlayStyle.dark,
+    );
+  }
+
+  @override
+  Size get preferredSize => Size.fromHeight(appbar.preferredSize.height);
+}
+
+
+
+
+//
+// // alram appbar itemBtn
+// Widget alramBtnTxt(String text, Color textColor) {
+//   return InkWell(
+//     onTap: () {
+//       if (text == "전체선택") {
+//         if (wholeCheck == false)
+//           wholeCheck = true;
+//         else
+//           wholeCheck == false;
+//       }
+//     },
+//     child: Container(
+//       padding: EdgeInsets.only(top: 20),
+//       child: Text(
+//         text,
+//         style: TextStyle(color: textColor, fontSize: 16),
+//       ),
+//     ),
+//   );
+// }

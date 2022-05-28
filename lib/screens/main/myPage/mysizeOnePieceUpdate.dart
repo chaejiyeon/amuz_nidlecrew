@@ -27,6 +27,7 @@ class _MysizeOnePieceUpdateState extends State<MysizeOnePieceUpdate> {
       child: Scaffold(
         appBar: MypageAppBar(title: "원피스", icon: "", widget: MainHome(),appbar: AppBar()),
         body: Container(
+          color: Colors.white,
           child: ListView(
             children: [
               Container(

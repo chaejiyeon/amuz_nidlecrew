@@ -5,118 +5,131 @@ import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/priceDropdown.dart';
 import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/myPage/mypageDropDown.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class PayTypeAdd extends StatefulWidget {
-  const PayTypeAdd({Key? key}) : super(key: key);
+  final bool isFirst;
+
+  const PayTypeAdd({Key? key, required this.isFirst}) : super(key: key);
 
   @override
   State<PayTypeAdd> createState() => _PayTypeAddState();
 }
 
 class _PayTypeAddState extends State<PayTypeAdd> {
+  late ScrollController scrollController = ScrollController();
 
+  @override
+  void initState(){
+    super.initState();
+  }
+
+
+
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
+        scrollController.animateTo(0, duration: Duration(milliseconds: 1), curve: Curves.linear);
       },
       child: Scaffold(
-        appBar: MypageAppBar(title: "결제 수단 추가 등록", icon: "", widget: MainHome(), appbar: AppBar()),
-        body: Container(
-          child: Column(
-            children: [
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: false,
+        appBar: MypageAppBar(
+            title: widget.isFirst == true ? "결제 수단 등록" : "결제 수단 추가 등록",
+            icon: "",
+            widget: MainHome(),
+            appbar: AppBar()),
+        body: SingleChildScrollView(
+          controller: scrollController,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            padding: EdgeInsets.only(left: 24, right: 24, top: 40),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // 이름 입력
+                FontStyle(
+                    text: "이름",
+                    fontsize: "",
+                    fontbold: "",
+                    fontcolor: Colors.black,
+                    textdirectionright: false),
+                SizedBox(
+                  height: 10,
+                ),
+                textForm(""),
+                SizedBox(
+                  height: 10,
+                ),
 
-              // 이름 입력
-              Container(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                // 이메일 입력
+                FontStyle(
+                    text: "이메일",
+                    fontsize: "",
+                    fontbold: "",
+                    fontcolor: Colors.black,
+                    textdirectionright: false),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    FontStyle(
-                        text: "이름",
-                        fontsize: "",
-                        fontbold: "",
-                        fontcolor: Colors.black,textdirectionright: false),
-                    SizedBox(
-                      height: 10,
+                    Expanded(
+                      child: textForm(""),
                     ),
-                    textForm(""),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                        width: 113,
+                        child: MypageDropDown(
+                          selectNum: 4,
+                          hintCheck: true,
+                          hint: "직접입력",
+                        )),
                   ],
                 ),
-              ),
-
-              // 이메일 입력
-              Container(
-                padding: EdgeInsets.only(
-                  left: 20,
-                  right: 20,
+                SizedBox(
+                  height: 10,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                // 카드번호 입력
+                FontStyle(
+                    text: "카드 번호",
+                    fontsize: "",
+                    fontbold: "",
+                    fontcolor: Colors.black,
+                    textdirectionright: false),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    FontStyle(
-                        text: "이메일",
-                        fontsize: "",
-                        fontbold: "",
-                        fontcolor: Colors.black,textdirectionright: false),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: textForm(""),
-                        ),
-                        Container(
-                            width: 150,
-                            child: MypageDropDown(
-                              selectNum: 4,
-                              hintCheck: true,
-                              hint: "직접입력",
-                            )),
-                      ],
-                    ),
+                    Container(width: 74, child: textForm("")),
+                    Container(width: 74, child: textForm("")),
+                    Container(width: 74, child: textForm("")),
+                    Container(width: 74, child: textForm("")),
                   ],
                 ),
-              ),
-
-              // 카드번호 입력
-              Container(
-                padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FontStyle(
-                        text: "카드 번호",
-                        fontsize: "",
-                        fontbold: "",
-                        fontcolor: Colors.black,textdirectionright: false),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(width: 80, child: textForm("")),
-                        Container(width: 80, child: textForm("")),
-                        Container(width: 80, child: textForm("")),
-                        Container(width: 80, child: textForm("")),
-                      ],
-                    ),
-                  ],
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
 
-              // 유효기간
-              Container(
-                padding: EdgeInsets.only(left: 20, right: 20),
-                child: Row(
+                // 유효기간
+                Row(
                   children: [
                     Expanded(
                       child: Column(
@@ -126,8 +139,11 @@ class _PayTypeAddState extends State<PayTypeAdd> {
                               text: "유효기간",
                               fontsize: "",
                               fontbold: "",
-                              fontcolor: Colors.black,textdirectionright: false),
-                          SizedBox(height: 10,),
+                              fontcolor: Colors.black,
+                              textdirectionright: false),
+                          SizedBox(
+                            height: 10,
+                          ),
                           textForm("MM/YY"),
                         ],
                       ),
@@ -136,7 +152,7 @@ class _PayTypeAddState extends State<PayTypeAdd> {
                       width: 10,
                     ),
                     Container(
-                      width: 170,
+                      width: 150,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -144,8 +160,11 @@ class _PayTypeAddState extends State<PayTypeAdd> {
                               text: "비밀번호 앞 두자리",
                               fontsize: "",
                               fontbold: "",
-                              fontcolor: Colors.black,textdirectionright: false),
-                          SizedBox(height: 10,),
+                              fontcolor: Colors.black,
+                              textdirectionright: false),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Row(
                             children: [
                               Container(width: 80, child: textForm("")),
@@ -156,7 +175,8 @@ class _PayTypeAddState extends State<PayTypeAdd> {
                                   text: "**",
                                   fontsize: "",
                                   fontbold: "",
-                                  fontcolor: Colors.black,textdirectionright: false),
+                                  fontcolor: HexColor("#909090"),
+                                  textdirectionright: false),
                             ],
                           ),
                         ],
@@ -164,44 +184,57 @@ class _PayTypeAddState extends State<PayTypeAdd> {
                     ),
                   ],
                 ),
-              ),
-
-              Container(
-                padding: EdgeInsets.only(left: 20, right: 20, top: 10,),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    FontStyle(text: "생년월일 6자리", fontsize: "", fontbold: "", fontcolor: Colors.black,textdirectionright: false),
-                    SizedBox(height: 10,),
-                    textForm("-빼고 입력해주세요."),
-                  ],
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-            ],
+
+                // 생년월일
+                FontStyle(
+                    text: "생년월일 6자리",
+                    fontsize: "",
+                    fontbold: "",
+                    fontcolor: Colors.black,
+                    textdirectionright: false),
+                SizedBox(
+                  height: 10,
+                ),
+                textForm("-빼고 입력해주세요."),
+              ],
+            ),
           ),
         ),
-
         bottomNavigationBar: Container(
             padding: EdgeInsets.all(20),
-            child: CircleBlackBtn(btnText: "등록하기", pageName: "payTypeAddConfirm")),
+            child: widget.isFirst == true
+                ? CircleBlackBtn(btnText: "완료", pageName: "payTypeAddConfirmFirst")
+                : CircleBlackBtn(
+                    btnText: "등록하기", pageName: "payTypeAddConfirm")),
       ),
     );
   }
 
+  // textfield form
   Widget textForm(String hinttxt) {
     return TextField(
+      onTap: () {
+        scrollController.animateTo(scrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 500), curve: Curves.ease);
+      },
       textAlign: hinttxt == "MM/YY" ? TextAlign.center : TextAlign.left,
       decoration: InputDecoration(
         hintText: hinttxt != "" ? hinttxt : "",
+        hintStyle: TextStyle(color: HexColor("#909090")),
         contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
-          borderSide: BorderSide(color: HexColor("#d5d5d5")),
+          borderSide: BorderSide(color: HexColor("#ededed")),
         ),
       ),
     );
   }
+
 }
+

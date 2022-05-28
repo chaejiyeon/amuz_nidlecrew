@@ -13,17 +13,19 @@ class MysizeOuterInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MypageAppBar(title: "아우터", icon: "", widget: MainHome(),appbar: AppBar()),
+      appBar: MypageAppBar(
+          title: "아우터", icon: "", widget: MainHome(), appbar: AppBar()),
       body: Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                children: [
-                  MypageMenu(listTitle: "점퍼", widget: MysizeOuterJumper()),
-                  MypageMenu(listTitle: "재킷", widget: MysizeOuterJaket()),
-                  MypageMenu(listTitle: "코트", widget: MysizeOuterCoat()),
-                ],
-              ),
-            ),
+        color: Colors.white,
+        padding: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            MypageMenu(listTitle: "점퍼", widget: MysizeOuterJumper()),
+            MypageMenu(listTitle: "재킷", widget: MysizeOuterJaket()),
+            MypageMenu(listTitle: "코트", widget: MysizeOuterCoat()),
+          ],
+        ),
+      ),
     );
   }
 }

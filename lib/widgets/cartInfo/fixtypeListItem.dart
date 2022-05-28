@@ -1,5 +1,6 @@
 import 'package:amuz_nidlecrew/modal/cartDelBtnModal.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
+import 'package:amuz_nidlecrew/screens/main/fixClothes/fixUpdate.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
@@ -56,6 +57,7 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
                 detailInfo("의뢰 방법", "줄이고 싶은 만큼 치수 입력"),
                 detailInfo("치수", "101.5cm"),
                 detailInfo("추가 설명", "시접 여유분 충분히 남겨주세요."),
+                detailInfo("물품 가액", "20,000" + "원"),
                 Container(
                   padding: EdgeInsets.only(top: 10, bottom: 10),
                   child: ListLine(
@@ -76,7 +78,7 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
                     children: [
                       fixBtn("삭제", CartDelBtnModal()),
                       SizedBox(width: 5,),
-                      Expanded(child: fixBtn("의뢰 수정", FixClothes())),
+                      Expanded(child: fixBtn("의뢰 수정", FixUpdate())),
                     ],
                   ),
                 ),
@@ -126,17 +128,14 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
     return Container(
       padding: EdgeInsets.only(top: 2, bottom: 2),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FontStyle(
               text: title + " : ",
               fontsize: "",
               fontbold: "bold",
               fontcolor: Colors.black,textdirectionright: false),
-          FontStyle(
-              text: content,
-              fontsize: "",
-              fontbold: "",
-              fontcolor: Colors.black,textdirectionright: false),
+         Expanded(child: Text(content))
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:amuz_nidlecrew/bottomsheet/takeFixInfoBottomSheet.dart';
+import 'package:amuz_nidlecrew/screens/main/fixClothes/fixRegister.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/progressbar.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
@@ -6,6 +7,7 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class TakeFixInfo extends StatelessWidget {
@@ -34,6 +36,7 @@ class TakeFixInfo extends StatelessWidget {
     return Scaffold(
       appBar: FixClothesAppBar(appbar: AppBar()),
       body: Container(
+        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -66,8 +69,9 @@ class TakeFixInfo extends StatelessWidget {
                 padding: EdgeInsets.all(20),
                 width: double.infinity,
                 child: Image.asset(
-                  "assets/images/loadingpage_1.png",
-                  fit: BoxFit.cover,
+                  "assets/images/takeFix/takeFixtruck.png",
+                  width: 278,
+                  height: 210,
                 ),
               ),
             ),
@@ -75,6 +79,7 @@ class TakeFixInfo extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Container(
+        color: Colors.white,
         height: 100,
         padding: EdgeInsets.all(20),
         child: Row(
@@ -110,6 +115,9 @@ class TakeFixInfo extends StatelessWidget {
 
             // next btn
             InkWell(
+              onTap: (){
+                Get.to(FixRegister());
+              },
               child: SvgPicture.asset("assets/icons/floatingNext.svg"),
             )
           ],

@@ -10,19 +10,21 @@ class UserInfoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.zero,
-        children: List.generate(
-          useLists.length,
-          (index) => useLists[index].fixState == fixState
-              ? UserInfoListItem(
-                  fixReady: useLists[index],
-                  fixState: fixState,
-                )
-              : index == 0
-                  ? EmptyFix()
-                  : Container(),
-        ),
+    return GestureDetector(
+      child: ListView(
+        padding: EdgeInsets.zero,
+          children: List.generate(
+            useLists.length,
+            (index) => useLists[index].fixState == fixState
+                ? UserInfoListItem(
+                    fixReady: useLists[index],
+                    fixState: fixState,
+                  )
+                : index == 0
+                    ? EmptyFix()
+                    : Container(),
+          ),
+      ),
     );
   }
 

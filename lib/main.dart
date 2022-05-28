@@ -5,13 +5,18 @@ import 'package:amuz_nidlecrew/db/wp-api.dart';
 import 'package:amuz_nidlecrew/screens/login/startPage.dart';
 import 'package:amuz_nidlecrew/screens/login/login.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
+import 'package:amuz_nidlecrew/screens/main/fixClothes/chooseClothes.dart';
+import 'package:amuz_nidlecrew/screens/main/fixClothes/fixRegisterInfo.dart';
 import 'package:amuz_nidlecrew/screens/main/myPage.dart';
+import 'package:amuz_nidlecrew/screens/main/myPage/payTypeAdd.dart';
 import 'package:amuz_nidlecrew/screens/main/myPage/payTypeAddConfirm.dart';
 import 'package:amuz_nidlecrew/screens/mainPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -61,11 +66,15 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/join', page: () => AgreeTerms()),
         GetPage(name: '/startPage', page: () => loadingPage()),
         GetPage(name: '/mainHome', page: () => MainPage(pageNum: 0)),
-        GetPage(name: '/useInfo', page: () => MainPage(pageNum: 1)),
+        GetPage(name: '/useInfoReady', page: () => MainPage(pageNum: 1, selectTab: 1)),
+        GetPage(name: '/useInfoComplete', page: () => MainPage(pageNum: 1, selectTab: 2)),
         GetPage(name: '/myPage', page: () => MainPage(pageNum: 2)),
         GetPage(name: '/fixClothes', page: () => FixClothes()),
-        GetPage(name: '/payTypeAddConfirm', page: () => PayTypeAddConfirm()),
+        GetPage(name: '/fixRegisterInfo', page: () => FixRegisterInfo()),
+        GetPage(name: '/payTypeAddConfirmFirst', page: () => PayTypeAddConfirm(isFirst: true,)),
+        GetPage(name: '/payTypeAddConfirm', page: () => PayTypeAddConfirm(isFirst: false,)),
         GetPage(name: '/payType', page: () => PayType()),
+        GetPage(name: '/payTypeAdd', page: () => PayTypeAdd(isFirst: true)),
       ],
 
     );
@@ -113,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: HexColor("#fd9a03"),
           body: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -123,11 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   width: 170,
-                  child: Text(
-                    "니들크루",
-                    style: TextStyle(
-                        fontFamily: 'NotoSansCJKkrRegular', fontSize: 41, fontWeight: FontWeight.bold),
-                  ),
+                  child: Image.asset("assets/icons/logoIcon.png"),
                 ),
               ],
             ),

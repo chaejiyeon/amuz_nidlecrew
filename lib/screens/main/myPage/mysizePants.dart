@@ -14,6 +14,7 @@ class MysizePants extends StatelessWidget {
       appBar: MypageAppBar(
           title: "바지", icon: "updateIcon.svg", widget: MysizePantsUpdate(), appbar: AppBar()),
       body: Container(
+          color: Colors.white,
               padding: EdgeInsets.all(20),
               child: Column(
                 children: [

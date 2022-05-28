@@ -21,6 +21,7 @@ class FontStyle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
+      overflow: TextOverflow.ellipsis,
       textDirection: textdirectionright == true ? TextDirection.rtl : TextDirection.ltr,
       style: TextStyle(
         fontSize: fontsize == "lg"

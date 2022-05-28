@@ -1,4 +1,5 @@
 import 'package:amuz_nidlecrew/modal/fixSelectModal.dart';
+import 'package:amuz_nidlecrew/screens/main/cartInfo.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/addressInsert.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/fixQuestion.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/imageUpload.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 
 class FixSelect extends StatefulWidget {
   const FixSelect({Key? key}) : super(key: key);
@@ -22,7 +24,10 @@ class FixSelect extends StatefulWidget {
 }
 
 class _FixSelectState extends State<FixSelect> {
+  final tooltipController = JustTheController();
   final maxLines = 10;
+
+  void main() {}
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +40,7 @@ class _FixSelectState extends State<FixSelect> {
           appbar: AppBar(),
         ),
         body: Container(
+          color: Colors.white,
           child: ListView(
             children: [
               // progressbar
@@ -47,13 +53,12 @@ class _FixSelectState extends State<FixSelect> {
               Header(
                 title: "수선 선택",
                 subtitle1: "",
-                subtitle2: "",
                 question: true,
                 btnIcon: "rollIcon.svg",
                 btnText: "치수 측정 가이드",
                 widget: FixQuestion(),
                 imgPath: "fixClothes",
-                bottomPadding: 35  ,
+                bottomPadding: 35,
               ),
 
               // 일반 바지
@@ -66,7 +71,8 @@ class _FixSelectState extends State<FixSelect> {
                         text: "일반 바지",
                         fontsize: "md",
                         fontbold: "bold",
-                        fontcolor: Colors.black,textdirectionright: false),
+                        fontcolor: Colors.black,
+                        textdirectionright: false),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -74,19 +80,22 @@ class _FixSelectState extends State<FixSelect> {
                             text: "총 기장 줄임",
                             fontsize: "",
                             fontbold: "",
-                            fontcolor: Colors.black,textdirectionright: false),
+                            fontcolor: Colors.black,
+                            textdirectionright: false),
                         Row(
                           children: [
                             FontStyle(
                                 text: "5,000",
                                 fontsize: "md",
                                 fontbold: "bold",
-                                fontcolor: HexColor("#fd9a03"),textdirectionright: false),
+                                fontcolor: HexColor("#fd9a03"),
+                                textdirectionright: false),
                             FontStyle(
                                 text: "원",
                                 fontsize: "",
                                 fontbold: "",
-                                fontcolor: Colors.black,textdirectionright: false),
+                                fontcolor: Colors.black,
+                                textdirectionright: false),
                           ],
                         ),
                       ],
@@ -105,10 +114,12 @@ class _FixSelectState extends State<FixSelect> {
                         text: "의뢰 방법",
                         fontsize: "md",
                         fontbold: "bold",
-                        fontcolor: Colors.black,textdirectionright: false),
-                    CheckBtn(list: "원하는 총 기장 길이 입력"),
-                    CheckBtn(list: "줄이고 싶은 만큼 치수 입력"),
-                    CheckBtn(list: "잘 맞는 옷을 함께 보낼게요."),
+                        fontcolor: Colors.black,
+                        textdirectionright: false),
+                    SizedBox(height: 10,),
+                    CheckBtn(list: "원하는 총 기장 길이 입력", bottomPadding: 15,textBold: ""),
+                    CheckBtn(list: "줄이고 싶은 만큼 치수 입력", bottomPadding: 15,textBold: ""),
+                    CheckBtn(list: "잘 맞는 옷을 함께 보낼게요.", bottomPadding: 15,textBold: ""),
                   ],
                 ),
               ),
@@ -125,7 +136,8 @@ class _FixSelectState extends State<FixSelect> {
                             text: "치수 입력",
                             fontsize: "md",
                             fontbold: "bold",
-                            fontcolor: Colors.black,textdirectionright: false),
+                            fontcolor: Colors.black,
+                            textdirectionright: false),
                         mysizeInsert(),
                       ],
                     ),
@@ -161,11 +173,12 @@ class _FixSelectState extends State<FixSelect> {
                         text: "사진 업로드",
                         fontsize: "md",
                         fontbold: "bold",
-                        fontcolor: Colors.black,textdirectionright: false),
+                        fontcolor: Colors.black,
+                        textdirectionright: false),
                     SizedBox(
                       height: 10,
                     ),
-                    ImageUpload(icon: "cameraIcon.svg"),
+                    ImageUpload(icon: "cameraIcon.svg", isShopping: false),
                   ],
                 ),
               ),
@@ -180,12 +193,18 @@ class _FixSelectState extends State<FixSelect> {
                         text: "추가 설명",
                         fontsize: "md",
                         fontbold: "bold",
-                        fontcolor: Colors.black,textdirectionright: false),
+                        fontcolor: Colors.black,
+                        textdirectionright: false),
                     SizedBox(
                       height: 10,
                     ),
-
-                    CircleLineTextField(maxLines: maxLines, hintText: "추가로 설명할 부분을 입력해주세요.", hintTextColor: HexColor("#909090"), borderRadius: 10, borderSideColor: HexColor("#d5d5d5"), widthOpacity: true),
+                    CircleLineTextField(
+                        maxLines: maxLines,
+                        hintText: "추가로 설명할 부분을 입력해주세요.",
+                        hintTextColor: HexColor("#909090"),
+                        borderRadius: 10,
+                        borderSideColor: HexColor("#d5d5d5"),
+                        widthOpacity: true),
                   ],
                 ),
               ),
@@ -200,23 +219,26 @@ class _FixSelectState extends State<FixSelect> {
                         text: "추가 옵션",
                         fontsize: "md",
                         fontbold: "bold",
-                        fontcolor: Colors.black,textdirectionright: false),
+                        fontcolor: Colors.black,
+                        textdirectionright: false),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CheckBtn(list: "밑통 수선"),
+                        CheckBtn(list: "밑통 수선", bottomPadding: 15,textBold: ""),
                         Row(
                           children: [
                             FontStyle(
                                 text: "+15,000",
                                 fontsize: "md",
                                 fontbold: "bold",
-                                fontcolor: Colors.black,textdirectionright: false),
+                                fontcolor: Colors.black,
+                                textdirectionright: false),
                             FontStyle(
                                 text: "원",
                                 fontsize: "md",
                                 fontbold: "",
-                                fontcolor: Colors.black,textdirectionright: false),
+                                fontcolor: Colors.black,
+                                textdirectionright: false),
                           ],
                         ),
                       ],
@@ -254,29 +276,38 @@ class _FixSelectState extends State<FixSelect> {
                         text: "예상비용 : ",
                         fontsize: "md",
                         fontbold: "bold",
-                        fontcolor: Colors.black,textdirectionright: false),
+                        fontcolor: Colors.black,
+                        textdirectionright: false),
                     FontStyle(
                         text: "5,000",
                         fontsize: "md",
                         fontbold: "bold",
-                        fontcolor: Colors.black,textdirectionright: false),
+                        fontcolor: Colors.black,
+                        textdirectionright: false),
                     FontStyle(
                         text: "원",
                         fontsize: "md",
                         fontbold: "",
-                        fontcolor: Colors.black,textdirectionright: false),
+                        fontcolor: Colors.black,
+                        textdirectionright: false),
                     SizedBox(
                       width: 5,
                     ),
-                    Icon(
-                      CupertinoIcons.question_circle,
-                      size: 20,
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      constraints: BoxConstraints(),
+                      onPressed: () {},
+                      icon: Icon(
+                        CupertinoIcons.question_circle,
+                        size: 20,
+                      ),
                     ),
                   ],
                 ),
+
                 InkWell(
-                  onTap: (){
-                    Get.to(AddressInsert());
+                  onTap: () {
+                    Get.to(CartInfo());
                   },
                   child: SvgPicture.asset("assets/icons/floatingNext.svg"),
                 ),
@@ -300,7 +331,8 @@ class _FixSelectState extends State<FixSelect> {
               text: "내 치수 불러오기",
               fontsize: "",
               fontbold: "",
-              fontcolor: Colors.black,textdirectionright: false),
+              fontcolor: Colors.black,
+              textdirectionright: false),
           Icon(
             CupertinoIcons.chevron_forward,
             size: 16,

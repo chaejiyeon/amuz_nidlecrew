@@ -169,7 +169,7 @@ class _PayTypeState extends State<PayType> {
             child: Row(
               children: [
                 IconButton(onPressed: () {
-                  Get.to(PayTypeAdd());
+                  Get.to(PayTypeAdd(isFirst: false,));
                 }, icon: icon1),
                 InkWell(
                     onTap: () {

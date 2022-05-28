@@ -24,13 +24,16 @@ class _CartListItemState extends State<CartListItem> {
       child: Column(
         children: [
           Container(
+            padding: EdgeInsets.only(top: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CheckBtn(list: "일반바지"),
+                CheckBtn(list: "일반바지", bottomPadding: 0,textBold: "bold"),
                 InkWell(
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    height: 30,
+                    padding: EdgeInsets.only(left: 13, right: 13),
+                    alignment: Alignment.center,
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(20),

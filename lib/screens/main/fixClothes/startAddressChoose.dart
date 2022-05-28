@@ -1,4 +1,6 @@
+import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/addressInfo.dart';
+import 'package:amuz_nidlecrew/screens/main/fixClothes/chooseClothes.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/fixQuestion.dart';
 import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/header.dart';
@@ -19,6 +21,7 @@ class _StartAddressState extends State<StartAddressChoose> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -44,8 +47,7 @@ class _StartAddressState extends State<StartAddressChoose> {
 
           Header(
             title: "출발지 선택",
-            subtitle1: "고객님의 의류의 출발지를",
-            subtitle2: "선택해주세요.",
+            subtitle1: "고객님의 의류의 출발지를\n선택해주세요.",
             question: true,
             btnIcon: "chatIcon.svg",
             btnText: "수선 문의하기",
@@ -68,7 +70,7 @@ class _StartAddressState extends State<StartAddressChoose> {
                   fontsize: "md",
                   btnIcon: "",
                   btnColor: Colors.transparent,
-                  widgetName: AddressInfo(),
+                  widgetName: AddressInfo(isHome: false),
                   fontboxheight: "",
                   iswidget: true,
                 ),
@@ -78,12 +80,13 @@ class _StartAddressState extends State<StartAddressChoose> {
                 CircleLineBtn(
                   btnText: "우리집에서 보내요",
                   fontboxwidth: double.infinity,
-                  bordercolor: HexColor("#d5d5d5"),
+                  bordercolor: HexColor("#d5d5"
+                      "d5"),
                   fontcolor: Colors.black,
                   fontsize: "md",
                   btnIcon: "",
                   btnColor: Colors.transparent,
-                  widgetName: AddressInfo(),
+                  widgetName: ChooseClothes(),
                   fontboxheight: "",
                   iswidget: true,
                 )

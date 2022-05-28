@@ -37,10 +37,9 @@ class _CircleLineBtnState extends State<CircleLineBtn> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 10),
       width: widget.fontboxwidth,
-      height: widget.fontboxheight == "sm"
-              ? 40
-              : 54,
+      height: widget.fontboxheight == "sm" ? 40 : 54,
       decoration: BoxDecoration(
         color: widget.btnColor,
         borderRadius: BorderRadius.circular(25),
@@ -51,7 +50,9 @@ class _CircleLineBtnState extends State<CircleLineBtn> {
       ),
       child: TextButton(
         onPressed: () {
-          widget.iswidget == true ? Get.to(() => widget.widgetName) : Get.dialog(widget.widgetName);
+          widget.iswidget == true
+              ? Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => widget.widgetName))
+              : Get.dialog(widget.widgetName);
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

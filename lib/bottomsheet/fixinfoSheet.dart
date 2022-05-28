@@ -8,11 +8,12 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 
 class FixInfoSheet extends StatelessWidget {
-
   const FixInfoSheet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    ScrollController _scrollcontroller = ScrollController();
+
     List<String> images = [
       "guideImage_1.png",
       "sample_2.jpeg",
@@ -37,107 +38,103 @@ class FixInfoSheet extends StatelessWidget {
     ];
     return Container(
       child: ListView(
+        controller: _scrollcontroller,
         shrinkWrap: true,
         children: [
-
-          Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(left: 24, right: 24, bottom: 30),
-                  // height: 400,
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: HexColor("#f5f5f5").withOpacity(0.5),
-                          spreadRadius: 0.5,
-                          blurRadius: 7,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FontStyle(
-                            text: "일반바지(A1123)",
-                            fontsize: "md",
-                            fontbold: "bold",
-                            fontcolor: Colors.black,
-                            textdirectionright: false),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        ListLine(
-                            height: 1,
-                            width: double.infinity,
-                            lineColor: HexColor("#909090"),
-                            opacity: 0.5),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                            height: 120,
-                            child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: List.generate(images.length,
-                                    (index) => ImageItem(images[index])))),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        FontStyle(
-                            text: "기장 수선-총 기장 줄임",
-                            fontsize: "md",
-                            fontbold: "bold",
-                            fontcolor: Colors.black,
-                            textdirectionright: false),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        fixInfo("바지 안쪽기장", 101.5, "시접 여유분 충분히 남겨주세요."),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        ListLine(
-                            height: 1,
-                            width: double.infinity,
-                            lineColor: HexColor("#d5d5d5").withOpacity(0.1),
-                            opacity: 0.9),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        priceInfo("의뢰 예상 비용", 5000),
-                        priceInfo("배송 비용", 6000),
-                      ],
-                    ),
+          Container(
+            padding: EdgeInsets.only(left: 24, right: 24, bottom: 30),
+            // height: 400,
+            child: Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: HexColor("#f5f5f5").withOpacity(0.5),
+                    spreadRadius: 0.5,
+                    blurRadius: 7,
+                    offset: Offset(0, 2),
                   ),
-                ),
-                info(
-                  false,
-                  "배송지 정보",
-                  (() => deliverinfo),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                info(
-                  true,
-                  "총 의뢰 예상 비용",
-                  (() => priceinfo),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                info(
-                  false,
-                  "결제 정보",
-                  (() => payinfo),
-                ),
-              ],
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FontStyle(
+                      text: "일반바지(A1123)",
+                      fontsize: "md",
+                      fontbold: "bold",
+                      fontcolor: Colors.black,
+                      textdirectionright: false),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ListLine(
+                      height: 1,
+                      width: double.infinity,
+                      lineColor: HexColor("#909090"),
+                      opacity: 0.5),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                      height: 120,
+                      child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: List.generate(images.length,
+                              (index) => ImageItem(images[index])))),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FontStyle(
+                      text: "기장 수선-총 기장 줄임",
+                      fontsize: "md",
+                      fontbold: "bold",
+                      fontcolor: Colors.black,
+                      textdirectionright: false),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  fixInfo("바지 안쪽기장", 101.5, "시접 여유분 충분히 남겨주세요."),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ListLine(
+                      height: 1,
+                      width: double.infinity,
+                      lineColor: HexColor("#d5d5d5").withOpacity(0.1),
+                      opacity: 0.9),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  priceInfo("의뢰 예상 비용", 5000),
+                  priceInfo("배송 비용", 6000),
+                ],
+              ),
             ),
+          ),
+          info(
+            false,
+            "배송지 정보",
+            (() => deliverinfo),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          info(
+            true,
+            "총 의뢰 예상 비용",
+            (() => priceinfo),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          info(
+            false,
+            "결제 정보",
+            (() => payinfo),
+          ),
         ],
       ),
     );

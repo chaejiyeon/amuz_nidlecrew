@@ -15,6 +15,7 @@ class MysizeOnePiece extends StatelessWidget {
           widget: MysizeOnePieceUpdate(),
           appbar: AppBar()),
       body: Container(
+        color: Colors.white,
         padding: EdgeInsets.all(20),
         child: Column(
           children: [

@@ -1,5 +1,4 @@
 import 'package:amuz_nidlecrew/models/chooseClothes.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/chooseFirst.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 

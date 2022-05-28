@@ -1,4 +1,5 @@
 import 'package:amuz_nidlecrew/modal/cartDelBtnModal.dart';
+import 'package:amuz_nidlecrew/modal/cartInfoModal.dart';
 import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
 import 'package:amuz_nidlecrew/widgets/cartInfo/cartListItem.dart';
 import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
@@ -41,7 +42,7 @@ class CartInfo extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CheckBtn(list: "전체 선택"),
+                      CheckBtn(list: "전체 선택", bottomPadding: 0,textBold: ""),
                       InkWell(
                         onTap: () {
                           Get.dialog(CartDelBtnModal());
@@ -67,9 +68,10 @@ class CartInfo extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(top: 5, left: 20, right: 20),
+                padding: EdgeInsets.only( left: 24, right: 24),
                 color: HexColor("#f7f7f7"),
                 child: ListView(
+                  padding: EdgeInsets.only(top: 20),
                   children: [
                     CartListItem(),
                   ],
@@ -100,36 +102,38 @@ class CartInfo extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      FontStyle(
-                          text: "총 의뢰 예상 비용 : ",
-                          fontsize: "",
-                          fontbold: "",
-                          fontcolor: Colors.black,textdirectionright: false),
-                      FontStyle(
-                          text: "11,000",
-                          fontsize: "md",
-                          fontbold: "bold",
-                          fontcolor: HexColor("#fd9a03"),textdirectionright: false),
-                      FontStyle(
-                          text: "원",
-                          fontsize: "",
-                          fontbold: "",
-                          fontcolor: Colors.black,textdirectionright: false),
-                    ],
-                  ),
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        CupertinoIcons.chevron_up,
-                        color: HexColor("#909090"),
-                        size: 20,
-                      )),
-                ],
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        FontStyle(
+                            text: "총 의뢰 예상 비용 : ",
+                            fontsize: "",
+                            fontbold: "",
+                            fontcolor: Colors.black,textdirectionright: false),
+                        FontStyle(
+                            text: "11,000",
+                            fontsize: "md",
+                            fontbold: "bold",
+                            fontcolor: HexColor("#fd9a03"),textdirectionright: false),
+                        FontStyle(
+                            text: "원",
+                            fontsize: "",
+                            fontbold: "",
+                            fontcolor: Colors.black,textdirectionright: false),
+                      ],
+                    ),
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          CupertinoIcons.chevron_up,
+                          color: HexColor("#909090"),
+                          size: 20,
+                        )),
+                  ],
+                ),
               ),
               CircleLineBtn(
                 btnText: "총 1건 의뢰 진행하기",
@@ -139,9 +143,9 @@ class CartInfo extends StatelessWidget {
                 fontsize: "md",
                 btnIcon: "",
                 btnColor: HexColor("#fd9a03"),
-                widgetName: MainHome(),
+                widgetName: CartInfoModal(),
                 fontboxheight: "",
-                iswidget: true,
+                iswidget: false,
               ),
             ],
           ),

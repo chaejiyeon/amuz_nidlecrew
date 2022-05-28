@@ -2,10 +2,12 @@ import 'package:amuz_nidlecrew/widgets/useinfo/useAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/useinfo/userInfoList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class UseInfo extends StatefulWidget {
-  const UseInfo({Key? key}) : super(key: key);
+  final int pageNum;
+  const UseInfo({Key? key, required this.pageNum}) : super(key: key);
 
   @override
   State<UseInfo> createState() => _UseInfoState();
@@ -19,16 +21,26 @@ class _UseInfoState extends State<UseInfo> with TickerProviderStateMixin {
   ];
   late TabController _tabController = TabController(length: 3, vsync: this);
   int tabIndex = 0;
+  int initTab = 0;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+  print("pageNum " + widget.pageNum.toString());
+
+    if(widget.pageNum >= 0){
+      setState((){
+        tabIndex = widget.pageNum;
+      });
+    }
+    _tabController = TabController(length: 3, vsync: this, initialIndex: tabIndex);
     _tabController.addListener(() {
       setState(() {
-        tabIndex = _tabController.index;
+          tabIndex = _tabController.index;
       });
     });
+
+
   }
 
   @override

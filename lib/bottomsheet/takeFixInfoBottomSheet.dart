@@ -71,12 +71,7 @@ class TakeFixInfoBottomSheet extends StatelessWidget {
           width: 5,
         ),
         Expanded(
-          child: FontStyle(
-              text: content,
-              fontsize: "",
-              fontbold: "",
-              fontcolor: Colors.black,
-              textdirectionright: false),
+          child: Text(content),
         ),
       ],
     );

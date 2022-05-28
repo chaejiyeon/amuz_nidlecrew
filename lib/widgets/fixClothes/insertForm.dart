@@ -50,7 +50,7 @@ class _InsertFormState extends State<InsertForm> {
                 SizedBox(
                   height: 20,
                 ),
-                ImageUpload(icon: widget.iconImage),
+                ImageUpload(icon: widget.iconImage, isShopping: false),
               ],
             ),
           ),

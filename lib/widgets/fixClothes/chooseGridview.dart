@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
 import 'package:amuz_nidlecrew/screens/main/fixClothes/fixSelect.dart';
@@ -11,8 +12,9 @@ import 'package:hexcolor/hexcolor.dart';
 
 class ChooseGridView extends StatefulWidget {
   final int currentpage;
+  final String category;
 
-  const ChooseGridView({Key? key, required this.currentpage}) : super(key: key);
+  const ChooseGridView({Key? key, required this.currentpage,required this.category}) : super(key: key);
 
   @override
   State<ChooseGridView> createState() => _ChooseGridViewState();
@@ -21,8 +23,13 @@ class ChooseGridView extends StatefulWidget {
 class _ChooseGridViewState extends State<ChooseGridView> {
   List<WooProduct> products = [];
 
-  Future<void> getProducts() async {
-    products = await wp_api.wooCommerceApi.getProducts();
+  Future<List<WooProduct>> getProducts() async {
+    // print("category " + widget.category);
+    products = await wp_api.wooCommerceApi.getProducts(slug: widget.category);
+
+    print(products.where((element) => element.id == 2150).toList());
+    // log(products.toString());
+    return products;
   }
 
   @override
@@ -35,7 +42,7 @@ class _ChooseGridViewState extends State<ChooseGridView> {
   Widget build(BuildContext context) {
     // log(products.first.images.first.src.toString());
     return Container(
-      padding: EdgeInsets.only(left: 24, right: 24),
+      padding: EdgeInsets.only(left: 24, right: 24, top: 29),
       child: GridView(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisExtent: 184,

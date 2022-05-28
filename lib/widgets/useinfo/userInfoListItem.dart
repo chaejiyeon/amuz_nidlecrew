@@ -29,23 +29,25 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
         initHeight: 0.9,
         maxHeight: 0.9,
         context: context,
-        bottomSheetColor: HexColor("#909090").withOpacity(0.2),
+        bottomSheetColor: HexColor("#fafafa").withOpacity(0.2),
         decoration: BoxDecoration(
           color: HexColor("#f7f7f7"),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(39), topRight: Radius.circular(39)),
         ),
-        headerHeight: 100,
+        headerHeight: 59,
         headerBuilder: (context, offset) {
           return bottomsheetHeader();
         },
         bodyBuilder: (context, offset) {
-          return SliverChildListDelegate([FixInfoSheet()]);
+          return SliverChildListDelegate([
+            // Container()
+            FixInfoSheet(),
+          ]);
         },
       );
     }
   }
-
 
   // Container(
   // padding: EdgeInsets.only(left: 24, top: 25, right: 24, bottom: 10),
@@ -301,10 +303,14 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
     );
   }
 
-
-
-  Widget bottomsheetHeader(){
+  // 수선 내역 bottomsheetHeader
+  Widget bottomsheetHeader() {
     return Container(
+      height: 59,
+      decoration: BoxDecoration(
+          color: HexColor("#f7f7f7"),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
+      ),
       padding: EdgeInsets.only(left: 24, top: 25, right: 24, bottom: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -316,10 +322,14 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
               fontcolor: Colors.black,
               textdirectionright: false),
           InkWell(
-            onTap: (){
+            onTap: () {
               Get.back();
             },
-            child: SvgPicture.asset("assets/icons/exitIcon.svg", width: 24, height: 24,),
+            child: SvgPicture.asset(
+              "assets/icons/exitIcon.svg",
+              width: 24,
+              height: 24,
+            ),
           )
         ],
       ),

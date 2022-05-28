@@ -23,6 +23,7 @@ class _UserInfoState extends State<UserInfo> {
       body: SafeArea(
         child: Container(
                 padding: EdgeInsets.all(30),
+                color: Colors.white,
                 child: Column(
                   children: [
                     UserInfoMenu(appTitle: "회원 정보",title: "이름",info: "신응수",info2: "",line: true),

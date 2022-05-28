@@ -10,7 +10,7 @@ import 'package:hexcolor/hexcolor.dart';
 class Header extends StatelessWidget {
   final String title;
   final String subtitle1;
-  final String subtitle2;
+  // final String subtitle2;
   final bool question;
   final String btnIcon;
   final String btnText;
@@ -22,7 +22,7 @@ class Header extends StatelessWidget {
       {Key? key,
       required this.title,
       required this.subtitle1,
-      required this.subtitle2,
+      // required this.subtitle2,
       required this.question,
       required this.btnIcon,
       required this.btnText,
@@ -93,7 +93,7 @@ class Header extends StatelessWidget {
             height: 10,
           ),
           subtitle1 !="" ? SubtitleText(text: subtitle1) : Container(),
-          subtitle2 !="" ? SubtitleText(text: subtitle2) : Container(),
+          // subtitle2 !="" ? SubtitleText(text: subtitle2) : Container(),
         ],
       ),
     );

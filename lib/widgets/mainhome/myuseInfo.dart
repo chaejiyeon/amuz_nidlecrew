@@ -31,8 +31,8 @@ class _MyUseInfoState extends State<MyUseInfo> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               iconInfo("assets/icons/main/writeIcon.svg", 0, "작성 중", "/fixClothes"),
-              iconInfo("assets/icons/main/chartIcon.svg", 0, "진행 중", "/useInfo"),
-              iconInfo("assets/icons/main/clothesIcon.svg", 4, "수선 완료", ""),
+              iconInfo("assets/icons/main/chartIcon.svg", 0, "진행 중", "/useInfoReady"),
+              iconInfo("assets/icons/main/clothesIcon.svg", 4, "수선 완료", "/useInfoComplete"),
             ],
           ),
         ],

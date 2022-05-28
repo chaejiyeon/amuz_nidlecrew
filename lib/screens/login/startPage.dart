@@ -46,15 +46,11 @@ class _loadingPageState extends State<loadingPage> {
                             margin: EdgeInsets.symmetric(
                                 vertical: 8.0, horizontal: 5.0),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: (Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black)
-                                    .withOpacity(
-                                        _carouselController == entry.key
-                                            ? 0.9
-                                            : 0.2)),
+                              shape: BoxShape.circle,
+                              color: currentPage == entry.key
+                                  ? Colors.black.withOpacity(0.9)
+                                  : Colors.black.withOpacity(0.2),
+                            ),
                           ),
                         );
                       }).toList(),
@@ -82,18 +78,18 @@ class _loadingPageState extends State<loadingPage> {
   // prev, next button
   Widget alignBtn(String icon, String change) {
     return Align(
-        heightFactor: 100,
-        alignment:
-            change == "prev" ? Alignment.centerLeft : Alignment.centerRight,
-        child: IconButton(
-          onPressed: () {
-            change == "prev"
-                ? _carouselController.previousPage()
-                : _carouselController.nextPage();
-            ;
-          },
-          icon: SvgPicture.asset("assets/icons/startPage/" + icon) ,
-        ),
+      heightFactor: 100,
+      alignment:
+          change == "prev" ? Alignment.centerLeft : Alignment.centerRight,
+      child: IconButton(
+        onPressed: () {
+          change == "prev"
+              ? _carouselController.previousPage()
+              : _carouselController.nextPage();
+          ;
+        },
+        icon: SvgPicture.asset("assets/icons/startPage/" + icon),
+      ),
     );
   }
 
@@ -123,10 +119,8 @@ class _loadingPageState extends State<loadingPage> {
             ),
           ),
         ),
-        if (currentPage != 0)
-          alignBtn("startPrev.svg", "prev"),
-        if (currentPage != 3)
-          alignBtn('startNext.svg', "next"),
+        if (currentPage != 0) alignBtn("startPrev.svg", "prev"),
+        if (currentPage != 3) alignBtn('startNext.svg', "next"),
       ],
     );
   }

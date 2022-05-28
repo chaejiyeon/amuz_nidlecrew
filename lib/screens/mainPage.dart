@@ -13,7 +13,10 @@ import 'main/useInfo.dart';
 
 class MainPage extends StatefulWidget {
   final int pageNum;
-  const MainPage({Key? key, required this.pageNum}) : super(key: key);
+  final int selectTab;
+
+  const MainPage({Key? key, required this.pageNum, this.selectTab = 0})
+      : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -21,22 +24,26 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
-  final List<Widget> pages = [MainHome(), UseInfo(), MyPage()];
+  final List<Widget> pages = [MainHome(), UseInfo(pageNum: 0), MyPage()];
 
   @override
   void initState() {
     super.initState();
 
-    // 메인페이지 init dialog
-    Future.delayed(Duration.zero, (){
-      showDialog(context: context, builder: (BuildContext context){
-        return MainHomeModal();
-      });
-
+    // 쇼핑몰에서 의류를 보낼 경우 init dialog
+    Future.delayed(Duration.zero, () {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return MainHomeModal();
+          });
     });
 
+    _currentIndex = widget.pageNum;
 
-      _currentIndex = widget.pageNum;
+    print("tabNum " + widget.selectTab.toString());
+    pages[1] = UseInfo(pageNum: widget.selectTab);
+
   }
 
   @override
@@ -46,13 +53,9 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarIconBrightness: Brightness.light
-        )
-    );
-
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light));
 
     return Scaffold(
       body: pages[_currentIndex],
@@ -124,11 +127,11 @@ class _MainPageState extends State<MainPage> {
           children: [
             SvgPicture.asset(
               'assets/icons/main/' + icon,
-              color: iconColor,
+              color: _currentIndex == page ? HexColor("#fd9a03") : iconColor,
             ),
             Text(
               title,
-              style: TextStyle(color: titleColor),
+              style: TextStyle(color: _currentIndex == page ? HexColor("#fd9a03") : titleColor),
             ),
           ],
         ),

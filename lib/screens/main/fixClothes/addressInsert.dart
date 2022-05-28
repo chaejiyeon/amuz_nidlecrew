@@ -71,10 +71,12 @@ class _AddressInsertState extends State<AddressInsert> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: FixClothesAppBar(
           appbar: AppBar(),
         ),
         body: Container(
+          color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -142,6 +144,7 @@ class _AddressInsertState extends State<AddressInsert> {
   // bottomnavigation 버튼
   Widget myaddressBtn() {
     return Container(
+      color: Colors.white,
       padding: EdgeInsets.all(20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

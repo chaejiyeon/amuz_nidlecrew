@@ -33,6 +33,7 @@ class _TakeFixDateState extends State<TakeFixDate> {
     return Scaffold(
       appBar: FixClothesAppBar(appbar: AppBar()),
       body: Container(
+        color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -58,52 +59,55 @@ class _TakeFixDateState extends State<TakeFixDate> {
               ),
             ),
             Expanded(
-              child: TableCalendar(
-                locale: 'ko-KR',
-                daysOfWeekHeight: 30,
-                focusedDay: _focusedDay,
-                firstDay: DateTime.now(),
-                lastDay: DateTime(nowYear, 12, 31),
-                // currentDay: _focusedDay,
-                selectedDayPredicate: (day) {
-                  return isSameDay(_selectedDay, day);
-                },
-                onDaySelected: ((selectedDay, focusedDay) {
-                  if (!isSameDay(_selectedDay, selectedDay)) {
-                    setState(() {
-                      _selectedDay = selectedDay;
-                      _focusedDay = focusedDay;
-                    });
-                  }
-                }),
-                onFormatChanged: (format) {
-                  if (_calendarFormat != format) {
-                    setState(() {
-                      _calendarFormat = format;
-                    });
-                  }
-                },
-                onPageChanged: (focusedDay) {
-                  _focusedDay = focusedDay;
-                },
-                calendarStyle: CalendarStyle(
-                  selectedDecoration: BoxDecoration(
-                    color: HexColor("#fd9a03"),
-                    shape: BoxShape.circle,
+              child: SingleChildScrollView(
+
+                child: TableCalendar(
+                  locale: 'ko-KR',
+                  daysOfWeekHeight: 30,
+                  focusedDay: _focusedDay,
+                  firstDay: DateTime.now(),
+                  lastDay: DateTime(nowYear, 12, 31),
+                  // currentDay: _focusedDay,
+                  selectedDayPredicate: (day) {
+                    return isSameDay(_selectedDay, day);
+                  },
+                  onDaySelected: ((selectedDay, focusedDay) {
+                    if (!isSameDay(_selectedDay, selectedDay)) {
+                      setState(() {
+                        _selectedDay = selectedDay;
+                        _focusedDay = focusedDay;
+                      });
+                    }
+                  }),
+                  onFormatChanged: (format) {
+                    if (_calendarFormat != format) {
+                      setState(() {
+                        _calendarFormat = format;
+                      });
+                    }
+                  },
+                  onPageChanged: (focusedDay) {
+                    _focusedDay = focusedDay;
+                  },
+                  calendarStyle: CalendarStyle(
+                    selectedDecoration: BoxDecoration(
+                      color: HexColor("#fd9a03"),
+                      shape: BoxShape.circle,
+                    ),
+                    todayDecoration: BoxDecoration(
+                      color: HexColor("#fd9a03"),
+                      shape: BoxShape.circle,
+                    ),
                   ),
-                  todayDecoration: BoxDecoration(
-                    color: HexColor("#fd9a03"),
-                    shape: BoxShape.circle,
-                  ),
+                  headerStyle: HeaderStyle(
+                      titleCentered: true,
+                      formatButtonVisible: false,
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                        color: HexColor("#d5d5d5"),
+                      )))),
                 ),
-                headerStyle: HeaderStyle(
-                    titleCentered: true,
-                    formatButtonVisible: false,
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                      color: HexColor("#d5d5d5"),
-                    )))),
               ),
             ),
           ],
@@ -113,10 +117,12 @@ class _TakeFixDateState extends State<TakeFixDate> {
     );
   }
 
+  // bottm Info
   Widget _bottomNabigationbar() {
     String selectMonth = _focusedDay.month.toString();
     String selectDay = _focusedDay.day.toString();
     return Container(
+      color: Colors.white,
       padding: EdgeInsets.all(20),
       height: 100,
       child: Row(

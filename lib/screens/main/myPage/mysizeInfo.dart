@@ -22,6 +22,7 @@ class _MySizeInfoState extends State<MySizeInfo> {
       appBar: MypageAppBar(
           title: "내 치수", icon: "", widget: MainHome(), appbar: AppBar()),
       body: Container(
+        color: Colors.white,
         padding: EdgeInsets.all(10),
         child: Column(
           children: [

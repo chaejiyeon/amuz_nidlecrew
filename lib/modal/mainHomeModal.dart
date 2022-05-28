@@ -1,3 +1,5 @@
+import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
+import 'package:amuz_nidlecrew/screens/main/fixClothes/startAddressChoose.dart';
 import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
 import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
@@ -70,7 +72,7 @@ class MainHomeModal extends StatelessWidget {
                     fontsize: "",
                     btnIcon: "",
                     btnColor: Colors.transparent,
-                    widgetName: MainHome(),
+                    widgetName: FixClothes(),
                     fontboxheight: "",
                     iswidget: true,
                   ),

@@ -21,34 +21,36 @@ class _MysizeShirtUpdateState extends State<MysizeShirtUpdate> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        appBar: MypageAppBar(title: "상의", icon: "", widget: MainHome(), appbar: AppBar()),
+        appBar: MypageAppBar(
+            title: "상의", icon: "", widget: MainHome(), appbar: AppBar()),
         body: Container(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    SizeForm(title: "품", hintTxt: "", isTextfield: true),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SizeForm(title: "목둘레", hintTxt: "", isTextfield: true),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SizeForm(title: "소매길이", hintTxt: "", isTextfield: true),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SizeForm(title: "민소매 암홀 길이", hintTxt: "", isTextfield: true),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    SizeForm(title: "어깨 길이", hintTxt: "", isTextfield: true),
-                  ],
-                ),
+          color: Colors.white,
+          padding: EdgeInsets.all(20),
+          child: ListView(
+            children: [
+              SizeForm(title: "품", hintTxt: "", isTextfield: true),
+              SizedBox(
+                height: 20,
+              ),
+              SizeForm(title: "목둘레", hintTxt: "", isTextfield: true),
+              SizedBox(
+                height: 20,
+              ),
+              SizeForm(title: "소매길이", hintTxt: "", isTextfield: true),
+              SizedBox(
+                height: 20,
+              ),
+              SizeForm(title: "민소매 암홀 길이", hintTxt: "", isTextfield: true),
+              SizedBox(
+                height: 20,
+              ),
+              SizeForm(title: "어깨 길이", hintTxt: "", isTextfield: true),
+            ],
+          ),
         ),
         bottomNavigationBar: MysizeBottom(),
       ),
