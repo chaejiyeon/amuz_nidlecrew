@@ -21,26 +21,26 @@ class UseAppBar extends StatelessWidget implements PreferredSizeWidget{
   Widget build(BuildContext context) {
     return
       AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: appbarcolor == "white" ? Colors.white : Colors.transparent,
         elevation: 0,
         leading: IconButton(
           onPressed: () {
             title == "나의 이용내역" ?  Get.offAndToNamed("/mainHome") : Get.back() ;
           },
-          icon: SvgPicture.asset("assets/icons/prevIcon.svg", color: Colors.white, width: 11, height: 19, ),
+          icon: SvgPicture.asset("assets/icons/prevIcon.svg", color: appbarcolor == "white" ? Colors.black : Colors.white, width: 11, height: 19, ),
         ),
         centerTitle: true,
-        title: FontStyle(text: title, fontsize: "md", fontcolor: Colors.white, fontbold: "bold", textdirectionright: false),
+        title: FontStyle(text: title, fontsize: "md", fontcolor: appbarcolor == "white" ? Colors.black : Colors.white, fontbold: "bold", textdirectionright: false),
         actions: [
           AppbarItem(
             icon: "cartIcon.svg",
-            iconColor:  appbarcolor == "black" ? Colors.black : Colors.white,
+            iconColor:  appbarcolor == "white" ? Colors.black : Colors.white,
             iconFilename: "main",
             widget: CartInfo(),
           ),
           AppbarItem(
             icon: "alramIcon.svg",
-            iconColor:  appbarcolor == "black" ? Colors.black : Colors.white,
+            iconColor:  appbarcolor == "white" ? Colors.black : Colors.white,
             iconFilename: "main",
             widget: AlramInfo(),
           ),

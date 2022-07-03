@@ -12,105 +12,85 @@ class FixSizeQuideSheet extends StatefulWidget {
 
 class _FixSizeQuideSheetState extends State<FixSizeQuideSheet>
     with TickerProviderStateMixin {
+  final ScrollController scrollController = ScrollController();
+
+  List<String> tabHeader = [
+    "상의",
+    "하의",
+    "원피스",
+    "아우터",
+    "정장/교복",
+  ];
+  late TabController _tabController =
+      TabController(length: tabHeader.length, vsync: this);
+  int currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController.addListener(() {
+      setState(() {
+        currentPage = _tabController.index;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<String> tabHeader = [
-      "상의",
-      "하의",
-      "원피스",
-      "아우터",
-      "정장/교복",
-    ];
-    late TabController _tabController =
-        TabController(length: tabHeader.length, vsync: this);
-    int currentPage = 0;
-
-    @override
-    void initState() {
-      super.initState();
-      _tabController.addListener(() {
-        setState(() {
-          currentPage = _tabController.index;
-        });
-      });
-    }
-
-    @override
-    void dispose() {
-      super.dispose();
-      _tabController.dispose();
-    }
-
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.only(left: 150, top: 10),
-            child: Container(
-              height: 7,
-              width: 70,
-              decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.5),
-                  borderRadius: BorderRadius.circular(50)),
-            ),
-          ),
-          Container(
-            height: 140,
-            padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FontStyle(
-                    text: "치수 측정 가이드",
-                    fontsize: "md",
-                    fontbold: "bold",
-                    fontcolor: Colors.black,
-                    textdirectionright: false),
-                FontStyle(
-                    text: "정확한 치수를 위해 바닥에 펴놓고 측정해주세요.",
-                    fontsize: "",
-                    fontbold: "",
-                    fontcolor: Colors.black,
-                    textdirectionright: false),
-                Container(
-                  padding: EdgeInsets.only(top: 30),
-                  height: 70,
-                  child: TabBar(
-                    padding: EdgeInsets.zero,
-                    isScrollable: true,
-                    labelPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                    controller: _tabController,
-                    indicator: UnderlineTabIndicator(
-                      borderSide: BorderSide.none,
-                    ),
-                    tabs: List.generate(
-                      tabHeader.length,
-                      (index) => CategoryItem(tabHeader[index]),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.zero,
-              child: TabBarView(
+    return ListView(controller: scrollController, shrinkWrap: true, children: [
+      Container(
+        height: 140,
+        padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            FontStyle(
+                text: "치수 측정 가이드",
+                fontsize: "md",
+                fontbold: "bold",
+                fontcolor: Colors.black,
+                textdirectionright: false),
+            FontStyle(
+                text: "정확한 치수를 위해 바닥에 펴놓고 측정해주세요.",
+                fontsize: "",
+                fontbold: "",
+                fontcolor: Colors.black,
+                textdirectionright: false),
+            Container(
+              padding: EdgeInsets.only(top: 30),
+              height: 70,
+              child: TabBar(
+                padding: EdgeInsets.zero,
+                isScrollable: true,
+                labelPadding: EdgeInsets.symmetric(horizontal: 4.0),
                 controller: _tabController,
-                children: [
-                  SizeInfo(),
-                  Container(),
-                  Container(),
-                  Container(),
-                  Container(),
-                ],
+                indicator: UnderlineTabIndicator(
+                  borderSide: BorderSide.none,
+                ),
+                tabs: List.generate(
+                  tabHeader.length,
+                  (index) => CategoryItem(tabHeader[index]),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    );
+      Container(
+        height: MediaQuery.of(context).size.height,
+        padding: EdgeInsets.zero,
+        child: TabBarView(
+          controller: _tabController,
+          children: List.generate(tabHeader.length, (index) => Container())
+        ),
+      ),
+    ]);
   }
 
   // category 목록

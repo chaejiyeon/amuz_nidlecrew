@@ -1,4 +1,5 @@
 import 'package:amuz_nidlecrew/bottomsheet/fixRegisterBottomSheet.dart';
+import 'package:amuz_nidlecrew/getxController/fixClothes/cartController.dart';
 import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
 import 'package:amuz_nidlecrew/widgets/cartInfo/cartListItem.dart';
 import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
@@ -9,14 +10,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_woocommerce_api/models/order.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
 
 import 'dart:ui' as ui;
 
-class FixRegister extends StatelessWidget {
+class FixRegister extends GetView<CartController> {
   const FixRegister({Key? key}) : super(key: key);
+
+
 
   // 예상 결제금액 안내 bottomsheet
   void bottomsheetOpen(BuildContext context, int price) {
@@ -31,17 +35,19 @@ class FixRegister extends StatelessWidget {
               topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         ),
         context: context,
-        builder: (context, controller, offset) => FixRegisterBottomSheet(scrollController: controller, price: price));
+        builder: (context, controller, offset) =>
+            FixRegisterBottomSheet(scrollController: controller, price: price));
   }
 
   @override
   Widget build(BuildContext context) {
-    int price = 0;
     List priceinfo = [
       11000,
       "경기 수원시 팔달구 인계동 156 104동 1702호",
       DateTime(2022, 2, 15)
     ];
+
+
     return Scaffold(
       appBar: FixClothesAppBar(
         appbar: AppBar(),
@@ -80,16 +86,58 @@ class FixRegister extends StatelessWidget {
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: [
-                    SingleChildScrollView(
-                      child: Container(
-                        padding: EdgeInsets.only(left: 24, right: 24, top: 20),
-                        child: Column(
-                          children: [
-                            FixRegisterListItem(),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // FutureBuilder(
+                    //     future: controller.getOrder(),
+                    //     builder: (context, snapshot) {
+                    //       if (snapshot.connectionState ==
+                    //           ConnectionState.done) {
+                    //         return SingleChildScrollView(
+                    //           child: Container(
+                    //             padding:
+                    //             EdgeInsets.only(left: 24, right: 24, top: 20),
+                    //             child: Column(
+                    //               children: List.generate(
+                    //                   controller.registerOrders.length,
+                    //                       (index) => FixRegisterListItem(
+                    //                     lineItem: controller
+                    //                         .registerOrders[index].lineItems!,
+                    //                     index: index,
+                    //                   )),
+                    //             ),
+                    //           ),
+                    //         );
+                    //       } else {
+                    //         return Center(
+                    //           child: CircularProgressIndicator(),
+                    //         );
+                    //       }
+                    //     }),
+                    FutureBuilder(future: controller.getOrder(),builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return SingleChildScrollView(
+                          child: Container(
+                            padding:
+                                EdgeInsets.only(left: 24, right: 24, top: 20),
+                            child: Column(
+                              children: List.generate(
+                                  controller.registerOrders.length,
+                                  (index) => FixRegisterListItem(
+                                        lineItem: controller
+                                            .registerOrders[index].lineItems!,
+                                        index: index,
+                                      )),
+                              // children: [
+                              //   FixRegisterListItem(),
+                              // ],
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    }),
                     info(
                       "총 의뢰 예상 비용",
                       (() => priceinfo),
@@ -103,7 +151,7 @@ class FixRegister extends StatelessWidget {
       ),
 
       // 고정 bottom navigation
-      bottomNavigationBar: InkWell(
+      bottomNavigationBar: GestureDetector(
         child: Container(
           height: 150,
           decoration: BoxDecoration(
@@ -135,7 +183,7 @@ class FixRegister extends StatelessWidget {
                             fontcolor: Colors.black,
                             textdirectionright: false),
                         FontStyle(
-                            text: "11,000",
+                            text: controller.setPrice(),
                             fontsize: "md",
                             fontbold: "bold",
                             fontcolor: HexColor("#fd9a03"),
@@ -168,11 +216,10 @@ class FixRegister extends StatelessWidget {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    price = priceinfo[0];
-                    bottomsheetOpen(context, price);
+                    bottomsheetOpen(context, controller.wholePrice.value);
                   },
                   child: Text(
-                    "총 1건 의뢰 접수하기",
+                    "총 " + controller.orderid.length.toString() + "건 의뢰 접수하기",
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
                 ),
@@ -231,7 +278,7 @@ class FixRegister extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        price,
+                        controller.setPrice(),
                         style: TextStyle(
                             color: HexColor("#fd9a03"),
                             fontWeight: FontWeight.bold),
@@ -241,7 +288,7 @@ class FixRegister extends StatelessWidget {
                   ),
                 ],
               ),
-              contentList("수거 주소", list()[1]),
+              contentList("수거 주소", controller.setAddress.toString()),
               contentList("수거 희망일", date),
             ],
           ),

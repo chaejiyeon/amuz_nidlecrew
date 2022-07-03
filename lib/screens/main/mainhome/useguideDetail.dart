@@ -26,6 +26,7 @@ class UseGuideDetail extends StatefulWidget {
 class _UseGuideDetailState extends State<UseGuideDetail>
     with TickerProviderStateMixin {
   late TabController _tabcontroller = TabController(length: 5, vsync: this);
+  final scrollCotroller = ScrollController();
 
   List<String> items = ["쇼핑몰에서 보낼 경우", "집에서 보낼 경우"];
   String selectValue = "쇼핑몰에서 보낼 경우";
@@ -44,6 +45,7 @@ class _UseGuideDetailState extends State<UseGuideDetail>
   void dispose() {
     super.dispose();
     _tabcontroller.dispose();
+    scrollCotroller.dispose();
   }
 
   @override
@@ -205,7 +207,7 @@ class _UseGuideDetailState extends State<UseGuideDetail>
           ),
         ],
       ),
-      floatingActionButton: InkWell(
+      floatingActionButton: GestureDetector(
         onTap: () {
           setState((){
             VerticalScrollableTabBarStatus.setIndex(1);

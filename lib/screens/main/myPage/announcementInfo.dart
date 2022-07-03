@@ -19,6 +19,7 @@ class _AnnouncementInfoState extends State<AnnouncementInfo> {
       appBar: MypageAppBar(
           title: "공지사항", icon: "", appbar: AppBar(), widget: widget),
       body: Container(
+        color: Colors.white,
         padding: EdgeInsets.all(20),
         child: ListView(
           children: [

@@ -15,46 +15,68 @@ class MainHome extends StatefulWidget {
   State<MainHome> createState() => _MainHomeState();
 }
 
-class _MainHomeState extends State<MainHome> with SingleTickerProviderStateMixin {
-  bool _showAppbar  = true;
+class _MainHomeState extends State<MainHome>
+    with SingleTickerProviderStateMixin {
+  // bool _showAppbar = true;
   ScrollController _scrollController = new ScrollController();
   bool isScrollingDown = false;
+
+  late Color color = Colors.transparent;
 
   @override
   void initState() {
     super.initState();
+    _scrollController.addListener(() {
+      print("scorll position  " + _scrollController.position.pixels.toString());
+      if (_scrollController.position.pixels >= 15) {
+        setState((){
+          color = Colors.white;
+        });
+      }else{
+        setState((){
+          color = Colors.transparent;
+        });
+      }
+      // setState((){});
+    });
     myScroll();
   }
 
   @override
   void dispose() {
-    _scrollController.removeListener(() { });
+    _scrollController.removeListener(() {});
     super.dispose();
   }
 
-
   void myScroll() async {
-    _scrollController.addListener(() {
-      if(_scrollController.position.userScrollDirection == ScrollDirection.reverse){
-        if(!isScrollingDown){
-          isScrollingDown = true;
-          _showAppbar = false;
-        }
-      }
-      if(_scrollController.position.userScrollDirection == ScrollDirection.forward){
-        if(isScrollingDown){
-          isScrollingDown = false;
-          _showAppbar = true;
-        }
-      }
-    });
+    // _scrollController.addListener(() {
+    //   if(_scrollController.position.userScrollDirection == ScrollDirection.reverse){
+    //     if(!isScrollingDown){
+    //       isScrollingDown = true;
+    //       _showAppbar = false;
+    //     }
+    //   }
+    //   if(_scrollController.position.userScrollDirection == ScrollDirection.forward){
+    //     if(isScrollingDown){
+    //       isScrollingDown = false;
+    //       _showAppbar = true;
+    //     }
+    //   }
+    //   if(_scrollController.position.pixels >= 320){
+    //
+    //   }
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
-      appBar: _showAppbar ? MainHomeAppBar(appbar: AppBar(),) : AppBar(leading: Container(),),
+      appBar:  MainHomeAppBar(
+              appbar: AppBar(),
+              color: color,
+            ),
       body: ListView(
         controller: _scrollController,
         padding: EdgeInsets.zero,
@@ -67,7 +89,8 @@ class _MainHomeState extends State<MainHome> with SingleTickerProviderStateMixin
                 text: "니들크루 가이드",
                 fontsize: "md",
                 fontbold: "bold",
-                fontcolor: Colors.black,textdirectionright: false),
+                fontcolor: Colors.black,
+                textdirectionright: false),
           ),
           Guide(),
           Footer(),

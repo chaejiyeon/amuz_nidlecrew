@@ -15,11 +15,16 @@ import 'package:intl/intl.dart';
 
 import 'dart:ui' as ui;
 
-class FixRegisterInfo extends StatelessWidget {
+import '../../../getxController/fixClothes/cartController.dart';
+
+class FixRegisterInfo extends GetView<CartController> {
   const FixRegisterInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    controller.isSaved(true);
+    print("FixRegisterInfo setsave " + controller.setSave.toString());
+
     int price = 0;
     List priceinfo = [
       11000,
@@ -67,17 +72,33 @@ class FixRegisterInfo extends StatelessWidget {
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: [
-                      SingleChildScrollView(
-                        child: Container(
-                          padding:
-                              EdgeInsets.only(left: 24, right: 24, top: 20),
-                          child: Column(
-                            children: [
-                              FixRegisterListItem(),
-                            ],
-                          ),
-                        ),
-                      ),
+                      FutureBuilder(
+                          future: controller.getOrder(),
+                          builder: (context, snapshot) {
+                            if (controller.isInitialized.value) {
+                              // controller.registerOrders.clear();
+                              print("registerOrders " +
+                                  controller.registerOrders.length.toString());
+                              return SingleChildScrollView(
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      left: 24, right: 24, top: 20),
+                                  child: Column(
+                                    children: List.generate(
+                                        controller.registerOrders.length,
+                                        (index) => FixRegisterListItem(
+                                              lineItem: controller
+                                                  .registerOrders[index]
+                                                  .lineItems!,
+                                              index: index,
+                                            )),
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return Container();
+                            }
+                          }),
                       info(
                         "총 의뢰 예상 비용",
                         (() => priceinfo),
@@ -92,7 +113,7 @@ class FixRegisterInfo extends StatelessWidget {
       ),
 
       // 고정 bottom navigation
-      bottomNavigationBar: InkWell(
+      bottomNavigationBar: GestureDetector(
         child: Container(
           height: 150,
           decoration: BoxDecoration(
@@ -124,7 +145,7 @@ class FixRegisterInfo extends StatelessWidget {
                             fontcolor: Colors.black,
                             textdirectionright: false),
                         FontStyle(
-                            text: "11,000",
+                            text: controller.setPrice(),
                             fontsize: "md",
                             fontbold: "bold",
                             fontcolor: HexColor("#fd9a03"),
@@ -158,6 +179,7 @@ class FixRegisterInfo extends StatelessWidget {
                 child: TextButton(
                   onPressed: () {
                     Get.toNamed('mainHome');
+                    controller.registerAddress();
                   },
                   child: Text(
                     "홈으로",
@@ -219,7 +241,7 @@ class FixRegisterInfo extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        price,
+                        controller.setPrice(),
                         style: TextStyle(
                             color: HexColor("#fd9a03"),
                             fontWeight: FontWeight.bold),
@@ -266,15 +288,17 @@ class FixRegisterInfo extends StatelessWidget {
           ),
           Expanded(
               child: title == "결제 카드"
-                  ? InkWell(
+                  ? GestureDetector(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                           Text(
                             content,
                             textDirection: ui.TextDirection.rtl,
                           ),
-                          SizedBox(width: 10,),
+                          SizedBox(
+                            width: 10,
+                          ),
                           SvgPicture.asset("assets/icons/nextIcon.svg")
                         ]))
                   : Text(
@@ -286,3 +310,4 @@ class FixRegisterInfo extends StatelessWidget {
     );
   }
 }
+

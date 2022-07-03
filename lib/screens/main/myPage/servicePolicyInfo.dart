@@ -4,6 +4,7 @@ import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/myPage/mypageMenu.dart';
+import 'package:amuz_nidlecrew/widgets/myPage/servicePolicyItem.dart';
 import 'package:amuz_nidlecrew/widgets/myPage/userInfoMenu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,14 +25,16 @@ class _ServicePolicyInfoState extends State<ServicePolicyInfo> {
     return Scaffold(
       appBar: MypageAppBar(title: "서비스 정책", icon: "", widget: MainHome(),appbar: AppBar()),
       body: Container(
+        color: Colors.white,
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.only(left: 24, right: 24, top: 53),
                 child: Column(
                   children: [
-                    listMenu("서비스 이용 약관", true, DirectQuestion()),
-                    listMenu("개인정보 처리 방침", false, DirectQuestion()),
+                    listMenu("서비스 이용 약관", true, ServicePolicyItem(policyName: "서비스 이용 약관")),
+                    listMenu("개인정보 처리 방침", true, ServicePolicyItem(policyName: "개인정보 처리 방침")),
+                    listMenu("재수선 및 환불정책", false, DirectQuestion()),
                   ],
                 ),
               ),
@@ -45,12 +48,12 @@ class _ServicePolicyInfoState extends State<ServicePolicyInfo> {
 
   // list menu
   Widget listMenu(String listTitle, bool isLine, Widget widget){
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Get.to(widget);
       },
       child: Container(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+        padding: EdgeInsets.only( bottom: 14),
         child: Column(
           children: [
             Row(
@@ -71,7 +74,7 @@ class _ServicePolicyInfoState extends State<ServicePolicyInfo> {
                 ? ListLine(
                 height: 1,
                 width: double.infinity,
-                lineColor: HexColor("#d5d5d5"),
+                lineColor: HexColor("#ededed"),
                 opacity: 1.0)
                 : Container(),
           ],

@@ -18,7 +18,7 @@ class alramBtnText extends StatefulWidget {
 class _alramBtnTextState extends State<alramBtnText> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         if(widget.text == "삭제") Get.dialog(AlramDeleteModal());
       },

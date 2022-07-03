@@ -10,8 +10,24 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class TakeFixInfo extends StatelessWidget {
+import '../../../getxController/fixClothes/cartController.dart';
+
+class TakeFixInfo extends StatefulWidget {
   const TakeFixInfo({Key? key}) : super(key: key);
+
+  @override
+  State<TakeFixInfo> createState() => _TakeFixInfoState();
+}
+
+class _TakeFixInfoState extends State<TakeFixInfo> {
+  final CartController controller = Get.put(CartController());
+
+  @override
+  void initState(){
+    super.initState();
+  }
+
+
 
   // 수거 가이드 bottomsheet
   void bottomsheetOpen(BuildContext context) {
@@ -86,7 +102,7 @@ class TakeFixInfo extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // 수거 가이드 btn
-            InkWell(
+            GestureDetector(
               onTap: () {
                 bottomsheetOpen(context);
               },
@@ -114,9 +130,9 @@ class TakeFixInfo extends StatelessWidget {
             ),
 
             // next btn
-            InkWell(
+            GestureDetector(
               onTap: (){
-                Get.to(FixRegister());
+                Get.to( FixRegister());
               },
               child: SvgPicture.asset("assets/icons/floatingNext.svg"),
             )

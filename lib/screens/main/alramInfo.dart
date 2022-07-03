@@ -77,7 +77,7 @@ class AlramAppbar extends StatelessWidget implements PreferredSizeWidget {
         onPressed: () {
           Get.back();
         },
-        icon: InkWell(
+        icon: GestureDetector(
           onTap: () {},
           child: Icon(
             CupertinoIcons.xmark,
@@ -113,7 +113,7 @@ class AlramAppbar extends StatelessWidget implements PreferredSizeWidget {
 //
 // // alram appbar itemBtn
 // Widget alramBtnTxt(String text, Color textColor) {
-//   return InkWell(
+//   return GestureDetector(
 //     onTap: () {
 //       if (text == "전체선택") {
 //         if (wholeCheck == false)

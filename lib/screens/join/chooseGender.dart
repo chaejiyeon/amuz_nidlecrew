@@ -1,8 +1,10 @@
+import 'package:amuz_nidlecrew/getxController/homeController.dart';
 import 'package:amuz_nidlecrew/screens/join/userInfoInsert.dart';
 import 'package:amuz_nidlecrew/widgets/baseAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/floatingNextBtn.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class ChooseGender extends StatefulWidget {
@@ -13,6 +15,7 @@ class ChooseGender extends StatefulWidget {
 }
 
 class _ChooseGenderState extends State<ChooseGender> {
+  final HomeController homeController = Get.put(HomeController());
   int value = 0;
 
   @override
@@ -99,6 +102,9 @@ class _ChooseGenderState extends State<ChooseGender> {
           setState(() {
             value = index;
           });
+
+          homeController.joinUser(btnText);
+          print("homecontroller joinuserInfo   " + homeController.userJoin.toString());
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

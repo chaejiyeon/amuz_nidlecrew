@@ -1,4 +1,4 @@
-import 'package:amuz_nidlecrew/modal/userJoinOutDialog.dart';
+import 'package:amuz_nidlecrew/modal/mypage/userJoinOutDialog.dart';
 import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
@@ -57,11 +57,7 @@ class _UserJoinOutState extends State<UserJoinOut> {
                                 fontbold: "bold",
                                 fontcolor: Colors.black,textdirectionright: false),
                             Expanded(
-                              child: FontStyle(
-                                  text: "회원 탈퇴 시 고객님의 정보는 1년간 전자상거래 소비자 보호에 관한 법률에 의거한 고객 정보 보호정책에 따라 관리됩니다.",
-                                  fontsize: "",
-                                  fontbold: "",
-                                  fontcolor: Colors.black,textdirectionright: false),
+                              child: Text("회원 탈퇴 시 고객님의 정보는 1년간 전자상거래 소비자 보호에 관한 법률에 의거한 고객 정보 보호정책에 따라 관리됩니다.")
                             ),
                           ],
                         ),
@@ -81,11 +77,7 @@ class _UserJoinOutState extends State<UserJoinOut> {
                                 fontbold: "bold",
                                 fontcolor: Colors.black,textdirectionright: false),
                             Expanded(
-                              child: FontStyle(
-                                  text: "회원 탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가능하오니 신중하게 선택하시길 바랍니다.",
-                                  fontsize: "",
-                                  fontbold: "",
-                                  fontcolor: Colors.black,textdirectionright: false),
+                              child: Text("회원 탈퇴한 아이디는 본인과 타인 모두 재사용 및 복구가 불가능하오니 신중하게 선택하시길 바랍니다.")
                             ),
                           ],
                         ),

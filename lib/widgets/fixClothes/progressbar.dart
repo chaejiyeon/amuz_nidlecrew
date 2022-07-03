@@ -8,7 +8,7 @@ class ProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Container(
-      padding: EdgeInsets.only(top: 20, left: 25, bottom: 20, right: 20),
+      padding: EdgeInsets.only(top: 20, bottom: 20),
       child: SvgPicture.asset(
         "assets/icons/fixClothes/" + progressImg,
         width: 350,

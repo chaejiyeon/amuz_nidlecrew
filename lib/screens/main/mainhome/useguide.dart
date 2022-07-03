@@ -14,7 +14,7 @@ class UseGuide extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: UseAppBar(title: "이용 가이드",appbarcolor: "white", appbar: AppBar()),
+      appBar: UseAppBar(title: "이용 가이드",appbarcolor: "black", appbar: AppBar()),
       body: Container(
         color: Colors.white,
         child: Column(

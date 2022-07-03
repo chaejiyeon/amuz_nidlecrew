@@ -22,6 +22,8 @@ class PriceInfo extends StatefulWidget {
 class _PriceInfoState extends State<PriceInfo> {
   final scrollCotroller = ScrollController();
 
+  late Color color = Colors.transparent;
+
   @override
   void initState() {
     super.initState();
@@ -39,11 +41,20 @@ class _PriceInfoState extends State<PriceInfo> {
   void listenScrolling() {
     if (scrollCotroller.position.atEdge) {
       final isTop = scrollCotroller.position.pixels == 0;
-
+      setState((){
+        color = Colors.transparent;
+      });
       if (isTop) {
         print("start");
+      } else if (scrollCotroller.position.pixels >= 100) {
+        setState((){
+          color = Colors.white;
+        });
       } else {
         print("end");
+        setState((){
+          color = Colors.transparent;
+        });
       }
     }
   }
@@ -56,7 +67,7 @@ class _PriceInfoState extends State<PriceInfo> {
     return Scaffold(
       backgroundColor: Colors.white,
       extendBodyBehindAppBar: true,
-      appBar: UseAppBar(title: "이용 가이드", appbarcolor: "white", appbar: AppBar(),),
+      appBar: UseAppBar(title: "이용 가이드", appbarcolor: color == Colors.white ? "white" : "black", appbar: AppBar(),),
       body: ListView(
         padding: EdgeInsets.zero,
         controller: scrollCotroller,
@@ -112,7 +123,7 @@ class _PriceInfoState extends State<PriceInfo> {
           )),
         ],
       ),
-      floatingActionButton: InkWell(
+      floatingActionButton: GestureDetector(
         onTap: (){
           scrollCotroller.animateTo(0, duration: Duration(milliseconds: 1), curve: Curves.linear);
         },

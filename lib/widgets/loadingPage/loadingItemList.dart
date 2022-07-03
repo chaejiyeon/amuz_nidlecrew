@@ -19,22 +19,17 @@ class LoadingItem extends StatelessWidget {
           Container(height: 308, child: Image.asset(img)),
           Column(
             children: [
-              FontStyle(
-                  text: text1,
-                  fontsize: "lg",
-                  fontbold: "bold",
-                  fontcolor: Colors.black,
-                  textdirectionright: false),
-              FontStyle(
-                  text: text2,
-                  fontsize: "lg",
-                  fontbold: "bold",
-                  fontcolor: Colors.black,
-                  textdirectionright: false),
+              textCustom(text1),
+              textCustom(text2),
             ],
           ),
         ],
       ),
     );
+  }
+
+  // text 설정
+  Widget textCustom(String text){
+    return Text(text, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),);
   }
 }

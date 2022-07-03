@@ -33,28 +33,63 @@ class Header extends StatelessWidget {
 
 
   void bottomsheetOpen(BuildContext context) {
-      showFlexibleBottomSheet(
-        minHeight: 0,
-        initHeight: 0.9,
-        maxHeight: 0.9,
-        context: context,
-        bottomSheetColor: HexColor("#909090").withOpacity(0.2),
-        decoration: BoxDecoration(
-          color: HexColor("#f5f5f5"),
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-        ),
-        builder: (context, controller, offset) {
-          return FixSizeQuideSheet();
-        },
-      );
+
+    showStickyFlexibleBottomSheet(
+      minHeight: 0,
+      initHeight: 0.9,
+      maxHeight: 0.9,
+      context: context,
+      bottomSheetColor: HexColor("#fafafa").withOpacity(0.2),
+      decoration: BoxDecoration(
+        color: HexColor("#f7f7f7"),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(24), topRight: Radius.circular(39)),
+      ),
+      headerHeight: 59,
+      headerBuilder: (context, offset) {
+        return Container(
+            padding: EdgeInsets.only(top: 10),
+            alignment: Alignment.topCenter,
+            color: Colors.transparent,
+            height: 59,
+            child: Container(
+              height: 5,
+              width: 60,
+              decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(50)),
+            ));
+      },
+      bodyBuilder: (context, offset) {
+        return SliverChildListDelegate([
+          // Container()
+          FixSizeQuideSheet(),
+        ]);
+      },
+    );
   }
+  //     showFlexibleBottomSheet(
+  //       minHeight: 0,
+  //       initHeight: 0.9,
+  //       maxHeight: 0.9,
+  //       context: context,
+  //       bottomSheetColor: HexColor("#909090").withOpacity(0.2),
+  //       decoration: BoxDecoration(
+  //         color: HexColor("#f5f5f5"),
+  //         borderRadius: BorderRadius.only(
+  //             topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+  //       ),
+  //       builder: (context, controller, offset) {
+  //         return FixSizeQuideSheet();
+  //       },
+  //     );
+  // }
 
   @override
   Widget build(BuildContext context) {
 
     return Container(
-      padding: EdgeInsets.only(left: 24,right: 24, top: 20, bottom: bottomPadding),
+      padding: EdgeInsets.only(top: 20, bottom: bottomPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -66,7 +101,7 @@ class Header extends StatelessWidget {
                   fontsize: "lg",
                   fontbold: "bold",
                   fontcolor: Colors.black,textdirectionright: false),
-             question == true ?  InkWell(
+             question == true ?  GestureDetector(
                onTap: (){
                  btnText == "치수 측정 가이드" ?  bottomsheetOpen(context) :
                  Get.to(widget);
@@ -93,7 +128,6 @@ class Header extends StatelessWidget {
             height: 10,
           ),
           subtitle1 !="" ? SubtitleText(text: subtitle1) : Container(),
-          // subtitle2 !="" ? SubtitleText(text: subtitle2) : Container(),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:amuz_nidlecrew/bottomsheet/fixAddressBottomSheetHeader.dart';
 import 'package:amuz_nidlecrew/bottomsheet/fixMyAddressList.dart';
+import 'package:amuz_nidlecrew/getxController/fixClothes/cartController.dart';
 import 'package:amuz_nidlecrew/models/addressItem.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/takeFixdate.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:kpostal/kpostal.dart';
 
 import '../../../widgets/fixClothes/progressbar.dart';
 
@@ -21,10 +23,28 @@ class AddressInsert extends StatefulWidget {
 }
 
 class _AddressInsertState extends State<AddressInsert> {
+  final CartController controller = Get.put(CartController());
+
+  String postCode = '-';
+  String address = '-';
+  String latitude = '-';
+  String longitude = '-';
+  String kakaoLatitude = '-';
+  String kakaoLongitude = '-';
+
+  TextEditingController textEditingController = TextEditingController();
+
   List<AddressItem> addressitems = [
     AddressItem("assets/icons/myPage/mypageHome_1.svg", "우리집",
         "부산 강서구 명지국제3로 97 105동 221호")
   ];
+
+  @override
+  void initState(){
+    super.initState();
+    // controller.isSaved(false);
+  }
+
 
   // 주소 관리 bottomsheet
   void bottomsheetOpen(BuildContext context) {
@@ -102,7 +122,7 @@ class _AddressInsertState extends State<AddressInsert> {
                       padding: EdgeInsets.only(top: 50),
                       child: Column(
                         children: [
-                          insertTextfield("지번,도로명,건물명 검색"),
+                          searchAddress("지번,도로명,건물명 검색"),
                           insertTextfield("상세주소"),
                         ],
                       ),
@@ -121,22 +141,79 @@ class _AddressInsertState extends State<AddressInsert> {
   // address 입력 필드
   Widget insertTextfield(String hintTxt) {
     return Container(
-      padding: EdgeInsets.only(bottom: 10),
       child: TextField(
+        controller: textEditingController,
+        // onTap: address == "-"
+        //     ? () async {
+        //         await Get.to(KpostalView(
+        //           useLocalServer: true,
+        //           localPort: 1024,
+        //           // kakaoKey: '{Add your KAKAO DEVELOPERS JS KEY}',
+        //           callback: (Kpostal result) {
+        //             setState(() {
+        //               this.postCode = result.postCode;
+        //               this.address = result.address;
+        //               this.latitude = result.latitude.toString();
+        //               this.longitude = result.longitude.toString();
+        //               this.kakaoLatitude = result.kakaoLatitude.toString();
+        //               this.kakaoLongitude = result.kakaoLongitude.toString();
+        //             });
+        //           },
+        //         ));
+        //       }
+        //     : null,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
-            hintText: hintTxt,
-            hintStyle: TextStyle(color: HexColor("#909090")),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(40),
-                borderSide: BorderSide(
-                  color: HexColor("#909090"),
-                )),
-            enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(40),
-                borderSide: BorderSide(
-                  color: HexColor("#909090").withOpacity(0.5),
-                ))),
+          hintText: hintTxt,
+          hintStyle: TextStyle(color: HexColor("#909090")),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(40),
+              borderSide: BorderSide(
+                color: HexColor("#909090"),
+              )),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(40),
+            borderSide: BorderSide(
+              color: HexColor("#909090").withOpacity(0.5),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // 주소 검색
+  Widget searchAddress(String text) {
+    return GestureDetector(
+      onTap: () async {
+        await Get.to(KpostalView(
+          useLocalServer: true,
+          localPort: 1024,
+          // kakaoKey: '{Add your KAKAO DEVELOPERS JS KEY}',
+          callback: (Kpostal result) {
+            setState(() {
+              this.postCode = result.postCode;
+              this.address = result.address;
+              this.latitude = result.latitude.toString();
+              this.longitude = result.longitude.toString();
+              this.kakaoLatitude = result.kakaoLatitude.toString();
+              this.kakaoLongitude = result.kakaoLongitude.toString();
+            });
+          },
+        ));
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 10),
+        alignment: Alignment.center,
+        height: 64,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            border: Border.all(color: HexColor("#909090").withOpacity(0.5))),
+        child: Text(
+          postCode != "-" && address != "-" ? address : "지번, 도로명, 건물명 검색",
+          style: TextStyle(color: HexColor("#909090"), fontSize: 15),
+        ),
       ),
     );
   }
@@ -149,7 +226,7 @@ class _AddressInsertState extends State<AddressInsert> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          InkWell(
+          GestureDetector(
             onTap: () {
               bottomsheetOpen(context);
             },
@@ -182,13 +259,17 @@ class _AddressInsertState extends State<AddressInsert> {
           ),
 
           // 수거 희망일 페이지로이동
-          InkWell(
-            onTap: (){
-              Get.to(TakeFixDate());
+          GestureDetector(
+            onTap: () {
+              if(textEditingController.text.length > 0) {
+                controller.isAddress(address + " " + textEditingController.text);
+                // controller.registerAddress();
+                Get.to(TakeFixDate());
+              }
             },
             child: SvgPicture.asset(
               "assets/icons/floatingNext.svg",
-              color: HexColor("#d5d5d5"),
+              color: textEditingController.text.length > 0 ? HexColor("#fd9a03") : HexColor("#d5d5d5"),
             ),
           ),
         ],

@@ -26,6 +26,7 @@ class AddressInsertForm extends StatefulWidget {
 
 class _AddressInsertFormState extends State<AddressInsertForm> {
   final _textController = TextEditingController();
+  late String selectAddress = "";
 
   @override
   void initState() {
@@ -40,26 +41,32 @@ class _AddressInsertFormState extends State<AddressInsertForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          MypageAppBar(title: widget.appbarName, icon: "", widget: MainHome(), appbar: AppBar()),
-          SizedBox(
-            height: 30,
-          ),
-          CircleAddressSearch(widget.hinttext1),
-          CircleAddressSearch(widget.hinttext2),
-          Container(
-            padding: EdgeInsets.all(10),
-            child: Row(
-              children: [
-                Typecheck("mypageHome.svg", "우리집"),
-                Typecheck("mypageCompany.svg", "회사"),
-                Typecheck("mypageLocation.svg", "기타"),
-              ],
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: MypageAppBar(title: widget.appbarName, icon: "", widget: MainHome(), appbar: AppBar()),
+      body: Container(
+        padding: EdgeInsets.only(left: 24, right: 24),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 30,
             ),
-          )
-        ],
+            CircleAddressSearch(widget.hinttext1),
+            CircleAddressSearch(widget.hinttext2),
+            Container(
+              padding: EdgeInsets.only(top: 31),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Typecheck("mypageHome.svg", "우리집"),
+                  Typecheck("mypageCompany.svg", "회사"),
+                  Typecheck("mypageLocation.svg", "기타"),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -67,7 +74,7 @@ class _AddressInsertFormState extends State<AddressInsertForm> {
   // 주소 입력폼
   Widget CircleAddressSearch(String title) {
     return Container(
-      padding: EdgeInsets.only(right: 20, left: 20, bottom: 10),
+      padding: EdgeInsets.only(bottom: 10),
       child: TextField(
         controller: _textController,
         textAlign:
@@ -103,26 +110,31 @@ class _AddressInsertFormState extends State<AddressInsertForm> {
 
   // 주소 Type 버튼
   Widget Typecheck(String icon, String text) {
-    return InkWell(
+    return GestureDetector(
+      onTap: (){
+        setState((){
+          selectAddress = text;
+        });
+      },
       child: Column(
         children: [
-          SvgPicture.asset("assets/icons/myPage/" + icon),
+          SvgPicture.asset("assets/icons/myPage/" + icon, color: selectAddress == text ? HexColor("#fd9a03") : Colors.black,),
           SizedBox(
             height: 10,
           ),
           Container(
             alignment: Alignment.center,
+            width: MediaQuery.of(context).size.width / 3.7,
             height: 40,
-            width: 100,
             decoration: BoxDecoration(
-              border: Border.all(color: HexColor("#d5d5d5")),
+              border: Border.all(color: selectAddress == text ? HexColor("#fd9a03") : HexColor("#d5d5d5")),
               borderRadius: BorderRadius.circular(30),
             ),
             child: FontStyle(
                 text: text,
                 fontbold: "",
                 fontsize: "md",
-                fontcolor: Colors.black,textdirectionright: false),
+                fontcolor: selectAddress == text ? HexColor("#fd9a03") : Colors.black,textdirectionright: false),
           ),
         ],
       ),

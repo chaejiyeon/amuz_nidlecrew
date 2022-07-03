@@ -1,3 +1,4 @@
+import 'package:amuz_nidlecrew/getxController/fixClothes/cartController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ class CartDelBtnModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CartController controller = Get.put(CartController());
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
       child: Container(
@@ -58,7 +60,11 @@ class CartDelBtnModal extends StatelessWidget {
                           border: Border(
                             top: BorderSide(color: HexColor("#d5d5d5")),
                           )),
-                      child: TextButton(child: Text("삭제",style: TextStyle(color: Colors.black)), onPressed: () {}),
+                      child: TextButton(child: Text("삭제",style: TextStyle(color: Colors.black)), onPressed: () {
+                        controller.deleteCart();
+                        controller.getCart();
+                        Get.back();
+                      }),
                     ),
                   ),
                 ],

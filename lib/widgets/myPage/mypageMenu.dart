@@ -16,27 +16,20 @@ class MypageMenu extends StatelessWidget {
       : super(key: key);
   
   
-  // void logout(context){
-  //   int count = 0;
-  //   FlutterNaverLogin.logOut();
-  //   Navigator.popUntil(context, (route) {
-  //     return count++ == 3;
-  //   });
-  //   print("로그아웃");
-  // }
+
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         if(listTitle == "로그아웃"){
-          logOut();
+          Get.dialog(widget);
         }else{
           Get.to(widget);
         }
       },
       child: Container(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
+        padding: EdgeInsets.only(top: 15),
         child: Column(
           children: [
             Row(
@@ -50,18 +43,19 @@ class MypageMenu extends StatelessWidget {
                 SvgPicture.asset(
                   "assets/icons/nextIcon.svg",
                   color: HexColor("#909090"),
-                  height: 16,
+                  width: 7,
+                  height: 11,
                 ),
               ],
             ),
             SizedBox(
-              height: 16,
+              height: 14,
             ),
             listTitle != "로그아웃" && listTitle != "회원 탈퇴"
                 ? ListLine(
                     height: 1,
                     width: double.infinity,
-                    lineColor: HexColor("#d5d5d5"),
+                    lineColor: HexColor("#ededed"),
                     opacity: 1.0)
                 : Container(),
           ],

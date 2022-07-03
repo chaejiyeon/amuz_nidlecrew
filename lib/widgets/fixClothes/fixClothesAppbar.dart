@@ -29,7 +29,7 @@ class FixClothesAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Container(
             padding: EdgeInsets.all(10),
-            child: InkWell(
+            child: GestureDetector(
               onTap: (){
                 Get.to(MainPage(pageNum: 0));
               },
@@ -40,7 +40,7 @@ class FixClothesAppBar extends StatelessWidget implements PreferredSizeWidget {
             )),
         Container(
             padding: EdgeInsets.all(10),
-            child: InkWell(
+            child: GestureDetector(
               onTap: (){
                 Get.to(CartInfo());
               },
@@ -51,7 +51,7 @@ class FixClothesAppBar extends StatelessWidget implements PreferredSizeWidget {
             )),
         Container(
             padding: EdgeInsets.only(left: 10, right: 20),
-            child: InkWell(
+            child: GestureDetector(
               onTap: (){
                 Get.to(AlramInfo());
               },

@@ -2,19 +2,28 @@ import 'package:amuz_nidlecrew/widgets/cartInfo/fixtypeListItem.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/checkBtn.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
+import 'package:flutter_woocommerce_api/models/order.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
 
-class CartListItem extends StatefulWidget {
-  const CartListItem({Key? key}) : super(key: key);
+import '../../getxController/fixClothes/cartController.dart';
 
-  @override
-  State<CartListItem> createState() => _CartListItemState();
-}
+class CartListItem extends GetView<CartController> {
+  final int index;
+  final List<LineItems> lineItem;
 
-class _CartListItemState extends State<CartListItem> {
+  const CartListItem({Key? key, required this.lineItem, required this.index}) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    print("lineitem this" + lineItem.first.productId.toString());
+    print("this status     ddd " + controller.orders[index].status.toString());
+
+    return controller.orders[index].status != 'pending' ? Container() : Container(
+      margin: EdgeInsets.only(bottom: 18),
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -23,13 +32,26 @@ class _CartListItemState extends State<CartListItem> {
       ),
       child: Column(
         children: [
+          // FutureBuilder(
+          //     future: getCategory(),
+          //     builder: (context, snapshot) {
+          //       if (snapshot.connectionState == ConnectionState.done) {
+          //         return Container(
+          //           child: Text(product.slug.toString()),
+          //         );
+          //       } else {
+          //         return Center(
+          //           child: CircularProgressIndicator(),
+          //         );
+          //       }
+          //     }),
           Container(
             padding: EdgeInsets.only(top: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CheckBtn(list: "일반바지", bottomPadding: 0,textBold: "bold"),
-                InkWell(
+                RadioBtn(list: "일반바지", bottomPadding: 0, textBold: "bold"),
+                GestureDetector(
                   child: Container(
                     height: 30,
                     padding: EdgeInsets.only(left: 13, right: 13),
@@ -40,7 +62,10 @@ class _CartListItemState extends State<CartListItem> {
                         border: Border.all(
                           color: HexColor("#fd9a03"),
                         )),
-                    child: Text("추가 수선하기", style: TextStyle(color: HexColor("#fd9a03")),),
+                    child: Text(
+                      "추가 수선하기",
+                      style: TextStyle(color: HexColor("#fd9a03")),
+                    ),
                   ),
                 ),
               ],
@@ -54,11 +79,9 @@ class _CartListItemState extends State<CartListItem> {
               width: double.infinity,
               lineColor: HexColor("#909090"),
               opacity: 0.2),
-          Column(
-            children: [
-              FixTypeListItem(),
-            ],
-          ),
+
+          // 슬러그 별 구별 해야함 20220602(목)
+          FixTypeListItem(lineItem: lineItem,index: index),
         ],
       ),
     );

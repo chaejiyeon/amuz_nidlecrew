@@ -23,7 +23,7 @@ class _MySizeInfoState extends State<MySizeInfo> {
           title: "내 치수", icon: "", widget: MainHome(), appbar: AppBar()),
       body: Container(
         color: Colors.white,
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.only(left: 24, right: 24),
         child: Column(
           children: [
             MypageMenu(listTitle: "상의", widget: MysizeShirt()),

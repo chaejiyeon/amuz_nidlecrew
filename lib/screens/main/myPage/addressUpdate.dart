@@ -12,6 +12,7 @@ class AddressUpdate extends StatelessWidget {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: AddressInsertForm(appbarName: "주소 수정", addressSearch: false, hinttext1: "부산 사상구 모라동 22", hinttext2: "1306호"),
 
         bottomNavigationBar:  Container(

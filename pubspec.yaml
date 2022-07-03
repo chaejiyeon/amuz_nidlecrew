@@ -67,21 +67,22 @@ dependencies:
 #  kakao_login
   kakao_flutter_sdk: ^1.1.1
   dio: ^4.0.6
-  json_annotation: ^4.5.0
+  json_annotation: ^4.4.0
   shared_preferences: ^2.0.13
   platform: ^3.1.0
   packages_info: ^0.0.1-dev.1
 #  apple_login
   sign_in_with_apple: ^3.3.0
 # naver_login
-  flutter_naver_login: ^1.4.0
+  flutter_naver_login: ^1.6.0
 #  google_login
   google_sign_in: ^5.3.1
   #  provider
   provider: ^6.0.2
 
 #  flutter_woocommerce
-  flutter_woocommerce_api: ^0.0.1
+  flutter_woocommerce_api:
+    path : ../flutter_woocommerce_api
 
 # get Image
   image_picker: ^0.8.5+3
@@ -89,6 +90,20 @@ dependencies:
 # tooltip
   just_the_tooltip: ^0.0.11+2
 
+#  주소 검색
+  kpostal: ^0.4.2
+
+# 아임포트 결제
+  iamport_flutter: ^0.10.1+3
+
+#  채널톡
+  channel_talk_flutter: ^2.3.1
+
+# image compress
+  flutter_image_compress: ^1.1.0
+
+# user token 저장
+  flutter_secure_storage: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -122,6 +137,7 @@ flutter:
     - assets/icons/main/
     - assets/images/
     - assets/images/useguide/
+    - assets/images/useguide/guideImage/
     - assets/images/fixClothes/
     - assets/images/takeFix/
     - assets/images/startPage/

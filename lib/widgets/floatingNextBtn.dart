@@ -13,8 +13,9 @@ class FloatingNextBtn extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
+      padding: EdgeInsets.zero,
       alignment: Alignment.bottomRight,
-      child: InkWell(
+      child: GestureDetector(
         onTap: (){
           if(ischecked == true){
             Get.to(page);

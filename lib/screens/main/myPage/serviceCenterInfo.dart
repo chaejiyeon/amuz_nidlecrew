@@ -5,6 +5,7 @@ import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/myPage/mypageMenu.dart';
 import 'package:amuz_nidlecrew/widgets/myPage/userInfoMenu.dart';
+import 'package:channel_talk_flutter/channel_talk_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,11 +20,30 @@ class ServiceCenterInfo extends StatefulWidget {
 }
 
 class _ServiceCenterInfoState extends State<ServiceCenterInfo> {
+
+  void channelTalkOpen() async {
+    await ChannelTalk.boot(
+      pluginKey: 'pluginKey',
+      memberId: 'memberId',
+      email: 'delay@amuz.co.kr',
+      name: 'name',
+      memberHash: 'memberHash',
+      mobileNumber: 'mobileNumber',
+      trackDefaultEvent: false,
+      hidePopup: false,
+      language: 'english',
+    );
+
+    await ChannelTalk.showMessenger();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MypageAppBar(title: "고객센터", icon: "", widget: MainHome(),appbar: AppBar()),
       body: Container(
+          color: Colors.white,
           child: Column(
             children: [
               Container(
@@ -39,10 +59,11 @@ class _ServiceCenterInfoState extends State<ServiceCenterInfo> {
           ),
         ),
       bottomNavigationBar: Container(
+        color: Colors.white,
         height: 150,
         child: Column(
           children: [
-            InkWell(child: Container(
+            GestureDetector(child: Container(
               width: 130,
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -75,9 +96,13 @@ class _ServiceCenterInfoState extends State<ServiceCenterInfo> {
 
   // list menu
   Widget listMenu(String listTitle, bool isLine, Widget widget){
-    return InkWell(
+    return GestureDetector(
       onTap: () {
-        Get.to(widget);
+        if(listTitle == "1:1 문의하기"){
+          channelTalkOpen();
+        }else{
+          Get.to(widget);
+        }
       },
       child: Container(
         padding: EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),

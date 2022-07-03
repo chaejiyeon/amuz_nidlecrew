@@ -4,92 +4,151 @@ import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_woocommerce_api/models/order.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:intl/intl.dart';
 
-class FixTypeRegisterListItem extends StatefulWidget {
-  const FixTypeRegisterListItem({Key? key}) : super(key: key);
+import '../../getxController/fixClothes/cartController.dart';
 
-  @override
-  State<FixTypeRegisterListItem> createState() =>
-      _FixTypeRegisterListItemState();
+List<String> images = [
+  "sample_2.jpeg",
+  "sample_2.jpeg",
+  "sample_3.jpeg",
+];
+
+bool ischecked = false;
+
+// 단위 변환
+String setPrice(int price) {
+  String setPrice = NumberFormat('###,###,###').format(price);
+  return setPrice;
 }
 
-class _FixTypeRegisterListItemState extends State<FixTypeRegisterListItem> {
-  List<String> images = [
-    "sample_2.jpeg",
-    "sample_2.jpeg",
-    "sample_3.jpeg",
-  ];
-  bool ischecked = false;
+class FixTypeRegisterListItem extends GetView<CartController> {
+  const FixTypeRegisterListItem(
+      {Key? key, required this.item, required this.index})
+      : super(key: key);
+
+  final int index;
+  final LineItems item;
+
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // image slide
-          Container(
-              height: 150,
-              child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: List.generate(
-                      images.length, (index) => ImageItem(images[index])))),
-          SizedBox(
-            height: 10,
-          ),
+    return FutureBuilder(
+        future: controller.getOrder(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // image slide
+                  Container(
+                      height: 150,
+                      child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: List.generate(images.length,
+                              (index) => ImageItem(images[index])))),
+                  SizedBox(
+                    height: 10,
+                  ),
 
-          // detail info
-          FontStyle(
-              text: "기장 수선-총 기장 줄임",
-              fontsize: "md",
-              fontbold: "bold",
-              fontcolor: Colors.black,
-              textdirectionright: false),
-          SizedBox(
-            height: 10,
-          ),
-          detailInfo("의뢰 방법", "줄이고 싶은 만큼 치수 입력"),
-          detailInfo("치수", "101.5cm"),
-          detailInfo("추가 설명", "시접 여유분 충분히 남겨주세요."),
-          Container(
-            padding: EdgeInsets.only(top: 10, bottom: 10),
-            child: ListLine(
-                height: 2,
-                width: double.infinity,
-                lineColor: HexColor("#909090"),
-                opacity: 0.2),
-          ),
-          priceInfo("의뢰 예상 비용", "5,000", true, false),
-          priceInfo("배송 비용", "6,000", true, false),
-          SizedBox(
-            height: 10,
-          ),
-        ],
-      ),
-    );
-  }
-
-  // checkBox custom
-  Widget checkBox() {
-    return Checkbox(
-      value: ischecked,
-      onChanged: (value) {
-        setState(() {
-          ischecked = value!;
+                  // detail info
+                  FontStyle(
+                      text: "기장 수선 - " + item.name.toString(),
+                      fontsize: "md",
+                      fontbold: "bold",
+                      fontcolor: Colors.black,
+                      textdirectionright: false),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  detailInfo("의뢰 방법", "줄이고 싶은 만큼 치수 입력"),
+                  detailInfo("치수", "101.5cm"),
+                  detailInfo("추가 설명", "시접 여유분 충분히 남겨주세요."),
+                  Container(
+                    padding: EdgeInsets.only(top: 10, bottom: 10),
+                    child: ListLine(
+                        height: 2,
+                        width: double.infinity,
+                        lineColor: HexColor("#909090"),
+                        opacity: 0.2),
+                  ),
+                  priceInfo("의뢰 예상 비용", setPrice(int.parse(item.price!)), true,
+                      false),
+                  priceInfo("배송 비용", "6,000", true, false),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
         });
-      },
-      side: BorderSide(
-        color: HexColor("#d5d5d5"),
-      ),
-      activeColor: HexColor("#fd9a03"),
-    );
+
+    // return Obx(() {
+    //   if (controller.isInitialized.value) {
+    //     return Container(
+    //       child: Column(
+    //         crossAxisAlignment: CrossAxisAlignment.start,
+    //         children: [
+    //           // image slide
+    //           Container(
+    //               height: 150,
+    //               child: ListView(
+    //                   scrollDirection: Axis.horizontal,
+    //                   children: List.generate(
+    //                       images.length, (index) => ImageItem(images[index])))),
+    //           SizedBox(
+    //             height: 10,
+    //           ),
+    //
+    //           // detail info
+    //           FontStyle(
+    //               text: "기장 수선 - " + widget.item.name.toString(),
+    //               fontsize: "md",
+    //               fontbold: "bold",
+    //               fontcolor: Colors.black,
+    //               textdirectionright: false),
+    //           SizedBox(
+    //             height: 10,
+    //           ),
+    //           detailInfo("의뢰 방법", "줄이고 싶은 만큼 치수 입력"),
+    //           detailInfo("치수", "101.5cm"),
+    //           detailInfo("추가 설명", "시접 여유분 충분히 남겨주세요."),
+    //           Container(
+    //             padding: EdgeInsets.only(top: 10, bottom: 10),
+    //             child: ListLine(
+    //                 height: 2,
+    //                 width: double.infinity,
+    //                 lineColor: HexColor("#909090"),
+    //                 opacity: 0.2),
+    //           ),
+    //           priceInfo(
+    //               "의뢰 예상 비용", setPrice(int.parse(widget.item.price!)), true,
+    //               false),
+    //           priceInfo("배송 비용", "6,000", true, false),
+    //           SizedBox(
+    //             height: 10,
+    //           ),
+    //         ],
+    //       ),
+    //     );
+    //   } else {
+    //     return Center(child: CircularProgressIndicator(),);
+    //   }
+    // });
   }
 
   // slider Image Item
   Widget ImageItem(String image) {
-    return InkWell(
+    return GestureDetector(
       child: Container(
         padding: EdgeInsets.all(10),
         width: 150,
@@ -134,7 +193,7 @@ class _FixTypeRegisterListItemState extends State<FixTypeRegisterListItem> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          InkWell(
+          GestureDetector(
             child: Row(
               children: [
                 FontStyle(
@@ -180,7 +239,7 @@ class _FixTypeRegisterListItemState extends State<FixTypeRegisterListItem> {
 
   // 삭제 / 수정 버튼
   Widget fixBtn(String text, Widget widget) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         text == "삭제" ? Get.dialog(widget) : Get.to(widget);
       },

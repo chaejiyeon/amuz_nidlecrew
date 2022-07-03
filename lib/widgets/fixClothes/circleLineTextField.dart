@@ -9,6 +9,7 @@ class CircleLineTextField extends StatefulWidget {
   final double borderRadius;
   final Color borderSideColor;
   final bool widthOpacity;
+  final TextEditingController controller;
 
   const CircleLineTextField({Key? key,
     required this.maxLines,
@@ -16,7 +17,8 @@ class CircleLineTextField extends StatefulWidget {
     required this.hintTextColor,
     required this.borderRadius,
     required this.borderSideColor,
-    required this.widthOpacity
+    required this.widthOpacity,
+    required this.controller
   }) : super(key: key);
 
   @override
@@ -29,11 +31,12 @@ class _CircleLineTextFieldState extends State<CircleLineTextField> {
   Widget build(BuildContext context) {
     return Container(
       child: TextField(
+        controller: widget.controller,
         maxLines: widget.maxLines,
         decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: TextStyle(
-                color: widget.widthOpacity == true ? widget.hintTextColor.withOpacity(0.7) : widget.hintTextColor),
+                color: widget.widthOpacity == true ? widget.hintTextColor.withOpacity(0.7) : widget.hintTextColor, fontSize: 14),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius),
             ),

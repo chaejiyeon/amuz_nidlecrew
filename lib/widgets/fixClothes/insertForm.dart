@@ -22,6 +22,7 @@ class InsertForm extends StatefulWidget {
 
 class _InsertFormState extends State<InsertForm> {
   int maxLines = 10;
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +73,7 @@ class _InsertFormState extends State<InsertForm> {
                   ),
                   Expanded(
                     child: CircleLineTextField(
+                        controller: controller,
                         maxLines: maxLines,
                         hintText: widget.hintText,
                         hintTextColor: HexColor("#909090"),

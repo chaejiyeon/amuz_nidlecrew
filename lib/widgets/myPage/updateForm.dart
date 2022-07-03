@@ -1,8 +1,10 @@
+import 'package:amuz_nidlecrew/getxController/homeController.dart';
 import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
 import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class UpdateForm extends StatefulWidget {
@@ -10,14 +12,15 @@ class UpdateForm extends StatefulWidget {
   final String updateType;
   final String hintText;
 
-  const UpdateForm({Key? key, required this.appbarName, required this.updateType, required this.hintText}) : super(key: key);
+  const UpdateForm({Key? key, required this.appbarName, required this.updateType, required this.hintText,}) : super(key: key);
 
   @override
   State<UpdateForm> createState() => _UpdateFormState();
 }
 
 class _UpdateFormState extends State<UpdateForm> {
-  final _textController = TextEditingController();
+  final HomeController controller = Get.put(HomeController());
+
 
   @override
   void initState() {
@@ -27,13 +30,14 @@ class _UpdateFormState extends State<UpdateForm> {
   @override
   void dispose() {
     super.dispose();
-    _textController.dispose();
+    // _textController.dispose();
   }
 
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Colors.white,
       child: Column(
         children: [
           MypageAppBar(title: widget.appbarName, icon: "", widget: MainHome(), appbar: AppBar()),
@@ -50,14 +54,14 @@ class _UpdateFormState extends State<UpdateForm> {
                 SizedBox(
                   height: 10,
                 ),
-                TextField(
-                  controller: _textController,
+                TextFormField(
+                  controller: controller.textController,
                   style: TextStyle(height: 1),
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
                         icon: Icon(CupertinoIcons.xmark_circle_fill),
                         onPressed: () {
-                          _textController.clear();
+                          controller.textController.clear();
                         },
                       ),
                       hintText: widget.hintText,

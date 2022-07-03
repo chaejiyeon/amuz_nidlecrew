@@ -48,9 +48,9 @@ class _RadioBtnState extends State<CircleCheckBtn> {
           ),
           SizedBox(width: 7,),
           Expanded(
-            child: InkWell(
+            child: GestureDetector(
               onTap: (){
-                Get.to(widget.listInfo);
+                // Get.to(widget.listInfo);
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

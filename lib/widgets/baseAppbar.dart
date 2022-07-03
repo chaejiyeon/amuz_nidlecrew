@@ -16,7 +16,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
         onPressed: () {
           Get.back();
         },
-        icon: InkWell(child: SvgPicture.asset("assets/icons/prevIcon.svg", height: 19, width: 12,),),
+        icon: GestureDetector(child: SvgPicture.asset("assets/icons/prevIcon.svg", height: 19, width: 12,),),
       ),
       backgroundColor: Colors.transparent,
       brightness: Brightness.light,

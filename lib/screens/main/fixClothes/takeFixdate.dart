@@ -9,6 +9,8 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../getxController/fixClothes/cartController.dart';
+
 class TakeFixDate extends StatefulWidget {
   const TakeFixDate({Key? key}) : super(key: key);
 
@@ -17,15 +19,28 @@ class TakeFixDate extends StatefulWidget {
 }
 
 class _TakeFixDateState extends State<TakeFixDate> {
+  final CartController controller = Get.put(CartController());
+
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   int nowYear = DateTime.now().year;
 
   @override
+  void initState(){
+    super.initState();
+  }
+
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     initializeDateFormatting(Localizations.localeOf(context).languageCode);
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
   }
 
   @override
@@ -155,9 +170,10 @@ class _TakeFixDateState extends State<TakeFixDate> {
                   textdirectionright: false)
             ],
           ),
-          InkWell(
+          GestureDetector(
             onTap: (){
               Get.to(TakeFixInfo());
+              controller.fixDate(selectMonth, selectDay);
             },
             child: SvgPicture.asset("assets/icons/floatingNext.svg"),
           ),

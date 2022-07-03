@@ -29,7 +29,7 @@ import 'screens/main/myPage/payType.dart';
 
 void main() {
   SharedPreferences.setMockInitialValues({});
-  KakaoSdk.init(nativeAppKey: '4d9c4d62aa20a9e3dd6baffac8b0aa19', loggingEnabled: true);
+  KakaoSdk.init(nativeAppKey: 'e30822d334ce26f168c65295d55a25b0', loggingEnabled: true);
 
   wp_api.wooCommerceApi = FlutterWooCommerceApi(
     baseUrl: 'https://needlecrew.com',

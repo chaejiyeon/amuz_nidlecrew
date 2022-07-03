@@ -73,7 +73,7 @@ class _AddressInsertState extends State<AddressInsert> {
 
   // 주소 Type 버튼
   Widget Typecheck(String icon, String text) {
-    return InkWell(
+    return GestureDetector(
       child: Column(
         children: [
           SvgPicture.asset("assets/icons/myPage/" + icon),

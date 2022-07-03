@@ -17,7 +17,7 @@ class AppbarItem extends StatefulWidget {
 class _AppbarItemState extends State<AppbarItem> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
         onTap: () {
           Get.to(widget.widget);
         },

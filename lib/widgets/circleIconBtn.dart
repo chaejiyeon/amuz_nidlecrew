@@ -36,10 +36,11 @@ class _CircleIconBtnState extends State<CircleIconBtn> {
       final GoogleSignInAuthentication googleAuth =
           await googleUser!.authentication;
 
+
       await _googleSignIn;
 
-      joinUs('${googleUser.displayName}', '${googleUser.email}',
-          '${googleUser.id}');
+      socialLogin('${googleUser.displayName}', '${googleUser.email}',
+          '${googleUser.id}', '');
 
 
     } catch (error) {
@@ -59,16 +60,21 @@ class _CircleIconBtnState extends State<CircleIconBtn> {
         redirectUri: Uri.parse('https://needlecrew.com'),
       ),
     );
+
+
     onSignIn(credential);
-    joinUs('${credential.familyName}' + '${credential.givenName}',
-        '${credential.email}', '${credential.identityToken}');
+    socialLogin('${credential.familyName}' + '${credential.givenName}',
+        '${credential.email}', '${credential.identityToken}', '');
   }
 
   // naver 로그인
   void naverLogin() async {
     try {
       NaverLoginResult res = await FlutterNaverLogin.logIn();
-      joinUs(res.account.name, res.account.email, res.account.id);
+
+      NaverAccountResult accountResult = await FlutterNaverLogin.currentAccount();
+
+      socialLogin(res.account.name, res.account.email, res.account.id, accountResult.mobile);
       print(res.account.name + '네이버 로그인 성공');
     } catch (error) {
       print("네이버 로그인 실패 isError $error");
@@ -83,8 +89,8 @@ class _CircleIconBtnState extends State<CircleIconBtn> {
         OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
         User user = await UserApi.instance.me();
 
-        joinUs('${user.kakaoAccount?.name}', '${user.kakaoAccount?.email}',
-            '${user.id}');
+        socialLogin('${user.kakaoAccount?.name}', '${user.kakaoAccount?.email}',
+            '${user.id}', '${user.kakaoAccount?.phoneNumber}');
         print('카카오톡 로그인 성공 ${token.accessToken}');
       } catch (error) {
         print('카카오톡 로그인 실패 $error');
@@ -118,7 +124,7 @@ class _CircleIconBtnState extends State<CircleIconBtn> {
     return Container(
       width: 38,
       height: 38,
-      child: InkWell(
+      child: GestureDetector(
         onTap: () {
           try {
             if (widget.loginwith == "kakao") {

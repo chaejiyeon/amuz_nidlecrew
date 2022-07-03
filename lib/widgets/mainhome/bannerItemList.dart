@@ -1,5 +1,8 @@
 import 'package:amuz_nidlecrew/screens/main/alramInfo.dart';
 import 'package:amuz_nidlecrew/screens/main/cartInfo.dart';
+import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
+import 'package:amuz_nidlecrew/screens/main/fixClothes/chooseClothes.dart';
+import 'package:amuz_nidlecrew/widgets/fixClothes/startAddressChoose.dart';
 import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
 import 'package:amuz_nidlecrew/screens/main/mainhome/priceInfo.dart';
 import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
@@ -74,7 +77,7 @@ class BannerItem extends StatelessWidget {
                     fontsize: "",
                     btnIcon: "nextIcon.svg",
                     btnColor: Colors.transparent,
-                    widgetName: MainHome(),
+                    widgetName: FixClothes(),
                     fontboxheight: "",
                     iswidget: true,
                   ),
@@ -89,7 +92,7 @@ class BannerItem extends StatelessWidget {
 
   // appbarIcon
   Widget appbarItem(String icon, Widget getTo) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Get.to(getTo);
       },

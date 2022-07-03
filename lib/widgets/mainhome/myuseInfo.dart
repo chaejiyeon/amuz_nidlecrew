@@ -1,3 +1,5 @@
+import 'package:amuz_nidlecrew/getxController/fixClothes/cartController.dart';
+import 'package:amuz_nidlecrew/getxController/useInfo/useInfoController.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
 import 'package:amuz_nidlecrew/screens/main/useInfo.dart';
 import 'package:amuz_nidlecrew/screens/mainPage.dart';
@@ -14,9 +16,14 @@ class MyUseInfo extends StatefulWidget {
 }
 
 class _MyUseInfoState extends State<MyUseInfo> {
+  final UseInfoController useInfoController = Get.put(UseInfoController());
+  final CartController cartController = Get.put(CartController());
+
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+
+    return Container( 
       padding: EdgeInsets.only(left: 24,right: 24, top: 25, bottom: 53),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,9 +37,9 @@ class _MyUseInfoState extends State<MyUseInfo> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              iconInfo("assets/icons/main/writeIcon.svg", 0, "작성 중", "/fixClothes"),
-              iconInfo("assets/icons/main/chartIcon.svg", 0, "진행 중", "/useInfoReady"),
-              iconInfo("assets/icons/main/clothesIcon.svg", 4, "수선 완료", "/useInfoComplete"),
+              iconInfo("assets/icons/main/writeIcon.svg", cartController.cartCount.value, "작성 중", "/fixClothes"),
+              iconInfo("assets/icons/main/chartIcon.svg", useInfoController.readyCount.value, "진행 중", "/useInfoReady"),
+              iconInfo("assets/icons/main/clothesIcon.svg", useInfoController.completeCount.value, "수선 완료", "/useInfoComplete"),
             ],
           ),
         ],
@@ -43,7 +50,7 @@ class _MyUseInfoState extends State<MyUseInfo> {
 
   // 이용 내역 아이콘 버튼
   Widget iconInfo(String img, int count, String comment, String widget){
-    return InkWell(
+    return GestureDetector(
       onTap: (){
         Get.toNamed(widget);
       },

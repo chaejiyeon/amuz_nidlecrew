@@ -1,3 +1,4 @@
+import 'package:amuz_nidlecrew/getxController/useInfo/useInfoController.dart';
 import 'package:amuz_nidlecrew/widgets/useinfo/useAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/useinfo/userInfoList.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 class UseInfo extends StatefulWidget {
   final int pageNum;
+
   const UseInfo({Key? key, required this.pageNum}) : super(key: key);
 
   @override
@@ -14,32 +16,37 @@ class UseInfo extends StatefulWidget {
 }
 
 class _UseInfoState extends State<UseInfo> with TickerProviderStateMixin {
+  final UseInfoController controller = Get.put(UseInfoController());
+
   List<String> img = [
     "assets/images/guideImage_3.png",
     "assets/images/useInfoImage_2.png",
     "assets/images/useInfoImage_3.png"
   ];
   late TabController _tabController = TabController(length: 3, vsync: this);
+
   int tabIndex = 0;
   int initTab = 0;
 
   @override
   void initState() {
     super.initState();
-  print("pageNum " + widget.pageNum.toString());
+    print("pageNum " + widget.pageNum.toString());
 
-    if(widget.pageNum >= 0){
-      setState((){
+    if (widget.pageNum >= 0) {
+      setState(() {
         tabIndex = widget.pageNum;
       });
     }
-    _tabController = TabController(length: 3, vsync: this, initialIndex: tabIndex);
+    _tabController =
+        TabController(length: 3, vsync: this, initialIndex: tabIndex);
     _tabController.addListener(() {
       setState(() {
-          tabIndex = _tabController.index;
+        tabIndex = _tabController.index;
       });
     });
 
+    controller.getCompleteOrder();
 
   }
 
@@ -52,10 +59,12 @@ class _UseInfoState extends State<UseInfo> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     print("imgindex : $tabIndex");
+
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar:
-          UseAppBar(title: "나의 이용내역", appbarcolor: "white", appbar: AppBar()),
+          UseAppBar(title: "나의 이용내역", appbarcolor: "black", appbar: AppBar()),
       body: Column(
         children: [
           Stack(
@@ -102,15 +111,17 @@ class _UseInfoState extends State<UseInfo> with TickerProviderStateMixin {
                           ],
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                        iconWrap("수선 대기"),
-                        iconWrap("수선 진행중"),
-                        iconWrap("수선 완료"),
-                      ],),
-
+                          iconWrap("수선 대기"),
+                          iconWrap("수선 진행중"),
+                          iconWrap("수선 완료"),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -196,15 +207,32 @@ class _UseInfoState extends State<UseInfo> with TickerProviderStateMixin {
           // tab별 화면
           Expanded(
             child: Container(
-              color: Colors.white,
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  UserInfoList(fixState: "ready"),
-                  UserInfoList(fixState: "progress"),
-                  UserInfoList(fixState: "complete"),
-                ],
-              ),
+                color: Colors.white,
+                child:
+                     TabBarView(
+                      controller: _tabController,
+                      children: [
+                        UseInfoList(fixState: "ready"),
+                        UseInfoList(fixState: "progress"),
+                        UseInfoList(fixState: "complete"),
+                      ],
+                    ),
+                // Obx(() {
+                //   if (controller.isInitialized.value) {
+                //     return TabBarView(
+                //       controller: _tabController,
+                //       children: [
+                //         UseInfoList(fixState: "ready"),
+                //         UseInfoList(fixState: "progress"),
+                //         UseInfoList(fixState: "complete"),
+                //       ],
+                //     );
+                //   } else {
+                //     return Center(
+                //       child: CircularProgressIndicator(),
+                //     );
+                //   }
+                // }),
             ),
           ),
         ],
@@ -240,11 +268,17 @@ class _UseInfoState extends State<UseInfo> with TickerProviderStateMixin {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                "0",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
+              Obx(
+                () => Text(
+                  content == "수선 대기"
+                      ? controller.readyCount.value.toString()
+                      : content == "수선 진행중"
+                          ? controller.progressCount.value.toString()
+                          : controller.completeCount.value .toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
                 ),
               ),
               SizedBox(

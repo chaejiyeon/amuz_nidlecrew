@@ -18,7 +18,7 @@ class GuideItemList extends StatelessWidget {
       child: Stack(
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             child: Container(
               width: double.infinity,
               child: Image.asset(
@@ -30,7 +30,7 @@ class GuideItemList extends StatelessWidget {
           ),
           Align(
             alignment: Alignment.bottomLeft,
-            child: InkWell(
+            child: GestureDetector(
               onTap: (){
                 Get.to(items.widget);
               },

@@ -1,3 +1,4 @@
+import 'package:amuz_nidlecrew/getxController/fixClothes/CartController.dart';
 import 'package:amuz_nidlecrew/modal/addressIsHomeModal.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/imageUpload.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
@@ -40,6 +41,8 @@ class _AddressInfoState extends State<AddressInfo> {
               return AddressIsHomeModal();
             });
       });
+
+
     }
   }
 
@@ -50,6 +53,7 @@ class _AddressInfoState extends State<AddressInfo> {
         appbar: AppBar(),
       ),
       body: Container(
+        padding: EdgeInsets.only(left: 24, right: 24),
         color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +62,7 @@ class _AddressInfoState extends State<AddressInfo> {
             ProgressBar(progressImg: "fixProgressbar.svg"),
 
             Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.only(bottom: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -71,14 +75,13 @@ class _AddressInfoState extends State<AddressInfo> {
                   SizedBox(
                     height: 10,
                   ),
-                  SubtitleText(text: "쇼핑몰에서 보내실 때 아래의 주소로"),
-                  SubtitleText(text: "보내주세요!"),
+                  SubtitleText(text: "쇼핑몰에서 보내실 때 아래의 주소로 보내주세요!"),
                 ],
               ),
             ),
 
             Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.only(bottom: 20),
               child: Column(
                 children: [
                   Container(
@@ -93,7 +96,7 @@ class _AddressInfoState extends State<AddressInfo> {
                   SizedBox(
                     height: 10,
                   ),
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       Get.snackbar("주소 복사", "주소가 복사되었습니다!");
                       setState(() {
@@ -124,7 +127,6 @@ class _AddressInfoState extends State<AddressInfo> {
             ),
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(left: 20, right: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -137,8 +139,7 @@ class _AddressInfoState extends State<AddressInfo> {
                     SizedBox(
                       height: 10,
                     ),
-                    SubtitleText(text: "결제 완료 후, 제품명과 옵션사항(컬러,사이즈 등)"),
-                    SubtitleText(text: "내역이 정확히 보이도록 캡쳐해 올려주세요."),
+                    SubtitleText(text: "결제 완료 후, 제품명과 옵션사항(컬러,사이즈 등) 내역이 정확히 보이도록 캡쳐해 올려주세요."),
                     SizedBox(
                       height: 20,
                     ),

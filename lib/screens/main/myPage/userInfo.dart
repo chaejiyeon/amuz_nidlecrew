@@ -1,3 +1,4 @@
+import 'package:amuz_nidlecrew/getxController/homeController.dart';
 import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
 import 'package:amuz_nidlecrew/screens/main/myPage/userUpdate.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
@@ -6,6 +7,7 @@ import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/myPage/userInfoMenu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class UserInfo extends StatefulWidget {
@@ -16,23 +18,56 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
+  final HomeController controller = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MypageAppBar(title: "회원 정보", icon: "updateIcon.svg", widget: UserUpdate(),appbar: AppBar()),
+      appBar: MypageAppBar(
+          title: "회원 정보",
+          icon: "updateIcon.svg",
+          widget: UserUpdate(),
+          appbar: AppBar()),
       body: SafeArea(
-        child: Container(
-                padding: EdgeInsets.all(30),
-                color: Colors.white,
-                child: Column(
-                  children: [
-                    UserInfoMenu(appTitle: "회원 정보",title: "이름",info: "신응수",info2: "",line: true),
-                    UserInfoMenu(appTitle: "회원 정보",title: "전화번호",info: "010-1234-5678",info2: "",line: true),
-                    UserInfoMenu(appTitle: "회원 정보",title: "주소",info: "부산 강서구 명지동 3461-1" ,info2: "105동 2215호",line: true),
-                    UserInfoMenu(appTitle: "회원 정보",title: "결제 수단",info: "롯데카드(4892)",info2: "",line: false),
-                  ],
-                ),
+        child: Obx(() {
+          if (controller.isInitialized.value) {
+            return Container(
+              padding: EdgeInsets.all(30),
+              color: Colors.white,
+              child: Column(
+                children: [
+                  UserInfoMenu(
+                      appTitle: "회원 정보",
+                      title: "이름",
+                      info: controller.user.lastName.toString() +
+                          controller.user.firstName.toString(),
+                      line: true),
+                  UserInfoMenu(
+                      appTitle: "회원 정보",
+                      title: "전화번호",
+                      info: controller.user.phoneNum != null ? controller.user.phoneNum.toString() : "",
+                      line: true),
+                  UserInfoMenu(
+                      appTitle: "회원 정보",
+                      title: "주소",
+                      info: controller.user.defaultAddress != null
+                          ? controller.user.defaultAddress.toString()
+                          : "",
+                      line: true),
+                  UserInfoMenu(
+                      appTitle: "회원 정보",
+                      title: "결제 수단",
+                      info: "롯데카드(4892)",
+                      line: false),
+                ],
               ),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        }),
       ),
     );
   }

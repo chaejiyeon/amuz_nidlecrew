@@ -142,7 +142,7 @@ class FixInfoSheet extends StatelessWidget {
 
   // slider Image Item
   Widget ImageItem(String image) {
-    return InkWell(
+    return GestureDetector(
       child: Container(
         padding: EdgeInsets.all(10),
         width: 120,
@@ -222,7 +222,7 @@ class FixInfoSheet extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              InkWell(
+              GestureDetector(
                 child: Row(
                   children: [
                     FontStyle(
@@ -353,7 +353,7 @@ class FixInfoSheet extends StatelessWidget {
                       fontcolor: Colors.black,
                       textdirectionright: false),
                   title == "결제 정보" // 결제 정보일 경우 아이콘 표시
-                      ? InkWell(
+                      ? GestureDetector(
                           child: Row(
                             children: [
                               FontStyle(

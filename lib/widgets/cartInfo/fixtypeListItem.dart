@@ -5,23 +5,44 @@ import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_woocommerce_api/models/order.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../getxController/fixClothes/cartController.dart';
+
 class FixTypeListItem extends StatefulWidget {
-  const FixTypeListItem({Key? key}) : super(key: key);
+  final int index;
+  final List<LineItems> lineItem;
+
+  const FixTypeListItem({Key? key, required this.lineItem, required this.index}) : super(key: key);
 
   @override
   State<FixTypeListItem> createState() => _FixTypeListItemState();
 }
 
 class _FixTypeListItemState extends State<FixTypeListItem> {
+  final CartController controller = Get.put( CartController());
+
+
   List<String> images = [
-    "sample.jpeg",
+    "sample_2.jpeg",
     "sample_2.jpeg",
     "sample_3.jpeg",
   ];
   bool ischecked = false;
+
+
+  @override
+  void initState(){
+
+    for(int i=0; i<controller.orderid.length; i++){
+      if(controller.orderid[i] == controller.orders[widget.index].id){
+        setState((){ischecked = true;});
+      }
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +50,15 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          checkBox(),
+          Obx(() {
+            if (controller.isInitialized.value) {
+              return checkBox();
+            } else {
+              return Container(
+                  child: Center(child: CircularProgressIndicator()));
+            }
+          }),
+
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,10 +76,11 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
 
                 // detail info
                 FontStyle(
-                    text: "기장 수선-총 기장 줄임",
+                    text: widget.lineItem.first.name.toString(),
                     fontsize: "md",
                     fontbold: "bold",
-                    fontcolor: Colors.black,textdirectionright: false),
+                    fontcolor: Colors.black,
+                    textdirectionright: false),
                 SizedBox(
                   height: 10,
                 ),
@@ -66,7 +96,7 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
                       lineColor: HexColor("#909090"),
                       opacity: 0.2),
                 ),
-                priceInfo("의뢰 예상 비용", "5,000", true, false),
+                priceInfo("의뢰 예상 비용", widget.lineItem.first.price! , true, false),
                 priceInfo("배송 비용", "6,000", true, false),
                 priceInfo("총 의뢰 예상 비용", "11,000", false, true),
                 SizedBox(
@@ -77,7 +107,9 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       fixBtn("삭제", CartDelBtnModal()),
-                      SizedBox(width: 5,),
+                      SizedBox(
+                        width: 5,
+                      ),
                       Expanded(child: fixBtn("의뢰 수정", FixUpdate())),
                     ],
                   ),
@@ -98,6 +130,15 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
         setState(() {
           ischecked = value!;
         });
+
+        if(ischecked == true) {
+          controller.iswholePrice(ischecked, int.parse(widget.lineItem.first.price.toString()));
+          controller.isOrderId(ischecked, controller.orders[widget.index].id!);
+        }
+        else if(ischecked == false) {
+          controller.iswholePrice(ischecked, int.parse(widget.lineItem.first.price.toString()));
+          controller.isOrderId(ischecked, controller.orders[widget.index].id!);
+        }
       },
       side: BorderSide(
         color: HexColor("#d5d5d5"),
@@ -108,7 +149,7 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
 
   // slider Image Item
   Widget ImageItem(String image) {
-    return InkWell(
+    return GestureDetector(
       child: Container(
         padding: EdgeInsets.all(10),
         width: 150,
@@ -134,8 +175,9 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
               text: title + " : ",
               fontsize: "",
               fontbold: "bold",
-              fontcolor: Colors.black,textdirectionright: false),
-         Expanded(child: Text(content))
+              fontcolor: Colors.black,
+              textdirectionright: false),
+          Expanded(child: Text(content))
         ],
       ),
     );
@@ -148,14 +190,15 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          InkWell(
+          GestureDetector(
             child: Row(
               children: [
                 FontStyle(
                     text: title,
                     fontsize: "",
                     fontbold: "bold",
-                    fontcolor: Colors.black,textdirectionright: false),
+                    fontcolor: Colors.black,
+                    textdirectionright: false),
                 SizedBox(
                   width: 5,
                 ),
@@ -176,12 +219,14 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
                   fontsize: "",
                   fontbold: "bold",
                   fontcolor:
-                      wholePrice == true ? HexColor("#fd9a03") : Colors.black,textdirectionright: false),
+                      wholePrice == true ? HexColor("#fd9a03") : Colors.black,
+                  textdirectionright: false),
               FontStyle(
                   text: "원",
                   fontsize: "",
                   fontbold: "",
-                  fontcolor: Colors.black,textdirectionright: false),
+                  fontcolor: Colors.black,
+                  textdirectionright: false),
             ],
           ),
         ],
@@ -191,8 +236,8 @@ class _FixTypeListItemState extends State<FixTypeListItem> {
 
   // 삭제 / 수정 버튼
   Widget fixBtn(String text, Widget widget) {
-    return InkWell(
-      onTap: (){
+    return GestureDetector(
+      onTap: () {
         text == "삭제" ? Get.dialog(widget) : Get.to(widget);
       },
       child: Container(

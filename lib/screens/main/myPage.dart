@@ -1,8 +1,10 @@
+import 'package:amuz_nidlecrew/getxController/homeController.dart';
+import 'package:amuz_nidlecrew/modal/mypage/userLogoutYesNo.dart';
+import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
 import 'package:amuz_nidlecrew/screens/main/myPage/announcementInfo.dart';
 import 'package:amuz_nidlecrew/screens/main/myPage/directQuestion.dart';
 import 'package:amuz_nidlecrew/screens/main/myPage/myPayInfo.dart';
 import 'package:amuz_nidlecrew/screens/main/myPage/mysizeInfo.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/nameUpdate.dart';
 import 'package:amuz_nidlecrew/screens/main/myPage/serviceCenterInfo.dart';
 import 'package:amuz_nidlecrew/screens/main/myPage/servicePolicyInfo.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
@@ -19,6 +21,8 @@ class MyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController controller = Get.put(HomeController());
+
     return SafeArea(
       child: Container(
         child: Column(
@@ -39,7 +43,8 @@ class MyPage extends StatelessWidget {
                             text: "My",
                             fontsize: "md",
                             fontbold: "bold",
-                            fontcolor: Colors.black,textdirectionright: false),
+                            fontcolor: Colors.black,
+                            textdirectionright: false),
                         iconStyle("alramIcon.svg", "main", Colors.black),
                       ],
                     ),
@@ -49,11 +54,21 @@ class MyPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FontStyle(
-                            text: "신응수님",
-                            fontbold: "bold",
-                            fontsize: "lg",
-                            fontcolor: Colors.black,textdirectionright: false),
+                        Obx(
+                          () {
+                            if(controller.isInitialized.value) {
+                              return FontStyle(
+                                  text: controller.user.lastName.toString() +
+                                      controller.user.firstName.toString() +
+                                      "님",
+                                  fontbold: "bold",
+                                  fontsize: "lg",
+                                  fontcolor: Colors.black,
+                                  textdirectionright: false);
+                          }else{
+                              return Center(child: CircularProgressIndicator(),);
+                            }
+                          }),
                         Text("니들크루와 함께"),
                         Text("일상의 작은 변화를 만들어봐요!"),
                       ],
@@ -66,9 +81,12 @@ class MyPage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        iconwrapBtn('userwrapIcon.svg', "main", "회원 정보", UserInfo()),
-                        iconwrapBtn('mysizeIcon.svg', "main", "내 치수", MySizeInfo()),
-                        iconwrapBtn('payinfoIcon.svg', "main", "결제 내역", MypayInfo()),
+                        iconwrapBtn(
+                            'userwrapIcon.svg', "main", "회원 정보", UserInfo()),
+                        iconwrapBtn(
+                            'mysizeIcon.svg', "main", "내 치수", MySizeInfo()),
+                        iconwrapBtn(
+                            'payinfoIcon.svg', "main", "결제 내역", MypayInfo()),
                       ],
                     ),
                   ),
@@ -81,14 +99,16 @@ class MyPage extends StatelessWidget {
             listLine(8, double.infinity, HexColor("#d5d5d5"), 0.5),
             Expanded(
               child: Container(
-                padding: EdgeInsets.only(top: 10),
+                padding: EdgeInsets.only(top: 10, left: 24, right: 24),
                 child: Column(
                   children: [
-                    MypageMenu(listTitle: "1:1 문의 내역", widget: DirectQuestion()),
                     MypageMenu(listTitle: "고객센터", widget: ServiceCenterInfo()),
-                    MypageMenu(listTitle: "서비스 정책", widget: ServicePolicyInfo()),
+                    MypageMenu(
+                        listTitle: "서비스 정책", widget: ServicePolicyInfo()),
+                    MypageMenu(
+                        listTitle: "알림 설정", widget: DirectQuestion()),
                     MypageMenu(listTitle: "공지사항", widget: AnnouncementInfo()),
-                    MypageMenu(listTitle: "로그아웃", widget: NameUpdate()),
+                    MypageMenu(listTitle: "로그아웃", widget: UserLogoutYesNo(titleText: "로그아웃 하시겠습니까?",)),
                   ],
                 ),
               ),
@@ -110,11 +130,12 @@ class MyPage extends StatelessWidget {
   }
 
   // icon 버튼
-  Widget iconwrapBtn(String icon, String fileName, String btnText, Widget widget) {
+  Widget iconwrapBtn(
+      String icon, String fileName, String btnText, Widget widget) {
     return Container(
       width: 70,
-      child: InkWell(
-        onTap: (){
+      child: GestureDetector(
+        onTap: () {
           Get.to(widget);
         },
         child: Column(
@@ -137,5 +158,4 @@ class MyPage extends StatelessWidget {
       decoration: BoxDecoration(color: lineColor.withOpacity(opacity)),
     );
   }
-
 }

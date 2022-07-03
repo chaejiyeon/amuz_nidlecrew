@@ -16,6 +16,19 @@ class FixUpdate extends StatefulWidget {
 }
 
 class _FixUpdateState extends State<FixUpdate> {
+  TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -63,9 +76,18 @@ class _FixUpdateState extends State<FixUpdate> {
                           SizedBox(
                             height: 10,
                           ),
-                          CheckBtn(list: "원하는 총 기장 길이 입력", bottomPadding: 15,textBold: ""),
-                          CheckBtn(list: "줄이고 싶은 만큼 치수 입력", bottomPadding: 15,textBold: ""),
-                          CheckBtn(list: "잘 맞는 옷을 함께 보낼게요.", bottomPadding: 15,textBold: ""),
+                          RadioBtn(
+                              list: "원하는 총 기장 길이 입력",
+                              bottomPadding: 15,
+                              textBold: ""),
+                          RadioBtn(
+                              list: "줄이고 싶은 만큼 치수 입력",
+                              bottomPadding: 15,
+                              textBold: ""),
+                          RadioBtn(
+                              list: "잘 맞는 옷을 함께 보낼게요.",
+                              bottomPadding: 15,
+                              textBold: ""),
                         ],
                       ),
                     ),
@@ -111,6 +133,7 @@ class _FixUpdateState extends State<FixUpdate> {
                             height: 10,
                           ),
                           CircleLineTextField(
+                              controller: controller,
                               maxLines: 10,
                               hintText: "시접 여유분 충분히 남겨주세요.",
                               hintTextColor: Colors.black,
@@ -139,7 +162,10 @@ class _FixUpdateState extends State<FixUpdate> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CheckBtn(list: "밑통 수선", bottomPadding: 15,textBold: ""),
+                              RadioBtn(
+                                  list: "밑통 수선",
+                                  bottomPadding: 15,
+                                  textBold: ""),
                               Row(
                                 children: [
                                   FontStyle(
@@ -163,16 +189,16 @@ class _FixUpdateState extends State<FixUpdate> {
                     ),
 
                     // 수거 주소 - 이용내역 > 접수 완료 후 의뢰 수정 시 표시
-                    textForm("수거 주소", "경기 수원시 팔달구 인계동 156 104동 1702호", Colors.black, false),
+                    textForm("수거 주소", "경기 수원시 팔달구 인계동 156 104동 1702호",
+                        Colors.black, false),
                     textForm("수거 희망일", "2022년 2월 15일", Colors.black, false),
-
                   ],
                 ),
               ),
             ],
           ),
         ),
-        bottomNavigationBar: InkWell(
+        bottomNavigationBar: GestureDetector(
           child: Container(
             height: 150,
             decoration: BoxDecoration(
@@ -271,7 +297,7 @@ class _FixUpdateState extends State<FixUpdate> {
 
   // slider Image Item
   Widget ImageItem(String image) {
-    return InkWell(
+    return GestureDetector(
       child: Container(
         padding: EdgeInsets.all(10),
         width: 150,
@@ -331,13 +357,15 @@ class _FixUpdateState extends State<FixUpdate> {
                           color: HexColor("#a5a5a5"),
                         ),
                       )
-                    : titleText == "물품 가액" ? Container(
-                        padding: EdgeInsets.only(top: 10, right: 10),
-                        child: Text(
-                          "원",
-                          textAlign: TextAlign.right,
-                        ),
-                      ) : null,
+                    : titleText == "물품 가액"
+                        ? Container(
+                            padding: EdgeInsets.only(top: 10, right: 10),
+                            child: Text(
+                              "원",
+                              textAlign: TextAlign.right,
+                            ),
+                          )
+                        : null,
               ),
             ),
           ),

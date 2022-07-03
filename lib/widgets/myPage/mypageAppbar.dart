@@ -44,21 +44,6 @@ class MypageAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
 
-  // Container(
-  // padding: EdgeInsets.all(20),
-  // child: Row(
-  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  // children: [
-  // Container(
-  // child:
-  // ),
-  // Container(
-  // child:
-  // ),
-  //
-  // ],
-  // ),
-  // );
   @override
   Size get preferredSize => Size.fromHeight(appbar.preferredSize.height);
 }

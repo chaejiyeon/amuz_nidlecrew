@@ -1,4 +1,4 @@
-import 'package:amuz_nidlecrew/screens/main/fixClothes/startAddressChoose.dart';
+import 'package:amuz_nidlecrew/widgets/fixClothes/startAddressChoose.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/footerBtn.dart';
 import 'package:flutter/cupertino.dart';

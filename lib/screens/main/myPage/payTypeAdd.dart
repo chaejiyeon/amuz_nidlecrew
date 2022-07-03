@@ -1,3 +1,4 @@
+import 'package:amuz_nidlecrew/getxController/fixClothes/CartController.dart';
 import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
 import 'package:amuz_nidlecrew/widgets/circleBlackBtn.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';

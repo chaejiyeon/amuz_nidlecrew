@@ -140,7 +140,7 @@ class _MypayInfoState extends State<MypayInfo> {
                             fontbold: "bold",
                             fontcolor: Colors.black,textdirectionright: false),
 
-                        InkWell(
+                        GestureDetector(
                           child: Row(
                             children: [
                               FontStyle(

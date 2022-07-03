@@ -26,38 +26,26 @@ class _DirectQuestionHideItemState extends State<DirectQuestionHideItem> {
         data: ThemeData().copyWith(dividerColor: Colors.transparent),
         child: ExpansionTile(
           tilePadding: EdgeInsets.zero,
-          collapsedIconColor: HexColor("#d5d5d5"),
+          collapsedIconColor: HexColor("#909090"),
           title: Container(
             height: 60,
             child: Row(
               children: [
-                Container(
-                  alignment: Alignment.topCenter,
-                  child: circleBtn(60, HexColor("#fd9a03"), HexColor("#fd9a03"),
-                      "대기중", Colors.white),
-                ),
+                FontStyle(
+                    text: "Q",
+                    fontsize: "md",
+                    fontbold: "bold",
+                    fontcolor: HexColor("fd9a03"),
+                    textdirectionright: false),
                 SizedBox(
                   width: 10,
                 ),
-                Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FontStyle(
-                            text: "수선 접수 취소는 어떻게 하나요?",
-                            fontsize: "",
-                            fontbold: "bold",
-                            fontcolor: Colors.black,textdirectionright: false),
-                        FontStyle(
-                            text: "2021-12-01/수선안내 문의",
-                            fontsize: "",
-                            fontbold: "",
-                            fontcolor: Colors.black,textdirectionright: false),
-                      ],
-                    ),
-                  ],
-                ),
+                FontStyle(
+                    text: "수선 접수 취소는 어떻게 하나요?",
+                    fontsize: "",
+                    fontbold: "",
+                    fontcolor: Colors.black,
+                    textdirectionright: false),
               ],
             ),
           ),
@@ -88,8 +76,11 @@ class _DirectQuestionHideItemState extends State<DirectQuestionHideItem> {
                           text: "A",
                           fontsize: "md",
                           fontbold: "bold",
-                          fontcolor: HexColor("#fd9a03"),textdirectionright: false),
-                      SizedBox(width: 10,),
+                          fontcolor: HexColor("#fd9a03"),
+                          textdirectionright: false),
+                      SizedBox(
+                        width: 10,
+                      ),
                       Expanded(
                         child: Text(
                           "안녕하세요!\n\n고객님의 문의소식을 듣고 달려온 니들크루입니다:)\n\n'수선 접수 취소'부분으로 문의를 주셨는데 안녕하세요!\n\n고객님의 문의소식을 듣고 달려온 니들크루입니다:)\n\n'수선 접수 취소'부분으로 문의를 주셨는데",

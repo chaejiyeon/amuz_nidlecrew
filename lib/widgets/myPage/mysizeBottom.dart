@@ -15,7 +15,7 @@ class MysizeBottom extends StatefulWidget {
 class _MysizeBottomState extends State<MysizeBottom> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       child: Container(
         height: 150,
         decoration: BoxDecoration(
@@ -39,7 +39,7 @@ class _MysizeBottomState extends State<MysizeBottom> {
               children: [
                 Row(
                   children: [
-                    InkWell(
+                    GestureDetector(
                       child: SvgPicture.asset(
                           "assets/icons/fixClothes/rollIcon.svg"),
                     ),

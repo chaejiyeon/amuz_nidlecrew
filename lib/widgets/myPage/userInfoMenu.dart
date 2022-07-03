@@ -7,7 +7,6 @@ class UserInfoMenu extends StatefulWidget {
   final String appTitle;
   final String title;
   final String info;
-  final String info2;
   final bool line;
 
   const UserInfoMenu(
@@ -15,7 +14,6 @@ class UserInfoMenu extends StatefulWidget {
         required this.appTitle,
       required this.title,
       required this.info,
-      required this.info2,
       required this.line})
       : super(key: key);
 
@@ -54,13 +52,6 @@ class _UserInfoMenuState extends State<UserInfoMenu> {
                       fontsize: "",
                       fontbold: "",
                       fontcolor: Colors.black,textdirectionright: false),
-                  widget.info2 != ""
-                      ? FontStyle(
-                          text: widget.info2,
-                          fontsize: "",
-                          fontbold: "",
-                          fontcolor: Colors.black,textdirectionright: false)
-                      : Container(),
                 ],
               ),
             ],
@@ -72,7 +63,7 @@ class _UserInfoMenuState extends State<UserInfoMenu> {
               ? ListLine(
                   height: 1,
                   width: double.infinity,
-                  lineColor: HexColor("#d5d5d5"),
+                  lineColor: HexColor("#ededed"),
                   opacity: 1.0)
               : Container(),
         ],

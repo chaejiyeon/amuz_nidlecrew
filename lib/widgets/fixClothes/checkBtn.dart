@@ -1,50 +1,115 @@
+import 'package:amuz_nidlecrew/getxController/fixClothes/CartController.dart';
+import 'package:amuz_nidlecrew/getxController/fixClothes/fixselectController.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class CheckBtn extends StatefulWidget {
+import '../../getxController/fixClothes/cartController.dart';
+
+class RadioBtn extends StatefulWidget {
   final String list;
   final double bottomPadding;
   final String textBold;
+  final bool checked;
 
-  const CheckBtn({Key? key, required this.list, required this.bottomPadding, required this.textBold}) : super(key: key);
+  const RadioBtn(
+      {Key? key,
+      required this.list,
+      required this.bottomPadding,
+      required this.textBold,
+      this.checked = false})
+      : super(key: key);
 
   @override
-  State<CheckBtn> createState() => _RadioBtnState();
+  State<RadioBtn> createState() => _RadioBtnState();
 }
 
-class _RadioBtnState extends State<CheckBtn> {
+class _RadioBtnState extends State<RadioBtn> {
+  final FixSelectController controller = Get.put(FixSelectController());
   bool ischecked = false;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(bottom: widget.bottomPadding),
-      child: Row(
-        children: [
-          SizedBox(
-            width: 22,
-            height: 22,
-            child: Checkbox(
-              activeColor: HexColor("#fd9a03"),
-                side: BorderSide(
-                  color: HexColor("#d5d5d5"),
+    return Obx(
+      () =>
+        //   ListTile(
+        // // listtile padding
+        // visualDensity: VisualDensity(vertical: -4),
+        // title: Align(alignment: Alignment(-1.5, 0), child: Text(widget.list)),
+        // contentPadding: EdgeInsets.zero,
+        // leading:
+        CustomRadioWidget(
+          text: widget.list,
+          value: widget.list,
+          groupValue: controller.isSelected.value,
+          onChanged: (value) {
+            controller.isSelectedValue(widget.list);
+            controller.isSelected.value = value.toString();
+          },
+        ),
+      // ),
+    );
+  }
+}
+
+// radio custom
+class CustomRadioWidget<T> extends StatelessWidget {
+  final T value;
+  final T groupValue;
+  final ValueChanged<T> onChanged;
+  final double width;
+  final double height;
+  final String text;
+
+  CustomRadioWidget(
+      {required this.value,
+      required this.groupValue,
+      required this.onChanged,
+      required this.text,
+      this.width = 20,
+      this.height = 20});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        onChanged(this.value);
+      },
+      child: Container(
+        padding: EdgeInsets.only(bottom: 19),
+        child: Row(
+          children: [
+            Container(
+              height: this.height,
+              width: this.width,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  width: 1,
+                  color: value == groupValue
+                      ? HexColor("fd9a03")
+                      : HexColor("#d5d5d5"),
                 ),
-                value: ischecked,
-                onChanged: (value) {
-                  setState(() {
-                    ischecked = value!;
-                  });
-                }),
-          ),
-          SizedBox(width: 10,),
-          FontStyle(
-              text: widget.list,
-              fontsize: "md",
-              fontbold: widget.textBold,
-              fontcolor: Colors.black,textdirectionright: false),
-        ],
+              ),
+              child: Center(
+                child: Container(
+                  height: this.height - 8,
+                  width: this.width - 8,
+                  decoration: ShapeDecoration(
+                    shape: CircleBorder(),
+                    color:
+                        value == groupValue ? HexColor("fd9a03") : Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: 10,),
+            Text(text),
+          ],
+        ),
       ),
     );
   }

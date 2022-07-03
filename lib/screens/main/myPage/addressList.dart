@@ -31,12 +31,19 @@ class _AddressListState extends State<AddressList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MypageAppBar(title: "주소 관리", icon: "", widget: MainHome(), appbar: AppBar(), ),
+      appBar: MypageAppBar(
+        title: "주소 관리",
+        icon: "",
+        widget: MainHome(),
+        appbar: AppBar(),
+      ),
       body: Container(
+        padding: EdgeInsets.only(top: 40),
+        color: Colors.white,
         child: ListView(
-                children: List.generate(
-                    items.length, (index) => addressListItem(items[index])),
-              ),
+          children: List.generate(
+              items.length, (index) => addressListItem(items[index])),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: HexColor("#fd9a03"),
@@ -51,7 +58,7 @@ class _AddressListState extends State<AddressList> {
   // 주소 리스트
   Widget addressListItem(AddressItem address) {
     return Container(
-      padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+      padding: EdgeInsets.only(top: 13, left: 20, right: 20),
       child: Column(
         children: [
           Row(
@@ -69,43 +76,24 @@ class _AddressListState extends State<AddressList> {
                         text: address.addressName,
                         fontsize: "",
                         fontbold: "bold",
-                        fontcolor: Colors.black,textdirectionright: false),
+                        fontcolor: Colors.black,
+                        textdirectionright: false),
                     FontStyle(
                         text: address.address,
                         fontsize: "",
                         fontbold: "",
-                        fontcolor: HexColor("#909090"),textdirectionright: false),
+                        fontcolor: HexColor("#aaaaaa"),
+                        textdirectionright: false),
                     SizedBox(
                       height: 15,
                     ),
                     Row(
                       children: [
-                        CircleLineBtn(
-                          btnText: "수정",
-                          fontboxwidth: 60,
-                          fontboxheight: "sm",
-                          bordercolor: HexColor("#d5d5d5"),
-                          fontcolor: Colors.black,
-                          fontsize: "",
-                          btnIcon: "",
-                          btnColor: Colors.transparent,
-                          widgetName: AddressUpdate(),
-                          iswidget: true,
-                        ),
+                        addressBtn("수정",  Colors.black, HexColor("#d5d5d5"), true, AddressUpdate()),
                         SizedBox(
                           width: 10,
                         ),
-                        CircleLineBtn(
-                            btnText: "삭제",
-                            fontboxwidth: 60,
-                            fontboxheight: "sm",
-                            bordercolor: HexColor("#fd9a03"),
-                            fontcolor: HexColor("#fd9a03"),
-                            fontsize: "",
-                            btnIcon: "",
-                            btnColor: Colors.transparent,
-                            widgetName: AddressDelModal(),
-                            iswidget: false),
+                        addressBtn( "삭제",  HexColor("#fd9a03"), HexColor("#fd9a03"), false, AddressDelModal()),
                       ],
                     ),
                   ],
@@ -114,14 +102,44 @@ class _AddressListState extends State<AddressList> {
             ],
           ),
           SizedBox(
-            height: 10,
+            height: 13,
           ),
           ListLine(
               height: 1,
               width: double.infinity,
-              lineColor: HexColor("#d5d5d5"),
+              lineColor: HexColor("#ededed"),
               opacity: 0.5),
         ],
+      ),
+    );
+  }
+
+
+  // 수정/삭제 버튼
+  Widget addressBtn(String text, Color txtColor,Color borderColor, bool iswidget, Widget widgetName) {
+    return GestureDetector(
+      onTap: (){
+        if(iswidget == true){
+          Get.to(widgetName);
+        }else{
+          Get.dialog(widgetName);
+        }
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: 55,
+        height: 30,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: borderColor)
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: txtColor,
+            fontSize: 13
+          ),
+        ),
       ),
     );
   }

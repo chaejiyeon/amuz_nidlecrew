@@ -16,8 +16,9 @@ class _DirectQuestionState extends State<DirectQuestion> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MypageAppBar(
-          title: "1:1 문의 내역", icon: "", widget: MainHome(), appbar: AppBar()),
+          title: "자주하는 질문", icon: "", widget: MainHome(), appbar: AppBar()),
       body: Container(
+        color: Colors.white,
         padding: EdgeInsets.all(30),
         child: ListView(
           children: [

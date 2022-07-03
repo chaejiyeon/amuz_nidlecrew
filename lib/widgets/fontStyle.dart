@@ -25,7 +25,7 @@ class FontStyle extends StatelessWidget {
       textDirection: textdirectionright == true ? TextDirection.rtl : TextDirection.ltr,
       style: TextStyle(
         fontSize: fontsize == "lg"
-            ? 20
+            ? 24
             : fontsize == "md"
                 ? 16
                 : fontsize == "sm"

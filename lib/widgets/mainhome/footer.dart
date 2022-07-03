@@ -8,19 +8,18 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(20),
-      child: Row(
+      padding: EdgeInsets.only(top: 85, left: 36, bottom: 100),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             child: Column(
               children: [
                 Container(
-                    width: 50,
-                    height: 50,
-                    child: Image.asset("assets/images/loadingpage_1.png")),
-                SizedBox(
-                  height: 65,
-                ),
+                    margin: EdgeInsets.only(bottom: 20),
+                    width: 53,
+                    height: 15,
+                    child: Image.asset("assets/icons/needlecrew_logo.png")),
               ],
             ),
           ),
@@ -31,12 +30,12 @@ class Footer extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                rowText("니들크루", "대표 : 홍길동"),
+                rowText("아나바고", "대표 : 김현영"),
                 SizedBox(
                   height: 5,
                 ),
                 FontStyle(
-                    text: "통신판매신고 : 제 2022-서울강서-2020호",
+                    text: "통신판매신고 : 제 2021-부산부산진-1467호",
                     fontsize: "sm",
                     fontbold: "",
                     fontcolor: HexColor("#909090"),textdirectionright: false),
@@ -49,8 +48,7 @@ class Footer extends StatelessWidget {
                     FontStyle(text: "주소 : ", fontsize: "sm", fontbold: "", fontcolor: HexColor("#909090"),textdirectionright: false),
                     Column(
                       children: [
-                        FontStyle(text: "부산광역시 강서구 명지동 50길 21", fontsize: "sm", fontbold: "", fontcolor: HexColor("#909090"),textdirectionright: false),
-                        FontStyle(text: "(우편번호 : 01234)", fontsize: "sm", fontbold: "", fontcolor: HexColor("#909090"),textdirectionright: false),
+                        FontStyle(text: "부산시 진구 서전로8 WEWORK서면 05-105호", fontsize: "sm", fontbold: "", fontcolor: HexColor("#909090"),textdirectionright: false),
                       ],
                     )
                   ],
@@ -58,7 +56,7 @@ class Footer extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                rowText("사업자 등록번호 : 123-12-12300", "고객센터 : 1588-1588"),
+                rowText("사업자 등록번호 : 748-61-00480", "고객센터 : 1588-1588"),
                 SizedBox(
                   height: 5,
                 ),

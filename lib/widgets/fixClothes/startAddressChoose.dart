@@ -1,3 +1,4 @@
+import 'package:amuz_nidlecrew/getxController/fixClothes/CartController.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/addressInfo.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/chooseClothes.dart';
@@ -8,6 +9,7 @@ import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class StartAddressChoose extends StatefulWidget {
@@ -18,25 +20,27 @@ class StartAddressChoose extends StatefulWidget {
 }
 
 class _StartAddressState extends State<StartAddressChoose> {
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(left: 24, right: 24),
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // progress bar
           Container(
-            padding: EdgeInsets.only(top: 20, left: 25, bottom: 20),
+            padding: EdgeInsets.only(top: 20),
             child: Row(
               children: [
                 SvgPicture.asset("assets/icons/fixClothes/scissorsIcon.svg"),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.only(right: 20),
                     child: ListLine(
                         height: 2,
-                        width: 300,
+                        width: double.infinity,
                         lineColor: HexColor("#909090"),
                         opacity: 0.5),
                   ),
@@ -58,7 +62,6 @@ class _StartAddressState extends State<StartAddressChoose> {
 
           // choose button
           Container(
-            padding: EdgeInsets.all(20),
             alignment: Alignment.center,
             child: Column(
               children: [

@@ -1,11 +1,9 @@
 import 'dart:developer';
 
-import 'package:amuz_nidlecrew/screens/main/fixClothes/chooseDetail.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/directInsert.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/fixQuestion.dart';
 import 'package:amuz_nidlecrew/screens/main/fixClothes/fixSelect.dart';
 import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/chooseGridview.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/footerBtn.dart';
 import 'package:amuz_nidlecrew/widgets/fixClothes/header.dart';
@@ -37,9 +35,11 @@ class _ChooseClothesState extends State<ChooseClothes>
   int currentPage = 0;
   int currentCategoryId = 0;
   late TabController _tabController;
+  String lastCategory = "";
 
   // get category list
   List<WooProductCategory> categories = [];
+
   // get product list
   List<WooProduct> products = [];
 
@@ -47,27 +47,35 @@ class _ChooseClothesState extends State<ChooseClothes>
   Future<List<WooProductCategory>> getCategories() async {
     categories = await wp_api.wooCommerceApi
         .getProductCategories(parent: widget.parentNum);
-    // log(categories.toString());
     _tabController = TabController(length: categories.length, vsync: this);
+
+
     return categories;
   }
 
   // product 가져오기
-  Future<List<WooProduct>> getProducts() async {
+  Future<bool> getProducts() async {
+    products.clear();
     print("currentcategory" + crumbs.toString());
-    products = await wp_api.wooCommerceApi.getProducts();
-    log(products.toString());
-    return products;
+    try {
+      products = await wp_api.wooCommerceApi.getProducts(
+          category: currentCategoryId == 0
+              ? categories.first.id.toString()
+              : currentCategoryId.toString());
+    } catch (e) {
+      print(e);
+      return false;
+    }
+    return true;
   }
-
-
-
 
   @override
   void initState() {
+    if (widget.parentNum == 0) crumbs.clear();
     crumbs.add(widget.parentNum);
     super.initState();
     getCategories();
+
   }
 
   @override
@@ -78,96 +86,61 @@ class _ChooseClothesState extends State<ChooseClothes>
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: FixClothesAppBar(
         appbar: AppBar(),
       ),
       body: Container(
+        padding: EdgeInsets.only(left: 24, right: 24),
         color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-
-            FutureBuilder(future: getCategories(), builder: (context, snapshot){
-              if(snapshot.hasData){
+        child: FutureBuilder(
+            future: getCategories(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // progress bar
-                    categories.indexWhere((element) => element.name == '기타') != -1
+                    categories.indexWhere((element) => element.name == '기타') !=
+                            -1
                         ? ProgressBar(progressImg: "fixProgressbar_2.svg")
                         : ProgressBar(progressImg: "fixProgressbar.svg"),
 
-                    categories.indexWhere((element) => element.name == '기타') != -1
+                    categories.indexWhere((element) => element.name == '기타') !=
+                            -1
                         ? Header(
-                      title: "수선 선택",
-                      subtitle1: "",
-                      question: true,
-                      btnIcon: "updateIcon.svg",
-                      btnText: "직접 입력하기",
-                      widget: DirectInsert(),
-                      imgPath: "",
-                      bottomPadding: 30,
-                    )
+                            title: "수선 선택",
+                            subtitle1: "",
+                            question: true,
+                            btnIcon: "updateIcon.svg",
+                            btnText: "직접 입력하기",
+                            widget: DirectInsert(),
+                            imgPath: "",
+                            bottomPadding: 30,
+                          )
                         : Header(
-                      title: "의류 선택",
-                      subtitle1: widget.parentNum == 2261
-                          ? "수선하고자 하는 성별의 의류를\n선택해주세요."
-                          : "어떤 옷을 수선하고 싶으세요?",
-                      question: true,
-                      btnIcon: "chatIcon.svg",
-                      btnText: "수선 문의하기",
-                      widget: FixQuestion(),
-                      imgPath: "fixClothes",
-                      bottomPadding: 50,
-                    ),
-                  ],
-                );
-              }else{
-                return Container();
-              }
-            }),
-            // // progress bar
-            // categories.indexWhere((element) => element.name == '기타') != -1
-            //     ? ProgressBar(progressImg: "fixProgressbar_2.svg")
-            //     : ProgressBar(progressImg: "fixProgressbar.svg"),
-            //
-            // categories.indexWhere((element) => element.name == '기타') != -1
-            //     ? Header(
-            //         title: "수선 선택",
-            //         subtitle1: "",
-            //         question: true,
-            //         btnIcon: "updateIcon.svg",
-            //         btnText: "직접 입력하기",
-            //         widget: DirectInsert(),
-            //         imgPath: "",
-            //         bottomPadding: 30,
-            //       )
-            //     : Header(
-            //         title: "의류 선택",
-            //         subtitle1: widget.parentNum == 0
-            //             ? "수선하고자 하는 성별의 의류를\n선택해주세요."
-            //             : "어떤 옷을 수선하고 싶으세요?",
-            //         question: true,
-            //         btnIcon: "chatIcon.svg",
-            //         btnText: "수선 문의하기",
-            //         widget: FixQuestion(),
-            //         imgPath: "fixClothes",
-            //         bottomPadding: 50,
-            //       ),
+                            title: "의류 선택",
+                            subtitle1: widget.parentNum == 2261
+                                ? "수선하고자 하는 성별의 의류를\n선택해주세요."
+                                : "어떤 옷을 수선하고 싶으세요?",
+                            question: true,
+                            btnIcon: "chatIcon.svg",
+                            btnText: "수선 문의하기",
+                            widget: FixQuestion(),
+                            imgPath: "fixClothes",
+                            bottomPadding: 50,
+                          ),
 
-            Expanded(
-              child: FutureBuilder(
-                  future: getCategories(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Container(
+
+                    // category 표시 > 카테고리에 '기타'가 포함되어 있을 경우 해당 상품 gridview로 표시
+                    Expanded(
+                      child: Container(
                         padding: categories.indexWhere(
                                     (element) => element.name == '기타') !=
                                 -1
                             ? EdgeInsets.zero
                             : EdgeInsets.only(
-                                left: 24,
-                                right: 24,
                                 bottom: widget.parentNum == 0 ? 0 : 100),
                         child: categories.indexWhere(
                                     (element) => element.name == '기타') !=
@@ -175,37 +148,39 @@ class _ChooseClothesState extends State<ChooseClothes>
                             ? Column(
                                 children: [
                                   Container(
-                                    padding:
-                                        EdgeInsets.only(left: 24, right: 24),
                                     height: 34,
                                     child: FutureBuilder(
                                       future: getCategories(),
                                       builder: (context, snapshot) {
                                         if (snapshot.hasData) {
                                           return TabBar(
-                                              onTap: (index) {
-                                                setState(() {
-                                                  currentPage = index;
-                                                });
-                                              },
+                                            onTap: (index) {
+                                              setState(() {
+                                                getProducts();
+                                                currentPage = index;
+                                                currentCategoryId =
+                                                    categories[index].id!;
+                                                lastCategory = categories[index].name.toString();
+                                              });
 
-                                              controller: _tabController,
-                                              isScrollable: true,
-                                              indicatorColor:
-                                                  Colors.transparent,
-                                              unselectedLabelColor:
-                                                  Colors.black,
-                                              labelColor: Colors.white,
-                                              labelPadding: EdgeInsets.all(0),
-                                              indicatorPadding: EdgeInsets.zero,
-                                              tabs: List.generate(
-                                                  categories.length,
-                                                  (index) => CategoryItem(
-                                                      categories[index]
-                                                          .name
-                                                          .toString(),
-                                                      index,
-                                                      categories[index].id!)));
+                                            },
+                                            controller: _tabController,
+                                            isScrollable: true,
+                                            indicatorColor: Colors.transparent,
+                                            unselectedLabelColor: Colors.black,
+                                            labelColor: Colors.white,
+                                            labelPadding: EdgeInsets.all(0),
+                                            indicatorPadding: EdgeInsets.zero,
+                                            tabs: List.generate(
+                                              categories.length,
+                                              (index) => CategoryItem(
+                                                  categories[index]
+                                                      .name
+                                                      .toString(),
+                                                  index,
+                                                  categories[index].id!),
+                                            ),
+                                          );
                                         } else {
                                           return Container();
                                         }
@@ -214,36 +189,39 @@ class _ChooseClothesState extends State<ChooseClothes>
                                   ),
                                   Expanded(
                                     child: Container(
-                                      padding: EdgeInsets.only(
-                                          left: 24, right: 24, top: 29),
+                                      padding: EdgeInsets.only(top: 29),
                                       child: FutureBuilder(
                                         future: getProducts(),
                                         builder: (context, snapshot) {
-
-                                          if (snapshot.hasData) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.done) {
                                             return TabBarView(
-                                              physics: NeverScrollableScrollPhysics(),
-                                                controller: _tabController,
-                                                children: List.generate(
-                                                  _tabController.length,
-                                                  (index) => GridView(
-                                                    gridDelegate:
-                                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                                      mainAxisExtent: 184,
-                                                      crossAxisCount: 2,
-                                                      mainAxisSpacing: 10,
-                                                      crossAxisSpacing: 10,
-                                                    ),
-                                                    children: List.generate(
-                                                        products.length,
-                                                        (index) =>
-                                                            chooseOptionItem(
-                                                                products[index],
-                                                                index)),
+                                              physics:
+                                                  NeverScrollableScrollPhysics(),
+                                              controller: _tabController,
+                                              children: List.generate(
+                                                _tabController.length,
+                                                (index) => GridView(
+                                                  gridDelegate:
+                                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                                    mainAxisExtent: 184,
+                                                    crossAxisCount: 2,
+                                                    mainAxisSpacing: 10,
+                                                    crossAxisSpacing: 10,
                                                   ),
-                                                ));
+                                                  children: List.generate(
+                                                      products.length,
+                                                      (index) =>
+                                                          chooseOptionItem(
+                                                              products[index],
+                                                              index, products[index].id!, categories.first.id!)),
+                                                ),
+                                              ),
+                                            );
                                           } else {
-                                            return Container();
+                                            return Center(
+                                                child:
+                                                    CircularProgressIndicator());
                                           }
                                         },
                                       ),
@@ -251,45 +229,6 @@ class _ChooseClothesState extends State<ChooseClothes>
                                   ),
                                 ],
                               )
-                            // Column(
-                            //         children: [
-                            //           Container(
-                            //             padding: EdgeInsets.only(left: 24),
-                            //             height: 34,
-                            //             child: ListView(
-                            //               scrollDirection: Axis.horizontal,
-                            //               children: List.generate(
-                            //                   categories.length,
-                            //                   (index) => CategoryItem(
-                            //                       categories[index].name.toString(),
-                            //                       index, categories[index].id!)),
-                            //             ),
-                            //           ),
-                            //           Expanded(
-                            //               child: FutureBuilder(
-                            //                 future: getProducts(),
-                            //                 builder: (context, snapshot){
-                            //                   if(snapshot.hasData){
-                            //                     return Container(
-                            //                       padding: EdgeInsets.only(left: 24, right: 24, top: 29),
-                            //                       child: GridView(
-                            //                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            //                           mainAxisExtent: 184,
-                            //                           crossAxisCount: 2,
-                            //                           mainAxisSpacing: 10,
-                            //                           crossAxisSpacing: 10,
-                            //                         ),
-                            //                         children: List.generate(products.length,
-                            //                                 (index) => chooseOptionItem(products[index], index)),
-                            //                       ),
-                            //                     );
-                            //                   }else{
-                            //                     return CircularProgressIndicator();
-                            //                   }
-                            //                 },
-                            //               ),),
-                            //         ],
-                            //       )
                             : ListView(
                                 children: List.generate(
                                   categories.length,
@@ -309,14 +248,14 @@ class _ChooseClothesState extends State<ChooseClothes>
                                       fontboxheight: ""),
                                 ),
                               ),
-                      );
-                    } else {
-                      return CircularProgressIndicator();
-                    }
-                  }),
-            ),
-          ],
-        ),
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return Container();
+              }
+            }),
       ),
       bottomNavigationBar: widget.parentNum == 0 ? FooterBtn() : null,
       // floatingActionButton: categories.length < 0 ? FloatingNextBtn(page: ChooseDetail(), ischecked: false) : Container(),
@@ -354,11 +293,13 @@ class _ChooseClothesState extends State<ChooseClothes>
   }
 
   // gridview 아이템
-  Widget chooseOptionItem(WooProduct product, int index) {
-    String imageSrc = product.images.first.src ?? "";
-    return InkWell(
+  Widget chooseOptionItem(WooProduct product, int index, int productId, int categoryId) {
+    String imageSrc = "";
+    if (product.images.isNotEmpty) imageSrc = product.images.first.src ?? "";
+
+    return GestureDetector(
       onTap: () {
-        Get.to(FixSelect());
+        Get.to(FixSelect(productId: productId, crumbs: crumbs, lastCategory: lastCategory == "" ? categories.first.name.toString() : lastCategory,));
       },
       child: Container(
         height: 184,
@@ -378,7 +319,7 @@ class _ChooseClothesState extends State<ChooseClothes>
                 child: (imageSrc != "")
                     ? Image.network(imageSrc)
                     : Image.asset(
-                        "assets/images/sample.jpeg",
+                        "assets/images/sample_2.jpeg",
                         fit: BoxFit.cover,
                       )),
             Expanded(

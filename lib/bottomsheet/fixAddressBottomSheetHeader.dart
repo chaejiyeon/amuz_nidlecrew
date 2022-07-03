@@ -86,7 +86,7 @@ class _FixAddressBottomSheetHeaderState
 
                     // 주소가 있을때, 없을 때 구분 해야함
                     widget.addressExist == true
-                        ? InkWell(
+                        ? GestureDetector(
                             onTap: () {
                               bottomsheetOpen(context);
                             },
@@ -98,7 +98,7 @@ class _FixAddressBottomSheetHeaderState
                               fontsize: "",
                             ),
                           )
-                        : InkWell(
+                        : GestureDetector(
                             onTap: () {
                               bottomsheetOpen(context);
                             },

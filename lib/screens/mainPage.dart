@@ -1,3 +1,4 @@
+import 'package:amuz_nidlecrew/getxController/homeController.dart';
 import 'package:amuz_nidlecrew/modal/mainHomeModal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,21 +24,25 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final HomeController controller = Get.put(HomeController());
   int _currentIndex = 0;
   final List<Widget> pages = [MainHome(), UseInfo(pageNum: 0), MyPage()];
 
   @override
   void initState() {
     super.initState();
+    // controller.getUser();
 
-    // 쇼핑몰에서 의류를 보낼 경우 init dialog
-    Future.delayed(Duration.zero, () {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return MainHomeModal();
-          });
-    });
+    if(controller.mainModalcheck == false) {
+      // 메인 홈 진입 시 dialog
+      Future.delayed(Duration.zero, () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return MainHomeModal();
+            });
+      });
+    }
 
     _currentIndex = widget.pageNum;
 
@@ -71,13 +76,20 @@ class _MainPageState extends State<MainPage> {
             },
             backgroundColor: HexColor("#fd9a03"),
             child: Container(
-              padding: EdgeInsets.only(top: 5),
+              padding: EdgeInsets.only(top: 8),
               child: Column(
                 children: [
-                  SvgPicture.asset("assets/icons/main/fixclothesIcon.svg"),
+                  Padding(
+                      padding: EdgeInsets.all(0),
+                      child:SvgPicture.asset(
+                          "assets/icons/main/fixclothesIcon.svg",
+                          width: 20,
+                          height: 20,
+                      ),
+                  ),
                   Text(
                     "수선하기",
-                    style: TextStyle(fontSize: 11),
+                    style: TextStyle(fontSize: 10),
                   ),
                 ],
               ),
@@ -113,7 +125,7 @@ class _MainPageState extends State<MainPage> {
     Color iconColor = Colors.white;
     Color titleColor = Colors.white;
 
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         setState(() {
           _currentIndex = page;

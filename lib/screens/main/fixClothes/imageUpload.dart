@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:amuz_nidlecrew/getxController/fixClothes/fixselectController.dart';
 import 'package:amuz_nidlecrew/modal/alertDialogYes.dart';
 import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
@@ -12,8 +13,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
 
 class ImageUpload extends StatefulWidget {
   final String icon;
@@ -27,6 +29,8 @@ class ImageUpload extends StatefulWidget {
 }
 
 class _ImageUploadState extends State<ImageUpload> {
+  final FixSelectController controller = Get.put(FixSelectController());
+
   List<GetImageBtn> getBtn = [
     GetImageBtn("assets/icons/fixClothes/pictureIcon.svg", "갤러리에서 선택"),
     GetImageBtn("assets/icons/fixClothes/cameraIcon.svg", "사진 촬영")
@@ -34,14 +38,33 @@ class _ImageUploadState extends State<ImageUpload> {
 
   List<File> files = [];
 
+  // gallary 사진 가져오기
   void getGallaryImage() async {
     XFile? file =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     File dummyFile = File(file!.path);
     setState(() {
       if (files.length < 10) {
-        print("files " + files.length.toString());
+        print("files " + files.toString());
         files.add(dummyFile);
+        controller.getImages.add(dummyFile);
+      } else {
+        return;
+      }
+    });
+
+
+    Get.back();
+  }
+
+  // camera 사진 가져오기
+  void getCameraImage() async {
+    XFile? file = await ImagePicker().pickImage(source: ImageSource.camera);
+    File dummyFile = File(file!.path);
+    setState(() {
+      if (files.length < 10) {
+        files.add(dummyFile);
+        controller.getImages.add(dummyFile);
       } else {
         return;
       }
@@ -49,18 +72,9 @@ class _ImageUploadState extends State<ImageUpload> {
     Get.back();
   }
 
-  void getCameraImage() async {
-    XFile? file = await ImagePicker().pickImage(source: ImageSource.camera);
-    File dummyFile = File(file!.path);
-    setState(() {
-      if (files.length < 10) {
-        files.add(dummyFile);
-      } else {
-        return;
-      }
-    });
-    Get.back();
-  }
+
+
+
 
   // bottomsheet open
   void bottomsheetOpen(BuildContext context) {
@@ -162,12 +176,13 @@ class _ImageUploadState extends State<ImageUpload> {
 
   @override
   void initState(){
+    print("ffff" + files.toString());
     super.initState();
   }
 
   @override
   void dispose(){
-    files = [];
+    print("ffff" + files.toString());
     super.dispose();
   }
 
@@ -176,7 +191,7 @@ class _ImageUploadState extends State<ImageUpload> {
     return Container(
       child: Row(
         children: [
-          InkWell(
+          GestureDetector(
             onTap: () {
               if(files.length < 10) {
                 bottomsheetOpen(context);
@@ -248,7 +263,7 @@ class _ImageUploadState extends State<ImageUpload> {
 
   // button custom
   Widget getImageBtn(GetImageBtn getBtn, int index) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         if (getBtn.text == "갤러리에서 선택") {
           getGallaryImage();
@@ -307,10 +322,10 @@ class _ImageUploadState extends State<ImageUpload> {
                 setState(() {
                   files.remove(f);
                 });
+                controller.deleteImage(f);
               },
               icon: SvgPicture.asset(
-                "assets/icons/xmarkIcon_full.svg",
-                color: HexColor("#555555"),
+                "assets/icons/xmarkIcon_full_upload.svg",
               ),
             ),
           ),
