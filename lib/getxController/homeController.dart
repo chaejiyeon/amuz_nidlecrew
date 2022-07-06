@@ -134,7 +134,7 @@ class HomeController extends GetxController {
         .loginCustomer(username: email, password: password);
 
     try {
-      print("this login  " + customer.toString());
+      print("this login dddddd" + customer.toString());
       token = await wp_api.wooCommerceApi
           .authenticateViaJWT(username: email, password: password);
 
