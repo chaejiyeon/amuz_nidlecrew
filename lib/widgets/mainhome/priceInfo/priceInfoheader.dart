@@ -1,5 +1,5 @@
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:amuz_nidlecrew/widgets/useinfo/useAppbar.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/useinfo/useAppbar.dart';
 import 'package:flutter/material.dart';
 
 class PriceInfoHeader extends StatelessWidget {

@@ -1,9 +1,9 @@
-import 'package:amuz_nidlecrew/bottomsheet/priceListSheet.dart';
-import 'package:amuz_nidlecrew/bottomsheet/priceListSheetHeader.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/priceDropdown.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/priceDropdownHeader.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/tableHeader.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/tableListItem.dart';
+import 'package:needlecrew/bottomsheet/priceListSheet.dart';
+import 'package:needlecrew/bottomsheet/priceListSheetHeader.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/priceDropdown.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/priceDropdownHeader.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/tableHeader.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/tableListItem.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

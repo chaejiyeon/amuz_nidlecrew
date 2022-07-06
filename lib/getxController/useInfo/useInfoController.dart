@@ -2,12 +2,12 @@ import 'dart:developer';
 import 'dart:ffi';
 // import 'dart:math';
 
-import 'package:amuz_nidlecrew/models/fixReady.dart';
+import 'package:needlecrew/models/fixReady.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
 import 'package:flutter_woocommerce_api/models/order.dart';
 import 'package:get/get.dart';
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 import 'package:http/http.dart';
 
 // import 'package:intl/date_symbol_data_file.dart';
@@ -26,11 +26,11 @@ class UseInfoController extends GetxController {
   late WooOrder order;
   late WooOrder orderUpdate;
 
-  RxInt readyCount = 0.obs;
-  RxInt progressCount = 0.obs;
-  RxInt completeCount = 0.obs;
 
   // 이용내역 list ( 수선대기, 수선 진행중, 수선완료 )
+  List<FixReady> readyLists = [];
+  List<FixReady> progressLists = [];
+  List<FixReady> completeLists = [];
   List<FixReady> useLists = [];
 
   @override
@@ -74,18 +74,17 @@ class UseInfoController extends GetxController {
 
   // 해당 유저에 정보
   Future<void> getCompleteOrder() async {
+    readyLists.clear();
+    progressLists.clear();
+    completeLists.clear();
     useLists.clear();
-
-    readyCount.value = 0;
-    progressCount.value = 0;
-    completeCount.value = 0;
 
     try {
       user = await wp_api.getUser();
 
       orders = await wp_api.wooCommerceApi.getOrders(
         customer: user.id,
-        status: ['fix-register','fix-ready','fix-picked','fix-arrive','fix-confirm','fix-select'],
+        status: ['fix-register', 'fix-ready', 'fix-picked', 'fix-arrive', 'fix-confirm', 'fix-select', 'processing', 'completed'],
       );
 
       log("order status  ddfsd "+ orders.toString());
@@ -100,35 +99,35 @@ class UseInfoController extends GetxController {
 
         switch (orders[i].status) {
           case 'processing':
-            useLists.add(FixReady(orders[i].id!, "progress", orderDate,
+            progressLists.add(FixReady(orders[i].id!, "progress", orderDate,
                 orders[i].lineItems!.first.name.toString(), 0));
             break;
           case 'completed':
-            useLists.add(FixReady(orders[i].id!, "complete", orderDate,
+            completeLists.add(FixReady(orders[i].id!, "complete", orderDate,
                 orders[i].lineItems!.first.name.toString(), 0));
             break;
           case 'fix-register':
-            useLists.add(FixReady(orders[i].id!, "ready", orderDate,
+            readyLists.add(FixReady(orders[i].id!, "ready", orderDate,
                 orders[i].lineItems!.first.name.toString(), 1));
             break;
           case 'fix-ready':
-            useLists.add(FixReady(orders[i].id!, "ready", orderDate,
+            readyLists.add(FixReady(orders[i].id!, "ready", orderDate,
                 orders[i].lineItems!.first.name.toString(), 2));
             break;
           case 'fix-picked':
-            useLists.add(FixReady(orders[i].id!, "ready", orderDate,
+            readyLists.add(FixReady(orders[i].id!, "ready", orderDate,
                 orders[i].lineItems!.first.name.toString(), 3));
             break;
           case 'fix-arrive':
-            useLists.add(FixReady(orders[i].id!, "ready", orderDate,
+            readyLists.add(FixReady(orders[i].id!, "ready", orderDate,
                 orders[i].lineItems!.first.name.toString(), 4));
             break;
           case 'fix-confirm':
-            useLists.add(FixReady(orders[i].id!, "ready", orderDate,
+            readyLists.add(FixReady(orders[i].id!, "ready", orderDate,
                 orders[i].lineItems!.first.name.toString(), 5));
             break;
           case 'fix-select':
-            useLists.add(FixReady(orders[i].id!, "ready", orderDate,
+            readyLists.add(FixReady(orders[i].id!, "ready", orderDate,
                 orders[i].lineItems!.first.name.toString(), 6));
             break;
           default:
@@ -136,6 +135,8 @@ class UseInfoController extends GetxController {
                 orders[i].lineItems!.first.name.toString(), 0));
 
         }
+
+        print("list count " + readyLists.length.toString() + progressLists.length.toString() + completeLists.length.toString());
 
 
         //
@@ -164,15 +165,15 @@ class UseInfoController extends GetxController {
         // }
       }
 
-      for (int i = 0; i < useLists.length; i++) {
-        if (useLists[i].fixState == "ready") {
-          readyCount++;
-        } else if (useLists[i].fixState == "progress") {
-          progressCount++;
-        } else if (useLists[i].fixState == "complete") {
-          completeCount++;
-        }
-      }
+      // for (int i = 0; i < useLists.length; i++) {
+      //   if (useLists[i].fixState == "ready") {
+      //     readyCount++;
+      //   } else if (useLists[i].fixState == "progress") {
+      //     progressCount++;
+      //   } else if (useLists[i].fixState == "complete") {
+      //     completeCount++;
+      //   }
+      // }
 
       // print("readycount " + readyCount.value.toString() + "progresscount " + progressCount.value.toString() + "completecount " + completeCount.value.toString());
     } catch (e) {

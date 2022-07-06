@@ -1,22 +1,22 @@
 import 'dart:developer';
 
-import 'package:amuz_nidlecrew/screens/main/fixClothes/directInsert.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/fixQuestion.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/fixSelect.dart';
-import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/footerBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/header.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/progressbar.dart';
-import 'package:amuz_nidlecrew/widgets/floatingNextBtn.dart';
+import 'package:needlecrew/screens/main/fixClothes/directInsert.dart';
+import 'package:needlecrew/screens/main/fixClothes/fixQuestion.dart';
+import 'package:needlecrew/screens/main/fixClothes/fixSelect.dart';
+import 'package:needlecrew/widgets/circleLineBtn.dart';
+import 'package:needlecrew/widgets/fixClothes/fixClothesAppbar.dart';
+import 'package:needlecrew/widgets/fixClothes/footerBtn.dart';
+import 'package:needlecrew/widgets/fixClothes/header.dart';
+import 'package:needlecrew/widgets/fixClothes/progressbar.dart';
+import 'package:needlecrew/widgets/floatingNextBtn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
 import 'package:flutter_woocommerce_api/models/product_category.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:http/http.dart';
 
 class ChooseClothes extends StatefulWidget {

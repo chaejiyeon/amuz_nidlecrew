@@ -4,14 +4,14 @@ import 'dart:io';
 // import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:amuz_nidlecrew/db/wp-api.dart';
-import 'package:amuz_nidlecrew/getxController/homeController.dart';
+import 'package:needlecrew/db/wp-api.dart';
+import 'package:needlecrew/getxController/homeController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
 import 'package:flutter_woocommerce_api/models/order.dart';
 import 'package:get/get.dart';
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 

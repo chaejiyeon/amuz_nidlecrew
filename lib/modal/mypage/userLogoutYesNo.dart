@@ -1,10 +1,11 @@
-import 'package:amuz_nidlecrew/db/wp-api.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/db/wp-api.dart';
+import 'package:needlecrew/getxController/homeController.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 
 class UserLogoutYesNo extends StatelessWidget {
   final String titleText;
@@ -16,6 +17,7 @@ class UserLogoutYesNo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController controller = Get.put(HomeController());
     return Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -71,6 +73,7 @@ class UserLogoutYesNo extends StatelessWidget {
                               style: TextStyle(color: Colors.black)),
                           onPressed: () {
                             wp_api.logOut();
+                            controller.mainModalcheck.value = false;
                           }),
                     ),
                   ),

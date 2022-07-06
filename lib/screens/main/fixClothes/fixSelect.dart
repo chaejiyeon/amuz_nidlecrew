@@ -2,17 +2,17 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:amuz_nidlecrew/getxController/fixClothes/fixselectController.dart';
-import 'package:amuz_nidlecrew/modal/fixClothes/fixSelectModal.dart';
-import 'package:amuz_nidlecrew/screens/main/cartInfo.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/fixQuestion.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/imageUpload.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/checkBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/circleLineTextField.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/header.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/progressbar.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/getxController/fixClothes/fixselectController.dart';
+import 'package:needlecrew/modal/fixClothes/fixSelectModal.dart';
+import 'package:needlecrew/screens/main/cartInfo.dart';
+import 'package:needlecrew/screens/main/fixClothes/fixQuestion.dart';
+import 'package:needlecrew/screens/main/fixClothes/imageUpload.dart';
+import 'package:needlecrew/widgets/fixClothes/checkBtn.dart';
+import 'package:needlecrew/widgets/fixClothes/circleLineTextField.dart';
+import 'package:needlecrew/widgets/fixClothes/fixClothesAppbar.dart';
+import 'package:needlecrew/widgets/fixClothes/header.dart';
+import 'package:needlecrew/widgets/fixClothes/progressbar.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +23,7 @@ import 'package:flutter_woocommerce_api/models/products.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 import 'package:http/http.dart' as http;
 
 class FixSelect extends StatefulWidget {

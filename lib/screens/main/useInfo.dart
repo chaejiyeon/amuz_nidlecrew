@@ -1,10 +1,11 @@
-import 'package:amuz_nidlecrew/getxController/useInfo/useInfoController.dart';
-import 'package:amuz_nidlecrew/widgets/useinfo/useAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/useinfo/userInfoList.dart';
+import 'package:needlecrew/getxController/useInfo/useInfoController.dart';
+import 'package:needlecrew/widgets/useinfo/useAppbar.dart';
+import 'package:needlecrew/widgets/useinfo/userInfoList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shimmer/shimmer.dart';
 
 class UseInfo extends StatefulWidget {
   final int pageNum;
@@ -28,8 +29,11 @@ class _UseInfoState extends State<UseInfo> with TickerProviderStateMixin {
   int tabIndex = 0;
   int initTab = 0;
 
+  late Future myFuture;
+
   @override
   void initState() {
+    myFuture = controller.getCompleteOrder();
     super.initState();
     print("pageNum " + widget.pageNum.toString());
 
@@ -46,7 +50,7 @@ class _UseInfoState extends State<UseInfo> with TickerProviderStateMixin {
       });
     });
 
-    controller.getCompleteOrder();
+
 
   }
 
@@ -59,7 +63,6 @@ class _UseInfoState extends State<UseInfo> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     print("imgindex : $tabIndex");
-
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -207,32 +210,43 @@ class _UseInfoState extends State<UseInfo> with TickerProviderStateMixin {
           // tab별 화면
           Expanded(
             child: Container(
-                color: Colors.white,
-                child:
-                     TabBarView(
-                      controller: _tabController,
-                      children: [
-                        UseInfoList(fixState: "ready"),
-                        UseInfoList(fixState: "progress"),
-                        UseInfoList(fixState: "complete"),
-                      ],
-                    ),
-                // Obx(() {
-                //   if (controller.isInitialized.value) {
-                //     return TabBarView(
-                //       controller: _tabController,
-                //       children: [
-                //         UseInfoList(fixState: "ready"),
-                //         UseInfoList(fixState: "progress"),
-                //         UseInfoList(fixState: "complete"),
-                //       ],
-                //     );
-                //   } else {
-                //     return Center(
-                //       child: CircularProgressIndicator(),
-                //     );
-                //   }
-                // }),
+              color: Colors.white,
+              child:
+                  //  TabBarView(
+                  //   controller: _tabController,
+                  //   children: [
+                  //     UseInfoList(fixState: "ready", controller: controller,),
+                  //     UseInfoList(fixState: "progress", controller: controller),
+                  //     UseInfoList(fixState: "complete", controller: controller),
+                  //   ],
+                  // ),
+                  Obx(() {
+                if (controller.isInitialized.value) {
+                  print("this state count " +
+                      controller.readyLists.length.toString());
+                  return TabBarView(
+                    controller: _tabController,
+                    children: [
+                      UseInfoList(
+                          fixState: "ready",
+                          fixItems: controller.readyLists,
+                          controller: controller),
+                      UseInfoList(
+                          fixState: "progress",
+                          fixItems: controller.progressLists,
+                          controller: controller),
+                      UseInfoList(
+                          fixState: "complete",
+                          fixItems: controller.completeLists,
+                          controller: controller),
+                    ],
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              }),
             ),
           ),
         ],
@@ -268,19 +282,67 @@ class _UseInfoState extends State<UseInfo> with TickerProviderStateMixin {
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Obx(
-                () => Text(
-                  content == "수선 대기"
-                      ? controller.readyCount.value.toString()
-                      : content == "수선 진행중"
-                          ? controller.progressCount.value.toString()
-                          : controller.completeCount.value .toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
+              // FutureBuilder(future: myFuture,builder: (context, snapshot){
+              //   bool isLoading = snapshot.connectionState == ConnectionState.waiting;
+              //
+              //   return isLoading ? countSkeleton() : Text(
+              //     content == "수선 대기"
+              //         ? controller.readyLists.length.toString()
+              //         : content == "수선 진행중"
+              //         ? controller.progressLists.length.toString()
+              //         : controller.completeLists.length.toString(),
+              //     style: TextStyle(
+              //       color : Colors.white,
+              //       fontSize: 18,
+              //     ),
+              //   );
+              // }),
+
+
+              Text(
+                content == "수선 대기"
+                    ? controller.readyLists.length.toString()
+                    : content == "수선 진행중"
+                    ? controller.progressLists.length.toString()
+                    : controller.completeLists.length.toString(),
+                style: TextStyle(
+                  color : Colors.white,
+                  fontSize: 18,
                 ),
               ),
+
+
+              // Obx(() {
+              //   Text(
+              //     content == "수선 대기"
+              //         ? controller.readyLists.length.toString()
+              //         : content == "수선 진행중"
+              //             ? controller.progressLists.length.toString()
+              //             : controller.completeLists.length.toString(),
+              //     style: TextStyle(
+              //       color : Colors.white,
+              //       fontSize: 18,
+              //     ),
+              //   ),
+
+                // if (controller.isInitialized.value) {
+                //   return Text(
+                //     content == "수선 대기"
+                //         ? controller.readyLists.length.toString()
+                //         : content == "수선 진행중"
+                //             ? controller.progressLists.length.toString()
+                //             : controller.completeLists.length.toString(),
+                //     style: TextStyle(
+                //       color: Colors.white,
+                //       fontSize: 18,
+                //     ),
+                //   );
+                // } else {
+                //   return Center(
+                //     child: CircularProgressIndicator(),
+                //   );
+                // }
+              // }),
               SizedBox(
                 width: 3,
               ),
@@ -317,4 +379,20 @@ class _UseInfoState extends State<UseInfo> with TickerProviderStateMixin {
           children: [barDot(), barDot(), barDot(), barDot()],
         ));
   }
+
+
+  Widget countSkeleton() {
+    return Shimmer.fromColors(
+      baseColor: Color.fromRGBO(240, 240, 240, 1),
+      highlightColor: Colors.white,
+      child: Container(
+        padding: EdgeInsets.only(bottom: 5),
+        width: 10,
+        height: 21,
+        color: Colors.grey,
+      ),
+    );
+  }
+
+
 }

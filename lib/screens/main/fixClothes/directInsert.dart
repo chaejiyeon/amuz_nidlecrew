@@ -1,6 +1,6 @@
-import 'package:amuz_nidlecrew/widgets/baseAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/circleBlackBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/insertForm.dart';
+import 'package:needlecrew/widgets/baseAppbar.dart';
+import 'package:needlecrew/widgets/circleBlackBtn.dart';
+import 'package:needlecrew/widgets/fixClothes/insertForm.dart';
 import 'package:flutter/material.dart';
 
 class DirectInsert extends StatefulWidget {

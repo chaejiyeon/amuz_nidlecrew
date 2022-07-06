@@ -1,6 +1,6 @@
-import 'package:amuz_nidlecrew/screens/main/mainhome/priceInfo.dart';
-import 'package:amuz_nidlecrew/screens/main/mainhome/sizeCheckGuide.dart';
-import 'package:amuz_nidlecrew/screens/main/mainhome/useguide.dart';
+import 'package:needlecrew/screens/main/mainhome/priceInfo.dart';
+import 'package:needlecrew/screens/main/mainhome/sizeCheckGuide.dart';
+import 'package:needlecrew/screens/main/mainhome/useguide.dart';
 import 'package:flutter/cupertino.dart';
 
 class GuideItem {

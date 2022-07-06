@@ -1,7 +1,7 @@
-import 'package:amuz_nidlecrew/db/wp-api.dart';
-import 'package:amuz_nidlecrew/main.dart';
-import 'package:amuz_nidlecrew/screens/login/startPage.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
+import 'package:needlecrew/db/wp-api.dart';
+import 'package:needlecrew/main.dart';
+import 'package:needlecrew/screens/login/startPage.dart';
+import 'package:needlecrew/widgets/fixClothes/listLine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:flutter_svg/flutter_svg.dart';

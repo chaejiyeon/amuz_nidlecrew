@@ -1,13 +1,15 @@
 import 'dart:async';
 
-import 'package:amuz_nidlecrew/getxController/homeController.dart';
-import 'package:amuz_nidlecrew/widgets/baseAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:needlecrew/getxController/homeController.dart';
+import 'package:needlecrew/widgets/baseAppbar.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 
 class UserPhoneInsert extends StatefulWidget {
   const UserPhoneInsert({Key? key}) : super(key: key);
@@ -33,6 +35,13 @@ class _UserPhoneInsertState extends State<UserPhoneInsert> {
 
   String confirmAuth = "인증번호가 발송되었습니다.";
 
+  bool authOk = false;
+
+  String verificationId = "";
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
+  // 문자 인증 시간 표시
   void setTime() {
     double minute;
     int second;
@@ -59,12 +68,46 @@ class _UserPhoneInsertState extends State<UserPhoneInsert> {
     });
   }
 
+  // 문자인증 요청
+  void phoneAuth(PhoneAuthCredential phoneAuthCredential) async {
+    try {
+      final authCredential =
+          await _auth.signInWithCredential(phoneAuthCredential);
+      if (authCredential?.user != null) {
+        timer.cancel();
+
+        setState(() {
+          print("인증완료!!!!");
+          authOk = true;
+          confirmAuth = "인증이 완료되었습니다.";
+          time = "";
+        });
+
+        await _auth.currentUser!.delete();
+        print("auth정보삭제");
+        _auth.signOut();
+        print("phone로그인된것 로그아웃");
+      }
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        confirmAuth = "인증번호가 일치하지 않습니다.";
+      });
+      print("인증실패!!!!");
+    }
+  }
+
   @override
   void initState() {
     for (int i = 0; i < 2; i++) {
       editingcontroller.add(TextEditingController());
     }
     super.initState();
+
+    // Firebase.initializeApp().whenComplete(() {
+    //   print("completed");
+    //   setState(() {});
+    // });
+
   }
 
   @override
@@ -137,25 +180,19 @@ class _UserPhoneInsertState extends State<UserPhoneInsert> {
           alignment: Alignment.bottomRight,
           child: GestureDetector(
             onTap: () {
-              wp_api.joinUs(
-                  homeController.userJoin[0],
-                  homeController.userJoin[1],
-                  homeController.userJoin[2],
-                  editingcontroller[0].text);
-              print("join user this " +
-                  homeController.userJoin.toString() +
-                  editingcontroller[0].text);
-
               // 문자 인증 성공시 메인화면으로 이동
-              if(confirmAuth == "인증이 완료되었습니다."){}
-              Get.toNamed("/mainHome");
+              if (authOk) {
+                homeController.joinUser(editingcontroller[0].text);
+                print("join user this " +
+                    homeController.userJoin.toString() +
+                    editingcontroller[0].text);
+                homeController.JoinUs();
+              }
+
             },
             child: SvgPicture.asset(
               'assets/icons/floatingNext.svg',
-              color: editingcontroller[0].text.length > 0 &&
-                      editingcontroller[1].text.length > 0
-                  ? HexColor("fd9a03")
-                  : HexColor("#d5d5d5"),
+              color: authOk ? HexColor("fd9a03") : HexColor("#d5d5d5"),
             ),
           ),
         ),
@@ -205,15 +242,46 @@ class _UserPhoneInsertState extends State<UserPhoneInsert> {
             ),
             SizedBox(width: 20),
             GestureDetector(
-              onTap: () {
+              onTap: () async {
                 if (btnText == "인증요청" || btnText == "재요청") {
                   setState(() {
                     sendMessage = true;
+                    confirmAuth = "인증번호가 발송되었습니다.";
                   });
                   setTime();
+
+                  await _auth.verifyPhoneNumber(
+                    timeout: Duration(seconds: 120),
+                      // phoneNumber: "+8210" + editingcontroller[0].text.substring(3, editingcontroller[0].text.length),
+                      phoneNumber: "+11344445555",
+                      verificationCompleted: (phoneAuthCredential) async {
+                        print("sms 인증번호 문자옴");
+                      },
+                      verificationFailed: (verificationFailed) async {
+                        print(verificationFailed.code);
+                        print("코드발송실패");
+                      },
+                      codeSent: (verificationId, resendingToken) async {
+                        print("인증번호 보냄");
+                        Get.snackbar(
+                            "인증번호 발송",
+                            editingcontroller[0].text +
+                                "로 인증코드를 발송하였습니다. 문자가 올때까지 잠시만 기다려주세요");
+                        setState(() {
+                          this.verificationId = verificationId;
+                        });
+                      },
+                      codeAutoRetrievalTimeout: (String verificationId) {});
                 }
                 if (btnText == "확인") {
+                  print("verification " + editingcontroller[1].text);
+                  PhoneAuthCredential phoneAuthCredential =
+                      PhoneAuthProvider.credential(
+                          verificationId: verificationId,
+                          smsCode: editingcontroller[1].text);
 
+                  phoneAuth(phoneAuthCredential);
+                  print("this confirmAuth     " + confirmAuth);
                 }
               },
               child: Container(
@@ -235,20 +303,24 @@ class _UserPhoneInsertState extends State<UserPhoneInsert> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Text(
+                      confirmAuth,
+                      style: TextStyle(
+                          color: confirmAuth == "인증이 완료되었습니다."
+                              ? HexColor("#fd9a03")
+                              : Colors.red,
+                          fontSize: 13),
+                    ),
                     time != ""
-                        ? Text(
-                            confirmAuth,
-                            style: TextStyle(color: confirmAuth == "인증이 완료되었습니다." ? HexColor("#fd9a03") : Colors.red, fontSize: 13),
-                          )
+                        ? Container(
+                            padding: EdgeInsets.only(right: 105),
+                            child: Text(
+                              time,
+                              style: TextStyle(color: Colors.red, fontSize: 13),
+                            ))
                         : Container(
                             height: 0,
                           ),
-                    Container(
-                        padding: EdgeInsets.only(right: 105),
-                        child: Text(
-                          time,
-                          style: TextStyle(color: Colors.red, fontSize: 13),
-                        )),
                   ],
                 ),
               )

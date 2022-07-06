@@ -1,6 +1,6 @@
-import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/widgets/fixClothes/listLine.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';

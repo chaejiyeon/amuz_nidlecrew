@@ -1,6 +1,6 @@
-import 'package:amuz_nidlecrew/bottomsheet/fixSizeGuideSheet.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/subtitle.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/bottomsheet/fixSizeGuideSheet.dart';
+import 'package:needlecrew/widgets/fixClothes/subtitle.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

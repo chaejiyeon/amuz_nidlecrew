@@ -1,7 +1,7 @@
-import 'package:amuz_nidlecrew/widgets/circleBlackBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/addressInsertForm.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/widgets/circleBlackBtn.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/myPage/addressInsertForm.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';

@@ -1,8 +1,8 @@
-import 'package:amuz_nidlecrew/bottomsheet/takeFixInfoBottomSheet.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/fixRegister.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/progressbar.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/bottomsheet/takeFixInfoBottomSheet.dart';
+import 'package:needlecrew/screens/main/fixClothes/fixRegister.dart';
+import 'package:needlecrew/widgets/fixClothes/fixClothesAppbar.dart';
+import 'package:needlecrew/widgets/fixClothes/progressbar.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

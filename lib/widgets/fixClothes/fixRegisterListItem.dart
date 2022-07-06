@@ -1,7 +1,7 @@
-import 'package:amuz_nidlecrew/widgets/cartInfo/fixtypeListItem.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/checkBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/fixtypeRegisterListItem.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
+import 'package:needlecrew/widgets/cartInfo/fixtypeListItem.dart';
+import 'package:needlecrew/widgets/fixClothes/checkBtn.dart';
+import 'package:needlecrew/widgets/fixClothes/fixtypeRegisterListItem.dart';
+import 'package:needlecrew/widgets/fixClothes/listLine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_woocommerce_api/models/order.dart';
 import 'package:get/get.dart';

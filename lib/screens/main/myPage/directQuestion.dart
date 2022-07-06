@@ -1,6 +1,6 @@
-import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/directQuetionHideItem.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/screens/main/mainHome.dart';
+import 'package:needlecrew/widgets/myPage/directQuetionHideItem.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

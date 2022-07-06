@@ -1,7 +1,7 @@
-import 'package:amuz_nidlecrew/screens/main/myPage/payMent.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/payType.dart';
+import 'package:needlecrew/screens/main/myPage/payMent.dart';
+import 'package:needlecrew/screens/main/myPage/payType.dart';
 import 'package:flutter/material.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 

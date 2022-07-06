@@ -1,6 +1,6 @@
-import 'package:amuz_nidlecrew/screens/main/fixClothes/imageUpload.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/circleLineTextField.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/screens/main/fixClothes/imageUpload.dart';
+import 'package:needlecrew/widgets/fixClothes/circleLineTextField.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 

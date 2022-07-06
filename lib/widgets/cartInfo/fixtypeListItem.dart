@@ -1,8 +1,8 @@
-import 'package:amuz_nidlecrew/modal/cartDelBtnModal.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/fixUpdate.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/modal/cartDelBtnModal.dart';
+import 'package:needlecrew/screens/main/fixClothes.dart';
+import 'package:needlecrew/screens/main/fixClothes/fixUpdate.dart';
+import 'package:needlecrew/widgets/fixClothes/listLine.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_woocommerce_api/models/order.dart';

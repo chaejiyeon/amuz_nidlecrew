@@ -1,7 +1,7 @@
-import 'package:amuz_nidlecrew/screens/main/alramInfo.dart';
-import 'package:amuz_nidlecrew/screens/main/cartInfo.dart';
-import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
-import 'package:amuz_nidlecrew/screens/mainPage.dart';
+import 'package:needlecrew/screens/main/alramInfo.dart';
+import 'package:needlecrew/screens/main/cartInfo.dart';
+import 'package:needlecrew/screens/main/mainHome.dart';
+import 'package:needlecrew/screens/mainPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

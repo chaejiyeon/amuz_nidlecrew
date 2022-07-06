@@ -1,84 +1,96 @@
-import 'package:amuz_nidlecrew/getxController/useInfo/useInfoController.dart';
-import 'package:amuz_nidlecrew/models/fixReady.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:amuz_nidlecrew/widgets/useinfo/userInfoListItem.dart';
+import 'package:needlecrew/getxController/useInfo/useInfoController.dart';
+import 'package:needlecrew/models/fixReady.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/useinfo/userInfoListItem.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 final List<String> fixState = ['ready', 'progress', 'complete'];
 
 class UseInfoList extends StatefulWidget {
   final String fixState;
+  final List<FixReady> fixItems;
+  final UseInfoController controller;
 
-  const UseInfoList({Key? key, required this.fixState}) : super(key: key);
+  const UseInfoList(
+      {Key? key,
+      required this.fixState,
+      required this.fixItems,
+      required this.controller})
+      : super(key: key);
 
   @override
   State<UseInfoList> createState() => _UseInfoListState();
 }
 
 class _UseInfoListState extends State<UseInfoList> {
-  final UseInfoController controller = Get.put(UseInfoController());
-  int count = 0;
+  // final UseInfoController controller = Get.put(UseInfoController());
+
+  int skeletonCount = 0;
+
+
+  late Future myFuture;
+  @override
+  void initState() {
+    setState((){skeletonCount = widget.fixItems.length;});
+    myFuture = widget.controller.getCompleteOrder();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    print("useinfolist count  " + count.toString());
-
     return GestureDetector(
-      child:
-          // ListView(
-          //   padding: EdgeInsets.zero,
-          //     children: List.generate(
-          //       controller.orders.length,
-          //       (index) => controller.orders[index] == fixState
-          //           ? UserInfoListItem(
-          //               fixReady: useLists[index],
-          //               fixState: fixState,
-          //             )
-          //           : index == 0
-          //               ? EmptyFix()
-          //               : Container(),
-          //     ),
-          // ),
-
-          // ListView(padding: EdgeInsets.zero,children: [Text("ddfwef"),Text("ddfwef")],)
-
-          Obx(() {
-        if (controller.isInitialized.value) {
-
-          return ListView(
-            padding: EdgeInsets.zero,
-            children: List.generate(
-                fixState == "ready"
-                    ? controller.readyCount.value
-                    : fixState == "progress"
-                        ? controller.progressCount.value
-                        : fixState == "complete"
-                            ? controller.completeCount.value
-                            : 0,
-                (index) => (controller.readyCount.value != 0 ||
-                            controller.progressCount != 0 ||
-                            controller.completeCount.value != 0) &&
-                        controller.useLists[index].fixState == widget.fixState
-                    ? UserInfoListItem(
-                        fixReady: controller.useLists[index],
-                        fixState: widget.fixState,
-                      )
-                    : EmptyFix()),
-          );
-        } else {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      }),
+      child: FutureBuilder(
+        future: myFuture,
+        builder: (context, snapshot) {
+          bool isLoading = snapshot.connectionState == ConnectionState.waiting;
+          return widget.fixItems.length == 0
+                  ? EmptyFix()
+                  : ListView(
+                      padding: EdgeInsets.zero,
+                      children: List.generate(
+                          widget.fixItems.length,
+                          (index) => UserInfoListItem(
+                                fixReady: widget.fixItems[index],
+                                fixState: widget.fixState,
+                              )),
+                    );
+        },
+      ),
+      //       Obx(() {
+      //
+      //   if (widget.controller.isInitialized.value) {
+      //
+      //     return widget.fixItems.length <= 0
+      //         ? EmptyFix() : ListView(
+      //       padding: EdgeInsets.zero,
+      //       children: List.generate(
+      //           widget.fixItems.length,
+      //               (index) =>
+      //               UserInfoListItem(
+      //                 fixReady: widget.fixItems[index],
+      //                 fixState: widget.fixState,
+      //               )),
+      //     );
+      //   } else {
+      //     return Center(
+      //       child: CircularProgressIndicator(),
+      //     );
+      //   }
+      // }),
     );
   }
 
   // fix List 목록이 없을 경우
   Widget EmptyFix() {
     return Container(
-      alignment: Alignment.center,
+      alignment: Alignment.topCenter,
       padding: EdgeInsets.only(top: 50),
       child: FontStyle(
           text: widget.fixState == "ready"
@@ -90,6 +102,54 @@ class _UseInfoListState extends State<UseInfoList> {
           fontsize: "md",
           fontbold: "",
           textdirectionright: false),
+    );
+  }
+
+  Widget countSkeleton() {
+    return Shimmer.fromColors(
+      baseColor: Color.fromRGBO(240, 240, 240, 1),
+      highlightColor: Colors.white,
+      child: Column(
+        children:[ for(int i=0; i<skeletonCount; i++) skeletonItem()],
+      ),
+    );
+  }
+
+  Widget skeletonItem() {
+    return Container(
+      padding: EdgeInsets.only(left: 24, top: 10, right: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: EdgeInsets.only(bottom: 5),
+            width: 195,
+            height: 20,
+            color: Colors.grey,
+          ),
+          Container(
+            padding: EdgeInsets.only(bottom: 3),
+            margin: EdgeInsets.only(top: 5),
+            width: 152,
+            height: 24,
+            color: Colors.grey,
+          ),
+          SizedBox(
+            height: 3,
+          ),
+          Container(
+            width: 87,
+            height: 36,
+            color: Colors.grey,
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 10),
+            width: double.infinity,
+            height: 1,
+            color: Colors.grey,
+          ),
+        ],
+      ),
     );
   }
 }

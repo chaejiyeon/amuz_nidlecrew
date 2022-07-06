@@ -1,10 +1,10 @@
-import 'package:amuz_nidlecrew/widgets/baseAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/bannerslide.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/footer.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/guide.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/mainHomeAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/myuseInfo.dart';
+import 'package:needlecrew/widgets/baseAppbar.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/mainhome/bannerslide.dart';
+import 'package:needlecrew/widgets/mainhome/footer.dart';
+import 'package:needlecrew/widgets/mainhome/guide.dart';
+import 'package:needlecrew/widgets/mainhome/mainHomeAppbar.dart';
+import 'package:needlecrew/widgets/mainhome/myuseInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 

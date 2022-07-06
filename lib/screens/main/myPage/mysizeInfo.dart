@@ -1,11 +1,11 @@
-import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/mysizeOnePiece.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/mysizeOuterInfo.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/mysizePants.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/mysizeShirt.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/mysizeSkirt.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageMenu.dart';
+import 'package:needlecrew/screens/main/mainHome.dart';
+import 'package:needlecrew/screens/main/myPage/mysizeOnePiece.dart';
+import 'package:needlecrew/screens/main/myPage/mysizeOuterInfo.dart';
+import 'package:needlecrew/screens/main/myPage/mysizePants.dart';
+import 'package:needlecrew/screens/main/myPage/mysizeShirt.dart';
+import 'package:needlecrew/screens/main/myPage/mysizeSkirt.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/widgets/myPage/mypageMenu.dart';
 import 'package:flutter/material.dart';
 
 class MySizeInfo extends StatefulWidget {

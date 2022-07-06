@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:amuz_nidlecrew/getxController/fixClothes/fixselectController.dart';
-import 'package:amuz_nidlecrew/modal/alertDialogYes.dart';
-import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
+import 'package:needlecrew/getxController/fixClothes/fixselectController.dart';
+import 'package:needlecrew/modal/alertDialogYes.dart';
+import 'package:needlecrew/widgets/circleLineBtn.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,10 +12,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 
 class ImageUpload extends StatefulWidget {
   final String icon;

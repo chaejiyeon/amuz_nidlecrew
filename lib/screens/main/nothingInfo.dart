@@ -1,5 +1,5 @@
-import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
+import 'package:needlecrew/screens/main/fixClothes.dart';
+import 'package:needlecrew/widgets/fixClothes/fixClothesAppbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';

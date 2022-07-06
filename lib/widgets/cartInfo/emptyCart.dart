@@ -1,6 +1,6 @@
-import 'package:amuz_nidlecrew/screens/mainPage.dart';
-import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/screens/mainPage.dart';
+import 'package:needlecrew/widgets/circleLineBtn.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';

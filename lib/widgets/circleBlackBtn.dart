@@ -1,8 +1,8 @@
-import 'package:amuz_nidlecrew/getxController/homeController.dart';
-import 'package:amuz_nidlecrew/widgets/iamportForm.dart';
+import 'package:needlecrew/getxController/homeController.dart';
+import 'package:needlecrew/widgets/iamportForm.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 
 
 class CircleBlackBtn extends GetView<HomeController> {

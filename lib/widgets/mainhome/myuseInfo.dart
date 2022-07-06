@@ -1,12 +1,13 @@
-import 'package:amuz_nidlecrew/getxController/fixClothes/cartController.dart';
-import 'package:amuz_nidlecrew/getxController/useInfo/useInfoController.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
-import 'package:amuz_nidlecrew/screens/main/useInfo.dart';
-import 'package:amuz_nidlecrew/screens/mainPage.dart';
+import 'package:needlecrew/getxController/fixClothes/cartController.dart';
+import 'package:needlecrew/getxController/useInfo/useInfoController.dart';
+import 'package:needlecrew/screens/main/fixClothes.dart';
+import 'package:needlecrew/screens/main/useInfo.dart';
+import 'package:needlecrew/screens/mainPage.dart';
 import 'package:flutter/material.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
 
 class MyUseInfo extends StatefulWidget {
   const MyUseInfo({Key? key}) : super(key: key);
@@ -19,12 +20,18 @@ class _MyUseInfoState extends State<MyUseInfo> {
   final UseInfoController useInfoController = Get.put(UseInfoController());
   final CartController cartController = Get.put(CartController());
 
+  late Future myFuture;
+
+  @override
+  void initState(){
+    myFuture = useInfoController.getCompleteOrder();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    return Container( 
-      padding: EdgeInsets.only(left: 24,right: 24, top: 25, bottom: 53),
+    return Container(
+      padding: EdgeInsets.only(left: 24, right: 24, top: 25, bottom: 53),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -32,38 +39,133 @@ class _MyUseInfoState extends State<MyUseInfo> {
               text: "나의 이용내역",
               fontsize: "md",
               fontbold: "bold",
-              fontcolor: Colors.black,textdirectionright: false),
-          SizedBox(height: 34,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              iconInfo("assets/icons/main/writeIcon.svg", cartController.cartCount.value, "작성 중", "/fixClothes"),
-              iconInfo("assets/icons/main/chartIcon.svg", useInfoController.readyCount.value, "진행 중", "/useInfoReady"),
-              iconInfo("assets/icons/main/clothesIcon.svg", useInfoController.completeCount.value, "수선 완료", "/useInfoComplete"),
-            ],
+              fontcolor: Colors.black,
+              textdirectionright: false),
+          SizedBox(
+            height: 34,
           ),
+          FutureBuilder(
+              future: myFuture,
+              builder: (context, snapshot) {
+                bool isLoading = snapshot.connectionState == ConnectionState.waiting;
+
+                return isLoading ? countSkeleton() :  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    iconInfo(
+                        "assets/icons/main/writeIcon.svg",
+                        useInfoController.readyLists.length,
+                        "대기 중",
+                        "/useInfoReady"),
+                    iconInfo(
+                        "assets/icons/main/chartIcon.svg",
+                        useInfoController.progressLists.length,
+                        "진행 중",
+                        "/useInfoProgress"),
+                    iconInfo(
+                        "assets/icons/main/clothesIcon.svg",
+                        useInfoController.completeLists.length,
+                        "수선 완료",
+                        "/useInfoComplete"),
+                  ],
+                );
+
+                //
+                // if (snapshot.connectionState == ConnectionState.done) {
+                //   return isLoading ? countSkeleton() :  Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                //     children: [
+                //       iconInfo(
+                //           "assets/icons/main/writeIcon.svg",
+                //           useInfoController.readyLists.length,
+                //           "대기 중",
+                //           "/useInfoReady"),
+                //       iconInfo(
+                //           "assets/icons/main/chartIcon.svg",
+                //           useInfoController.progressLists.length,
+                //           "진행 중",
+                //           "/useInfoProgress"),
+                //       iconInfo(
+                //           "assets/icons/main/clothesIcon.svg",
+                //           useInfoController.completeLists.length,
+                //           "수선 완료",
+                //           "/useInfoComplete"),
+                //     ],
+                //   );
+                // } else {
+                //   return Center(
+                //     child: CircularProgressIndicator(),
+                //   );
+                // }
+              })
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     iconInfo("assets/icons/main/writeIcon.svg", useInfoController.readyLists.length, "대기 중", "/useInfoReady"),
+          //     iconInfo("assets/icons/main/chartIcon.svg", useInfoController.progressLists.length, "진행 중", "/useInfoProgress"),
+          //     iconInfo("assets/icons/main/clothesIcon.svg", useInfoController.completeLists.length, "수선 완료", "/useInfoComplete"),
+          //   ],
+          // ),
         ],
       ),
     );
   }
 
-
   // 이용 내역 아이콘 버튼
-  Widget iconInfo(String img, int count, String comment, String widget){
+  Widget iconInfo(String img, int count, String comment, String widget) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         Get.toNamed(widget);
       },
       child: Container(
         child: Column(
           children: [
             SvgPicture.asset(img),
-            SizedBox(height: 14,),
+            SizedBox(
+              height: 14,
+            ),
             Text(count.toString() + "건"),
-            SizedBox(height: 3,),
+            SizedBox(
+              height: 3,
+            ),
             Text(comment),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget countSkeleton() {
+    return Shimmer.fromColors(
+      baseColor: Color.fromRGBO(240, 240, 240, 1),
+      highlightColor: Colors.white,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          skeletonItem(),
+          skeletonItem(),
+          skeletonItem(),
+        ],
+      )
+      // Container(
+      //   width: 300,
+      //   height: 200,
+      //   decoration: BoxDecoration(
+      //       borderRadius: BorderRadius.circular(5), color: Colors.grey),
+      // ),
+    );
+  }
+
+  Widget skeletonItem(){
+    return Container(
+      child: Column(
+        children: [
+          Container(width: 48,height: 48,color: Colors.grey,),
+          SizedBox(height: 14,),
+          Container(width: 23,height: 21,color: Colors.grey,),
+          SizedBox(height: 3,),
+          Container(width: 41,height: 20,color: Colors.grey,),
+        ],
       ),
     );
   }

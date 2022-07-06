@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/fixClothes/listLine.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class TableListItem extends StatefulWidget {

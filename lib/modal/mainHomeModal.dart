@@ -1,18 +1,16 @@
-import 'package:amuz_nidlecrew/getxController/fixClothes/cartController.dart';
-import 'package:amuz_nidlecrew/getxController/homeController.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/startAddressChoose.dart';
-import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
-import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/getxController/fixClothes/cartController.dart';
+import 'package:needlecrew/getxController/homeController.dart';
+import 'package:needlecrew/screens/main/fixClothes.dart';
+import 'package:needlecrew/widgets/fixClothes/startAddressChoose.dart';
+import 'package:needlecrew/screens/main/mainHome.dart';
+import 'package:needlecrew/widgets/circleLineBtn.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
 import 'package:get/get.dart';
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
-
-
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 
 class MainHomeModal extends StatefulWidget {
   const MainHomeModal({Key? key}) : super(key: key);
@@ -30,23 +28,24 @@ class _MainHomeModalState extends State<MainHomeModal> {
     name = await wp_api.storage.read(key: 'username');
   }
 
-
   @override
-  void initState(){
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+
+    });
     getName = getUsername();
     super.initState();
   }
 
-
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final HomeController controller = Get.put(HomeController());
-    controller.getUser();
+
 
     return Dialog(
       backgroundColor: Colors.transparent,
@@ -87,19 +86,22 @@ class _MainHomeModalState extends State<MainHomeModal> {
             //     );
             //   }
             // }),
-            FutureBuilder(future: getName, builder: (context, snapshot){
-              if(snapshot.connectionState == ConnectionState.done){
-                return FontStyle(
-                    text: "반가워요, " + name! +
-                        "님!",
-                    fontsize: "lg",
-                    fontbold: "bold",
-                    fontcolor: Colors.white,
-                    textdirectionright: false);
-              }else{
-                return Center(child: CircularProgressIndicator(),);
-              }
-            }),
+            FutureBuilder(
+                future: getName,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return FontStyle(
+                        text: "반가워요, " + name! + "님!",
+                        fontsize: "lg",
+                        fontbold: "bold",
+                        fontcolor: Colors.white,
+                        textdirectionright: false);
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                }),
 
             FontStyle(
                 text: "지금 바로 니들크루 수선의뢰를",

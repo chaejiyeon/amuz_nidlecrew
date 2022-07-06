@@ -1,5 +1,5 @@
-import 'package:amuz_nidlecrew/models/bannerItem.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/bannerItemList.dart';
+import 'package:needlecrew/models/bannerItem.dart';
+import 'package:needlecrew/widgets/mainhome/bannerItemList.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 

@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
 import 'package:flutter_woocommerce_api/models/order.dart';
 import 'package:get/get.dart';
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 import 'package:iamport_flutter/Iamport_certification.dart';
 import 'package:iamport_flutter/model/iamport_validation.dart';
 import 'package:intl/intl.dart';
@@ -190,12 +190,12 @@ class CartController extends GetxController {
       // }
 
 
-
-      for (int i = 0; i < orders.length; i++) {
-        if (orders[i].status == 'pending') {
-          cartCount++;
-        }
-      }
+      //
+      // for (int i = 0; i < orders.length; i++) {
+      //   if (orders[i].status == 'pending') {
+      //     cartCount++;
+      //   }
+      // }
     } catch (e) {
       print("isError " + e.toString());
       return false;

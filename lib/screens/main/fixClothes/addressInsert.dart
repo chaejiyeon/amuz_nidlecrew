@@ -1,10 +1,10 @@
-import 'package:amuz_nidlecrew/bottomsheet/fixAddressBottomSheetHeader.dart';
-import 'package:amuz_nidlecrew/bottomsheet/fixMyAddressList.dart';
-import 'package:amuz_nidlecrew/getxController/fixClothes/cartController.dart';
-import 'package:amuz_nidlecrew/models/addressItem.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/takeFixdate.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/bottomsheet/fixAddressBottomSheetHeader.dart';
+import 'package:needlecrew/bottomsheet/fixMyAddressList.dart';
+import 'package:needlecrew/getxController/fixClothes/cartController.dart';
+import 'package:needlecrew/models/addressItem.dart';
+import 'package:needlecrew/screens/main/fixClothes/takeFixdate.dart';
+import 'package:needlecrew/widgets/fixClothes/fixClothesAppbar.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

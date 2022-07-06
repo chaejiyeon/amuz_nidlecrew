@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 

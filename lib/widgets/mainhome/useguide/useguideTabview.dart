@@ -1,6 +1,6 @@
-import 'package:amuz_nidlecrew/models/useguideShopping.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/models/useguideShopping.dart';
+import 'package:needlecrew/widgets/fixClothes/listLine.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';

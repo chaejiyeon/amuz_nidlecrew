@@ -1,8 +1,8 @@
-import 'package:amuz_nidlecrew/screens/main/myPage/mysizeOuterCoat.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/mysizeOuterJaket.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/mysizeOuterJumper.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageMenu.dart';
+import 'package:needlecrew/screens/main/myPage/mysizeOuterCoat.dart';
+import 'package:needlecrew/screens/main/myPage/mysizeOuterJaket.dart';
+import 'package:needlecrew/screens/main/myPage/mysizeOuterJumper.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/widgets/myPage/mypageMenu.dart';
 import 'package:flutter/material.dart';
 
 import '../mainHome.dart';

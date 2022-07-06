@@ -1,10 +1,10 @@
-import 'package:amuz_nidlecrew/getxController/homeController.dart';
-import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/userUpdate.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/userInfoMenu.dart';
+import 'package:needlecrew/getxController/homeController.dart';
+import 'package:needlecrew/screens/main/mainHome.dart';
+import 'package:needlecrew/screens/main/myPage/userUpdate.dart';
+import 'package:needlecrew/widgets/fixClothes/listLine.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/widgets/myPage/userInfoMenu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -45,13 +45,13 @@ class _UserInfoState extends State<UserInfo> {
                   UserInfoMenu(
                       appTitle: "회원 정보",
                       title: "전화번호",
-                      info: controller.user.phoneNum != null ? controller.user.phoneNum.toString() : "",
+                      info: controller.user.metaData != null ? controller.user.metaData.toString() : "",
                       line: true),
                   UserInfoMenu(
                       appTitle: "회원 정보",
                       title: "주소",
-                      info: controller.user.defaultAddress != null
-                          ? controller.user.defaultAddress.toString()
+                      info: controller.user.metaData != null
+                          ? controller.user.metaData.toString()
                           : "",
                       line: true),
                   UserInfoMenu(

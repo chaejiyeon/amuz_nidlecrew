@@ -1,6 +1,6 @@
-import 'package:amuz_nidlecrew/widgets/fixClothes/startAddressChoose.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/footerBtn.dart';
+import 'package:needlecrew/widgets/fixClothes/startAddressChoose.dart';
+import 'package:needlecrew/widgets/fixClothes/fixClothesAppbar.dart';
+import 'package:needlecrew/widgets/fixClothes/footerBtn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

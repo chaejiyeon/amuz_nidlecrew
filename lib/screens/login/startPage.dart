@@ -1,6 +1,6 @@
-import 'package:amuz_nidlecrew/models/loadingItem.dart';
-import 'package:amuz_nidlecrew/widgets/circleBlackBtn.dart';
-import 'package:amuz_nidlecrew/widgets/loadingPage/loadingItemList.dart';
+import 'package:needlecrew/models/loadingItem.dart';
+import 'package:needlecrew/widgets/circleBlackBtn.dart';
+import 'package:needlecrew/widgets/loadingPage/loadingItemList.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -108,6 +108,7 @@ class _loadingPageState extends State<loadingPage> {
                     img: pages.img, text1: pages.text1, text2: pages.text2);
               }).toList(),
               options: CarouselOptions(
+                  enableInfiniteScroll: false,
                   viewportFraction: 1,
                   height: 425.9,
                   onPageChanged: (index, reason) {

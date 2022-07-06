@@ -1,8 +1,8 @@
-import 'package:amuz_nidlecrew/widgets/circleBlackBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mysizeBottom.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/sizeForm.dart';
+import 'package:needlecrew/widgets/circleBlackBtn.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/widgets/myPage/mysizeBottom.dart';
+import 'package:needlecrew/widgets/myPage/sizeForm.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

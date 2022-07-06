@@ -1,5 +1,5 @@
-import 'package:amuz_nidlecrew/widgets/circleBlackBtn.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/addressInsertForm.dart';
+import 'package:needlecrew/widgets/circleBlackBtn.dart';
+import 'package:needlecrew/widgets/myPage/addressInsertForm.dart';
 import 'package:flutter/material.dart';
 
 class AddressUpdate extends StatelessWidget {

@@ -1,9 +1,9 @@
-import 'package:amuz_nidlecrew/screens/main/fixClothes/addressInfo.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/addressInsert.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/chooseClothes.dart';
+import 'package:needlecrew/screens/main/fixClothes/addressInfo.dart';
+import 'package:needlecrew/screens/main/fixClothes/addressInsert.dart';
+import 'package:needlecrew/screens/main/fixClothes/chooseClothes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';

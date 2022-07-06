@@ -1,4 +1,4 @@
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
 import 'package:flutter/material.dart';
 
 class OftenQuestion extends StatefulWidget {

@@ -1,4 +1,5 @@
-import 'package:amuz_nidlecrew/db/wp-api.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:needlecrew/db/wp-api.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
@@ -27,9 +28,10 @@ class _CircleIconBtnState extends State<CircleIconBtn> {
 
   // google 로그인
   void googleLogin() async {
+
     try {
       final GoogleSignIn _googleSignIn = GoogleSignIn(
-        scopes: ['displayName', 'email', 'id'],
+        // scopes: ['displayName', 'email', 'id'],
       );
 
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -39,8 +41,10 @@ class _CircleIconBtnState extends State<CircleIconBtn> {
 
       await _googleSignIn;
 
-      socialLogin('${googleUser.displayName}', '${googleUser.email}',
+      joinUs('${googleUser.displayName}', '${googleUser.email}',
           '${googleUser.id}', '');
+      Login(googleUser.email, googleUser.id);
+
 
 
     } catch (error) {
@@ -63,8 +67,10 @@ class _CircleIconBtnState extends State<CircleIconBtn> {
 
 
     onSignIn(credential);
-    socialLogin('${credential.familyName}' + '${credential.givenName}',
+    joinUs('${credential.familyName}' + '${credential.givenName}',
         '${credential.email}', '${credential.identityToken}', '');
+    Login('${credential.email}', '${credential.identityToken}');
+
   }
 
   // naver 로그인
@@ -74,12 +80,16 @@ class _CircleIconBtnState extends State<CircleIconBtn> {
 
       NaverAccountResult accountResult = await FlutterNaverLogin.currentAccount();
 
-      socialLogin(res.account.name, res.account.email, res.account.id, accountResult.mobile);
+      joinUs(res.account.name, res.account.email, res.account.id, accountResult.mobile);
+      Login(res.account.email, res.account.id);
+
       print(res.account.name + '네이버 로그인 성공');
     } catch (error) {
       print("네이버 로그인 실패 isError $error");
     }
   }
+
+
 
   // 카카오 로그인
   Future<void> kakaoLogin() async {
@@ -89,8 +99,11 @@ class _CircleIconBtnState extends State<CircleIconBtn> {
         OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
         User user = await UserApi.instance.me();
 
-        socialLogin('${user.kakaoAccount?.name}', '${user.kakaoAccount?.email}',
+        joinUs('${user.kakaoAccount?.name}', '${user.kakaoAccount?.email}',
             '${user.id}', '${user.kakaoAccount?.phoneNumber}');
+
+        Login('${user.kakaoAccount?.email}',
+            '${user.id}');
         print('카카오톡 로그인 성공 ${token.accessToken}');
       } catch (error) {
         print('카카오톡 로그인 실패 $error');

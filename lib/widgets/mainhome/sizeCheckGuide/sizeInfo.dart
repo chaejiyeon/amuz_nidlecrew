@@ -1,4 +1,4 @@
-import 'package:amuz_nidlecrew/models/sizeCheckGuideItem.dart';
+import 'package:needlecrew/models/sizeCheckGuideItem.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 

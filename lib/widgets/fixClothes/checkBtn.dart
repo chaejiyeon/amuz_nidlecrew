@@ -1,6 +1,6 @@
-import 'package:amuz_nidlecrew/getxController/fixClothes/CartController.dart';
-import 'package:amuz_nidlecrew/getxController/fixClothes/fixselectController.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/getxController/fixClothes/CartController.dart';
+import 'package:needlecrew/getxController/fixClothes/fixselectController.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

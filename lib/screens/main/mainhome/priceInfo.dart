@@ -1,10 +1,10 @@
-import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/priceDropdown.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/priceInfoheader.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/tableHeader.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/tableListItem.dart';
-import 'package:amuz_nidlecrew/widgets/useinfo/useAppbar.dart';
+import 'package:needlecrew/widgets/fixClothes/listLine.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/priceDropdown.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/priceInfoheader.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/tableHeader.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/tableListItem.dart';
+import 'package:needlecrew/widgets/useinfo/useAppbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';

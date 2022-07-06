@@ -3,8 +3,9 @@ library wp_api;
 import 'dart:async';
 import 'dart:ffi';
 
-import 'package:amuz_nidlecrew/main.dart';
-import 'package:amuz_nidlecrew/screens/login/startPage.dart';
+import 'package:flutter_woocommerce_api/models/customer.dart';
+import 'package:needlecrew/main.dart';
+import 'package:needlecrew/screens/login/startPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -41,18 +42,32 @@ Future<void> joinUs(
         email: email,
         lastName: name.substring(0, 1),
         firstName: name.substring(1, name.length),
-        phoneNum: phoneNum);
+        );
 
     final result = wooCommerceApi.createCustomer(user);
 
     await result;
 
 
+    final update = wooCommerceApi.updateCustomer(id: user.id!, data: {'phoneNum' : phoneNum});
+
+    await update;
+
+    await wooCommerceApi.loginCustomer(username: email, password: password);
+
+
+    // user = await wooCommerceApi.loginCustomer(username: email, password: password);
+    //
+    // token = await wooCommerceApi.authenticateViaJWT(username: user.email, password: password);
+    //
+    // await storage.write(key: 'loginToken', value: token);
+    // await storage.write(key: 'username', value: user.lastName! + user.firstName!);
     // customer = await wooCommerceApi.loginCustomer(username: user.email!, password: user.password!);
 
     // token = await wooCommerceApi.authenticateViaJWT(username: user.email!, password: user.password!);
 
     if (user.username != null) {
+
       print(user.username.toString() + "회원가입 성공");
       Get.toNamed('/mainHome');
     } else {
@@ -69,24 +84,27 @@ Future<void> joinUs(
 }
 
 
-Future<bool> socialLogin(String name, String email, String password, String phoneNum) async {
+Future<bool> Login(String email, String password) async {
   try{
+    String userName = "";
     user = await wooCommerceApi.loginCustomer(username: email, password: password);
 
     if(user != null){
       token = await wooCommerceApi.authenticateViaJWT(username: user.email, password: password);
+      userName = user.lastName! + user.firstName!;
       print("login 성공!!!!!!!!" + user.toString());
 
-      Get.toNamed('/mainHome');
+      // Get.toNamed('/mainHome');
     }else{
       print("login 실패!!!!!!!");
-      joinUs(name, email, password, phoneNum);
-      token = await wooCommerceApi.authenticateViaJWT(username: user.email, password: password);
+      // joinUs(name, email, password, phoneNum);
+      // token = await wooCommerceApi.authenticateViaJWT(username: user.email, password: password);
     }
 
     await storage.write(key: 'loginToken', value: token);
-    await storage.write(key: 'username', value: user.lastName! + user.firstName!);
+    await storage.write(key: 'username', value: userName);
     print("login token " + token);
+    print("login username " + userName);
   }catch(e){
     print("login errer $e");
     return false;
@@ -114,7 +132,7 @@ Future<bool> isLogged() async {
 Future<void> logOut() async {
   FlutterNaverLogin.logOut();
   await wooCommerceApi.logUserOut();
-  await storage.delete(key: 'loginToken');
+  await storage.deleteAll();
   print("로그아웃");
 
   Get.offAndToNamed('/startPage');

@@ -1,10 +1,10 @@
-import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/addressList.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/payType.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/phoneNumUpdate.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/userJoinOut.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageMenu.dart';
+import 'package:needlecrew/screens/main/mainHome.dart';
+import 'package:needlecrew/screens/main/myPage/addressList.dart';
+import 'package:needlecrew/screens/main/myPage/payType.dart';
+import 'package:needlecrew/screens/main/myPage/phoneNumUpdate.dart';
+import 'package:needlecrew/screens/main/myPage/userJoinOut.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/widgets/myPage/mypageMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

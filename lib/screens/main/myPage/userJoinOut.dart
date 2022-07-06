@@ -1,8 +1,8 @@
-import 'package:amuz_nidlecrew/modal/mypage/userJoinOutDialog.dart';
-import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageDropDown.dart';
+import 'package:needlecrew/modal/mypage/userJoinOutDialog.dart';
+import 'package:needlecrew/screens/main/mainHome.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/widgets/myPage/mypageDropDown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';

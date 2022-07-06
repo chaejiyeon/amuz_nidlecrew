@@ -1,13 +1,13 @@
-import 'package:amuz_nidlecrew/modal/cartDelBtnModal.dart';
-import 'package:amuz_nidlecrew/modal/cartInfoModal.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/fixSelect.dart';
-import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
-import 'package:amuz_nidlecrew/screens/main/nothingInfo.dart';
-import 'package:amuz_nidlecrew/widgets/cartInfo/cartListItem.dart';
-import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/checkBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/modal/cartDelBtnModal.dart';
+import 'package:needlecrew/modal/cartInfoModal.dart';
+import 'package:needlecrew/screens/main/fixClothes/fixSelect.dart';
+import 'package:needlecrew/screens/main/mainHome.dart';
+import 'package:needlecrew/screens/main/nothingInfo.dart';
+import 'package:needlecrew/widgets/cartInfo/cartListItem.dart';
+import 'package:needlecrew/widgets/circleLineBtn.dart';
+import 'package:needlecrew/widgets/fixClothes/checkBtn.dart';
+import 'package:needlecrew/widgets/fixClothes/fixClothesAppbar.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +15,7 @@ import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
 import 'package:flutter_woocommerce_api/models/order.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 
 import '../../getxController/fixClothes/cartController.dart';
 
@@ -34,7 +34,7 @@ class CartInfo extends StatelessWidget {
         future: controller.getCart(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return controller.cartCount == 0
+            return controller.orders.length == 0
                 ? NothingInfo(title: "작성중인 의뢰", subtitle: "작성중인 의뢰가 없습니다.")
                 : Container(
                     color: Colors.white,
@@ -100,7 +100,7 @@ class CartInfo extends StatelessWidget {
                                     controller.orders.length.toString());
 
                                 return Expanded(
-                                  child: controller.cartCount == 0
+                                  child: controller.orders.length == 0
                                       ? NothingInfo(
                                           title: "작성중인 의뢰",
                                           subtitle: "작성중인 수선 의뢰가 없습니다.",
@@ -168,7 +168,7 @@ class CartInfo extends StatelessWidget {
           future: controller.getCart(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return controller.cartCount == 0
+              return controller.orders.length == 0
                   ? Container(
                       height: 0,
                     )

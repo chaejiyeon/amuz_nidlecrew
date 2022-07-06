@@ -1,7 +1,7 @@
-import 'package:amuz_nidlecrew/models/sizeCheckGuideItem.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/priceInfoheader.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/sizeCheckGuide/sizeInfo.dart';
-import 'package:amuz_nidlecrew/widgets/useinfo/useAppbar.dart';
+import 'package:needlecrew/models/sizeCheckGuideItem.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/priceInfoheader.dart';
+import 'package:needlecrew/widgets/mainhome/sizeCheckGuide/sizeInfo.dart';
+import 'package:needlecrew/widgets/useinfo/useAppbar.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 

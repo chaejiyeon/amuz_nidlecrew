@@ -1,7 +1,7 @@
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/priceDropdown.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/priceDropdownHeader.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/tableHeader.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/tableListItem.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/priceDropdown.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/priceDropdownHeader.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/tableHeader.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/tableListItem.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 

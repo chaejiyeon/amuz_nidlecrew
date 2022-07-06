@@ -1,4 +1,4 @@
-import 'package:amuz_nidlecrew/models/useguideShoppingItem.dart';
+import 'package:needlecrew/models/useguideShoppingItem.dart';
 
 class UseGuideShopping{
   final int step;

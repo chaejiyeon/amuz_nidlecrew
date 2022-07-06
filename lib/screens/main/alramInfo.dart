@@ -1,10 +1,10 @@
-import 'package:amuz_nidlecrew/models/alramItem.dart';
-import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
-import 'package:amuz_nidlecrew/widgets/alramInfo/alramBtnText.dart';
-import 'package:amuz_nidlecrew/widgets/alramInfo/alramLitItem.dart';
-import 'package:amuz_nidlecrew/widgets/baseAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/models/alramItem.dart';
+import 'package:needlecrew/screens/main/mainHome.dart';
+import 'package:needlecrew/widgets/alramInfo/alramBtnText.dart';
+import 'package:needlecrew/widgets/alramInfo/alramLitItem.dart';
+import 'package:needlecrew/widgets/baseAppbar.dart';
+import 'package:needlecrew/widgets/circleLineBtn.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

@@ -1,9 +1,9 @@
-import 'package:amuz_nidlecrew/modal/alertDialogYesNo.dart';
-import 'package:amuz_nidlecrew/models/userInfo.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/payTypeAdd.dart';
-import 'package:amuz_nidlecrew/widgets/circleBlackBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/userInfoMenu.dart';
+import 'package:needlecrew/modal/alertDialogYesNo.dart';
+import 'package:needlecrew/models/userInfo.dart';
+import 'package:needlecrew/screens/main/myPage/payTypeAdd.dart';
+import 'package:needlecrew/widgets/circleBlackBtn.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/myPage/userInfoMenu.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

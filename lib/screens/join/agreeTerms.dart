@@ -1,10 +1,10 @@
 
-import 'package:amuz_nidlecrew/main.dart';
-import 'package:amuz_nidlecrew/screens/join/chooseGender.dart';
-import 'package:amuz_nidlecrew/widgets/baseAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/circleCheckBtn.dart';
-import 'package:amuz_nidlecrew/widgets/floatingNextBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/main.dart';
+import 'package:needlecrew/screens/join/chooseGender.dart';
+import 'package:needlecrew/widgets/baseAppbar.dart';
+import 'package:needlecrew/widgets/circleCheckBtn.dart';
+import 'package:needlecrew/widgets/floatingNextBtn.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

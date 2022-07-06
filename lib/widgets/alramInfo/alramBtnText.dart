@@ -1,6 +1,6 @@
 // alram appbar itemBtn
-import 'package:amuz_nidlecrew/modal/alramDeleteModal.dart';
-import 'package:amuz_nidlecrew/screens/main/alramInfo.dart';
+import 'package:needlecrew/modal/alramDeleteModal.dart';
+import 'package:needlecrew/screens/main/alramInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

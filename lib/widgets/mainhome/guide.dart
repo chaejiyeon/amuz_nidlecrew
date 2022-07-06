@@ -1,4 +1,4 @@
-import 'package:amuz_nidlecrew/models/guideItem.dart';
+import 'package:needlecrew/models/guideItem.dart';
 import 'package:flutter/material.dart';
 
 import 'guidItemList.dart';

@@ -1,16 +1,17 @@
 import 'dart:async';
 import 'dart:ffi';
 
-import 'package:amuz_nidlecrew/db/wp-api.dart';
-import 'package:amuz_nidlecrew/screens/login/startPage.dart';
-import 'package:amuz_nidlecrew/screens/login/login.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/chooseClothes.dart';
-import 'package:amuz_nidlecrew/screens/main/fixClothes/fixRegisterInfo.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/payTypeAdd.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/payTypeAddConfirm.dart';
-import 'package:amuz_nidlecrew/screens/mainPage.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:needlecrew/db/wp-api.dart';
+import 'package:needlecrew/screens/login/startPage.dart';
+import 'package:needlecrew/screens/login/login.dart';
+import 'package:needlecrew/screens/main/fixClothes.dart';
+import 'package:needlecrew/screens/main/fixClothes/chooseClothes.dart';
+import 'package:needlecrew/screens/main/fixClothes/fixRegisterInfo.dart';
+import 'package:needlecrew/screens/main/myPage.dart';
+import 'package:needlecrew/screens/main/myPage/payTypeAdd.dart';
+import 'package:needlecrew/screens/main/myPage/payTypeAddConfirm.dart';
+import 'package:needlecrew/screens/mainPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,14 +21,17 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:amuz_nidlecrew/db/wp-api.dart' as wp_api;
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
 
 import 'screens/join/agreeTerms.dart';
 import 'screens/main/myPage/payType.dart';
 
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SharedPreferences.setMockInitialValues({});
   KakaoSdk.init(nativeAppKey: 'e30822d334ce26f168c65295d55a25b0', loggingEnabled: true);
 
@@ -36,6 +40,7 @@ void main() {
     consumerKey: 'ck_75c6d6983771d3923a5dc58c1151039ab96167c1',
     consumerSecret: 'cs_36e34b80b2ccc76c587069cb7b121f6df6758deb',
   );
+
   runApp(const MyApp());
 }
 
@@ -66,7 +71,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/join', page: () => AgreeTerms()),
         GetPage(name: '/startPage', page: () => loadingPage()),
         GetPage(name: '/mainHome', page: () => MainPage(pageNum: 0)),
-        GetPage(name: '/useInfoReady', page: () => MainPage(pageNum: 1, selectTab: 1)),
+        GetPage(name: '/useInfoReady', page: () => MainPage(pageNum: 1, selectTab: 0)),
+        GetPage(name: '/useInfoProgress', page: () => MainPage(pageNum: 1, selectTab: 1)),
         GetPage(name: '/useInfoComplete', page: () => MainPage(pageNum: 1, selectTab: 2)),
         GetPage(name: '/myPage', page: () => MainPage(pageNum: 2)),
         GetPage(name: '/fixClothes', page: () => FixClothes()),

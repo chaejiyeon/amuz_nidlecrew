@@ -1,8 +1,8 @@
-import 'package:amuz_nidlecrew/screens/main/fixClothes/imageUpload.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/checkBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/circleLineTextField.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/fixClothesAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/screens/main/fixClothes/imageUpload.dart';
+import 'package:needlecrew/widgets/fixClothes/checkBtn.dart';
+import 'package:needlecrew/widgets/fixClothes/circleLineTextField.dart';
+import 'package:needlecrew/widgets/fixClothes/fixClothesAppbar.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

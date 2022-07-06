@@ -1,5 +1,5 @@
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/sizeForm.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/widgets/myPage/sizeForm.dart';
 import 'package:flutter/material.dart';
 
 import 'mysizeOuterCoatUpdate.dart';

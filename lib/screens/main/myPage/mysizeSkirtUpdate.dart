@@ -1,7 +1,7 @@
-import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mysizeBottom.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/sizeForm.dart';
+import 'package:needlecrew/screens/main/mainHome.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/widgets/myPage/mysizeBottom.dart';
+import 'package:needlecrew/widgets/myPage/sizeForm.dart';
 import 'package:flutter/material.dart';
 
 class MysizeSkirtUpdate extends StatefulWidget {

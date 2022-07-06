@@ -1,8 +1,8 @@
-import 'package:amuz_nidlecrew/screens/main/fixClothes.dart';
-import 'package:amuz_nidlecrew/screens/main/mainhome/useguideDetail.dart';
-import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
-import 'package:amuz_nidlecrew/widgets/mainhome/priceInfo/priceInfoheader.dart';
-import 'package:amuz_nidlecrew/widgets/useinfo/useAppbar.dart';
+import 'package:needlecrew/screens/main/fixClothes.dart';
+import 'package:needlecrew/screens/main/mainhome/useguideDetail.dart';
+import 'package:needlecrew/widgets/circleLineBtn.dart';
+import 'package:needlecrew/widgets/mainhome/priceInfo/priceInfoheader.dart';
+import 'package:needlecrew/widgets/useinfo/useAppbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';

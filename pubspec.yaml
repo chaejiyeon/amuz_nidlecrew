@@ -1,5 +1,5 @@
-name: amuz_nidlecrew
-description: A new Flutter project.
+name: needlecrew
+description: 돈타타 종족의 후예. 니들크루
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -104,6 +104,14 @@ dependencies:
 
 # user token 저장
   flutter_secure_storage: ^5.0.2
+
+#  skeleton ui
+  shimmer: ^2.0.0
+
+# 파이어베이스 인증
+  firebase_auth: ^3.4.1
+  firebase_core: ^1.19.1
+
 
 dev_dependencies:
   flutter_test:

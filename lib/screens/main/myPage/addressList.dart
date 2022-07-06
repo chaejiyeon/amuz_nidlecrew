@@ -1,14 +1,14 @@
 import 'dart:ffi';
 
-import 'package:amuz_nidlecrew/modal/addressDelModal.dart';
-import 'package:amuz_nidlecrew/models/addressItem.dart';
-import 'package:amuz_nidlecrew/screens/main/mainHome.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/addressAdd.dart';
-import 'package:amuz_nidlecrew/screens/main/myPage/addressUpdate.dart';
-import 'package:amuz_nidlecrew/widgets/circleLineBtn.dart';
-import 'package:amuz_nidlecrew/widgets/fixClothes/listLine.dart';
-import 'package:amuz_nidlecrew/widgets/fontStyle.dart';
-import 'package:amuz_nidlecrew/widgets/myPage/mypageAppbar.dart';
+import 'package:needlecrew/modal/addressDelModal.dart';
+import 'package:needlecrew/models/addressItem.dart';
+import 'package:needlecrew/screens/main/mainHome.dart';
+import 'package:needlecrew/screens/main/myPage/addressAdd.dart';
+import 'package:needlecrew/screens/main/myPage/addressUpdate.dart';
+import 'package:needlecrew/widgets/circleLineBtn.dart';
+import 'package:needlecrew/widgets/fixClothes/listLine.dart';
+import 'package:needlecrew/widgets/fontStyle.dart';
+import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
