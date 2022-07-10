@@ -113,11 +113,11 @@ class _UserInfoInsertState extends State<UserInfoInsert> {
           child: GestureDetector(
             onTap: () {
               if (this._formKey.currentState!.validate()) {
+                List keyList = ["user_name","email","password","checkPassword"];
                 for (int i = 0; i < editingcontroller.length; i++) {
-                  homeController.joinUser(editingcontroller[i].text);
+                  homeController.setUserInfo(keyList[i],editingcontroller[i].text);
                 }
                 Get.to(UserPhoneInsert());
-                print("this complete success!!!!!! ");
               } else {
                 Get.snackbar("회원가입", "입력된 정보를 확인해주세요!");
               }

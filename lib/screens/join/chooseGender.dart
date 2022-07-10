@@ -20,7 +20,6 @@ class _ChooseGenderState extends State<ChooseGender> {
 
   @override
   void initState(){
-    homeController.userJoin.clear();
     super.initState();
   }
 
@@ -114,8 +113,7 @@ class _ChooseGenderState extends State<ChooseGender> {
             value = index;
           });
 
-          homeController.joinUser(btnText);
-          print("homecontroller joinuserInfo   " + homeController.userJoin.toString());
+          homeController.setUserInfo("gender",index == 1 ? "F" : "M");
         },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

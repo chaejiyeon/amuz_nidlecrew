@@ -38,6 +38,8 @@ class FixSelectController extends GetxController {
 
   RxString radioGroup = "".obs;
 
+  RxInt radioId = 0.obs;
+
   // 수선선택 상품 image url
   RxList getImages = [].obs;
 

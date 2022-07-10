@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:needlecrew/getxController/useInfo/useInfoController.dart';
 import 'package:needlecrew/widgets/baseAppbar.dart';
 import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:needlecrew/widgets/mainhome/bannerslide.dart';
@@ -17,6 +19,9 @@ class MainHome extends StatefulWidget {
 
 class _MainHomeState extends State<MainHome>
     with SingleTickerProviderStateMixin {
+  final UseInfoController useInfoController = Get.put(UseInfoController());
+
+  late Future myFuture;
   // bool _showAppbar = true;
   ScrollController _scrollController = new ScrollController();
   bool isScrollingDown = false;
@@ -39,33 +44,14 @@ class _MainHomeState extends State<MainHome>
       }
       // setState((){});
     });
-    myScroll();
+
+    myFuture = useInfoController.getCompleteOrder();
   }
 
   @override
   void dispose() {
     _scrollController.removeListener(() {});
     super.dispose();
-  }
-
-  void myScroll() async {
-    // _scrollController.addListener(() {
-    //   if(_scrollController.position.userScrollDirection == ScrollDirection.reverse){
-    //     if(!isScrollingDown){
-    //       isScrollingDown = true;
-    //       _showAppbar = false;
-    //     }
-    //   }
-    //   if(_scrollController.position.userScrollDirection == ScrollDirection.forward){
-    //     if(isScrollingDown){
-    //       isScrollingDown = false;
-    //       _showAppbar = true;
-    //     }
-    //   }
-    //   if(_scrollController.position.pixels >= 320){
-    //
-    //   }
-    // });
   }
 
   @override
@@ -82,7 +68,9 @@ class _MainHomeState extends State<MainHome>
         padding: EdgeInsets.zero,
         children: [
           BannerSlides(),
-          MyUseInfo(),
+          MyUseInfo(
+            myFuture: myFuture,
+          ),
           Container(
             padding: EdgeInsets.only(left: 24, bottom: 10),
             child: FontStyle(

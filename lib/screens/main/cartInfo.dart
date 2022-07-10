@@ -102,8 +102,8 @@ class CartInfo extends StatelessWidget {
                                 return Expanded(
                                   child: controller.orders.length == 0
                                       ? NothingInfo(
-                                          title: "작성중인 의뢰",
-                                          subtitle: "작성중인 수선 의뢰가 없습니다.",
+                                          title: "옷바구니",
+                                          subtitle: "담겨있는 옷이 없습니다.",
                                         )
                                       : Container(
                                           padding: EdgeInsets.only(
@@ -129,29 +129,6 @@ class CartInfo extends StatelessWidget {
                                 );
                               }
                             }),
-                        // Obx(() {
-                        //   if (controller.isInitialized.value) {
-                        //     print("주문건수 " + controller.orders.length.toString());
-                        //     return Expanded(
-                        //       child: Container(
-                        //         padding: EdgeInsets.only(left: 24, right: 24),
-                        //         color: HexColor("#f7f7f7"),
-                        //         child: SingleChildScrollView(
-                        //             padding: EdgeInsets.only(top: 20),
-                        //             child: Column(
-                        //               children: List.generate(
-                        //                   controller.orders.length,
-                        //                   (index) => CartListItem(
-                        //                       lineItem:
-                        //                           controller.orders[index].lineItems!, index: index,)),
-                        //             )),
-                        //       ),
-                        //     );
-                        //   } else {
-                        //     return Expanded(
-                        //         child: Center(child: CircularProgressIndicator()));
-                        //   }
-                        // }),
                       ],
                     ),
                   );

@@ -2,6 +2,7 @@ import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
+import 'package:flutter_woocommerce_api/models/customer.dart';
 import 'package:flutter_woocommerce_api/models/order.dart';
 import 'package:get/get.dart';
 import 'package:needlecrew/db/wp-api.dart' as wp_api;
@@ -47,9 +48,9 @@ class CartController extends GetxController {
   // 주소 입력, 수거 희망일, 수거 가이드일 경우 false (저장 안됨) > 접수 완료시 true (저장)
   RxBool setSave = false.obs;
 
-
   // 수거 희망일
   RxString fixdate = "".obs;
+
 
   @override
   void onInit() {
@@ -126,7 +127,6 @@ class CartController extends GetxController {
     update();
   }
 
-
   // void isCartCount() {
   //   // for (int i = 0; i < orders.length; i++) {
   //   //   if (orders[i].status == 'pending') {
@@ -138,7 +138,7 @@ class CartController extends GetxController {
   // }
 
   // 수거 희망일
-  void fixDate(String selectMonth, String selectDay){
+  void fixDate(String selectMonth, String selectDay) {
     fixdate.value = selectMonth + "월" + selectDay + "일";
     update();
   }
@@ -149,6 +149,8 @@ class CartController extends GetxController {
     update();
     return setPrice;
   }
+
+
 
   // fixselect 상위 카테고리
   Future<bool> getProductCategory(categoryid) async {
@@ -168,34 +170,10 @@ class CartController extends GetxController {
     try {
       user = await wp_api.getUser();
 
-      orders = await wp_api.wooCommerceApi.getOrders(
-        customer: user.id,
-        status: ['pending']
-      );
+      orders = await wp_api.wooCommerceApi
+          .getOrders(customer: user.id, status: ['pending']);
 
       print("orders this    ddddd" + orders.toString());
-
-      // // 접수 완료 시 완료 된 주문건 제외 후 옷바구니에 표시
-      // if(setSave == true) {
-      //   orders = await wp_api.wooCommerceApi.getOrders(customer: user.id,);
-      //   for(int i=0; i< registerid.length; i++){
-      //     for (int j = 0; j < orders.length; j++) {
-      //       if (registerid[i] == orders[j].id) {
-      //         orders.removeAt(j);
-      //       }
-      //     }
-      //   }
-      // }else {
-      //   orders = await wp_api.wooCommerceApi.getOrders(customer: user.id,);
-      // }
-
-
-      //
-      // for (int i = 0; i < orders.length; i++) {
-      //   if (orders[i].status == 'pending') {
-      //     cartCount++;
-      //   }
-      // }
     } catch (e) {
       print("isError " + e.toString());
       return false;
@@ -277,8 +255,4 @@ class CartController extends GetxController {
     }
     return true;
   }
-
-
-
-
 }

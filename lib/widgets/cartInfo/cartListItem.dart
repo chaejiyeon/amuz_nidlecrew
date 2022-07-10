@@ -32,19 +32,6 @@ class CartListItem extends GetView<CartController> {
       ),
       child: Column(
         children: [
-          // FutureBuilder(
-          //     future: getCategory(),
-          //     builder: (context, snapshot) {
-          //       if (snapshot.connectionState == ConnectionState.done) {
-          //         return Container(
-          //           child: Text(product.slug.toString()),
-          //         );
-          //       } else {
-          //         return Center(
-          //           child: CircularProgressIndicator(),
-          //         );
-          //       }
-          //     }),
           Container(
             padding: EdgeInsets.only(top: 20),
             child: Row(

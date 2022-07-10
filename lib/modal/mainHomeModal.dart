@@ -1,3 +1,4 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:needlecrew/getxController/fixClothes/cartController.dart';
 import 'package:needlecrew/getxController/homeController.dart';
 import 'package:needlecrew/screens/main/fixClothes.dart';
@@ -13,7 +14,8 @@ import 'package:get/get.dart';
 import 'package:needlecrew/db/wp-api.dart' as wp_api;
 
 class MainHomeModal extends StatefulWidget {
-  const MainHomeModal({Key? key}) : super(key: key);
+
+  const MainHomeModal({Key? key,}) : super(key: key);
 
   @override
   State<MainHomeModal> createState() => _MainHomeModalState();
@@ -24,22 +26,26 @@ class _MainHomeModalState extends State<MainHomeModal> {
 
   String? name = "";
 
-  Future<void> getUsername() async {
-    name = await wp_api.storage.read(key: 'username');
-  }
+
+
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      getUsername();
     });
-    getName = getUsername();
+
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  getUsername() async {
+    name = await wp_api.storage.read(key: 'username');
   }
 
   @override
@@ -69,27 +75,11 @@ class _MainHomeModalState extends State<MainHomeModal> {
             SizedBox(
               height: 30,
             ),
-            // Obx(() {
-            //   if (controller.isInitialized.value) {
-            //     return FontStyle(
-            //         text: "반가워요, " +
-            //             wp_api.user.lastName.toString() +
-            //             wp_api.user.firstName.toString() +
-            //             "님!",
-            //         fontsize: "lg",
-            //         fontbold: "bold",
-            //         fontcolor: Colors.white,
-            //         textdirectionright: false);
-            //   } else {
-            //     return Center(
-            //       child: CircularProgressIndicator(),
-            //     );
-            //   }
-            // }),
             FutureBuilder(
-                future: getName,
+                future: getUsername(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
+                    print("getusername this     " + name!);
                     return FontStyle(
                         text: "반가워요, " + name! + "님!",
                         fontsize: "lg",

@@ -19,7 +19,7 @@ class PhoneNumUpdate extends GetView<HomeController> {
         body: UpdateForm(
           appbarName: "전화번호 변경",
           updateType: "전화번호",
-          hintText: controller.user.metaData != null ? controller.user.metaData.toString() : "",
+          hintText: controller.userInfo("전화번호") != null ? controller.userInfo("전화번호") : "",
         ),
         bottomNavigationBar: Container(
           padding: EdgeInsets.all(20),

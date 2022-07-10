@@ -12,13 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shimmer/shimmer.dart';
 
 class UserInfoListItem extends StatefulWidget {
   final FixReady fixReady;
   final String fixState;
+  final Future myFuture;
 
   const UserInfoListItem(
-      {Key? key, required this.fixReady, required this.fixState})
+      {Key? key, required this.fixReady, required this.fixState, required this.myFuture})
       : super(key: key);
 
   @override
@@ -187,22 +189,45 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
     }
   }
 
+
+
+
+
+
+  // 본체
   @override
   Widget build(BuildContext context) {
     print("current fix state this " + widget.fixReady.readyInfo.toString());
 
     return Container(
-      padding: EdgeInsets.only(
-        left: 24,
-        right: 24,
-      ),
-      child: widget.fixState == "ready"
-          ? FixReady()
-          : widget.fixState == "progress"
-              ? FixProgress()
-              : FixComplete(),
-    );
+        padding: EdgeInsets.only(
+          left: 24,
+          right: 24,
+        ),
+        child: widget.fixState == "ready"
+            ? FixReady()
+            : widget.fixState == "progress"
+            ? FixProgress()
+            : FixComplete(),
+      );
+    // Container(
+    //   padding: EdgeInsets.only(
+    //     left: 24,
+    //     right: 24,
+    //   ),
+    //   child: widget.fixState == "ready"
+    //       ? FixReady()
+    //       : widget.fixState == "progress"
+    //           ? FixProgress()
+    //           : FixComplete(),
+    // );
   }
+
+
+
+
+
+
 
   // 수선 대기 widget
   Widget FixReady() {
@@ -425,4 +450,52 @@ class _UserInfoListItemState extends State<UserInfoListItem> {
       ),
     );
   }
+
+
+
+  // Widget countSkeleton() {
+  //   return Shimmer.fromColors(
+  //       baseColor: Color.fromRGBO(240, 240, 240, 1),
+  //       highlightColor: Colors.white,
+  //       child: skeletonItem()
+  //   );
+  // }
+  //
+  // Widget skeletonItem() {
+  //   return Container(
+  //     padding: EdgeInsets.only(left: 24, top: 10, right: 24),
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Container(
+  //           padding: EdgeInsets.only(bottom: 5),
+  //           width: 195,
+  //           height: 20,
+  //           color: Colors.grey,
+  //         ),
+  //         Container(
+  //           padding: EdgeInsets.only(bottom: 3),
+  //           margin: EdgeInsets.only(top: 5),
+  //           width: 152,
+  //           height: 24,
+  //           color: Colors.grey,
+  //         ),
+  //         SizedBox(
+  //           height: 3,
+  //         ),
+  //         Container(
+  //           width: 87,
+  //           height: 36,
+  //           color: Colors.grey,
+  //         ),
+  //         Container(
+  //           margin: EdgeInsets.only(top: 10),
+  //           width: double.infinity,
+  //           height: 1,
+  //           color: Colors.grey,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

@@ -10,21 +10,19 @@ import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MyUseInfo extends StatefulWidget {
-  const MyUseInfo({Key? key}) : super(key: key);
+  final Future myFuture;
+  const MyUseInfo({Key? key, required this.myFuture}) : super(key: key);
 
   @override
   State<MyUseInfo> createState() => _MyUseInfoState();
 }
 
 class _MyUseInfoState extends State<MyUseInfo> {
-  final UseInfoController useInfoController = Get.put(UseInfoController());
-  final CartController cartController = Get.put(CartController());
+  final UseInfoController controller = Get.put(UseInfoController());
 
-  late Future myFuture;
 
   @override
   void initState(){
-    myFuture = useInfoController.getCompleteOrder();
     super.initState();
   }
 
@@ -45,7 +43,7 @@ class _MyUseInfoState extends State<MyUseInfo> {
             height: 34,
           ),
           FutureBuilder(
-              future: myFuture,
+              future: widget.myFuture,
               builder: (context, snapshot) {
                 bool isLoading = snapshot.connectionState == ConnectionState.waiting;
 
@@ -54,17 +52,17 @@ class _MyUseInfoState extends State<MyUseInfo> {
                   children: [
                     iconInfo(
                         "assets/icons/main/writeIcon.svg",
-                        useInfoController.readyLists.length,
+                        controller.readyLists.length,
                         "대기 중",
                         "/useInfoReady"),
                     iconInfo(
                         "assets/icons/main/chartIcon.svg",
-                        useInfoController.progressLists.length,
+                        controller.progressLists.length,
                         "진행 중",
                         "/useInfoProgress"),
                     iconInfo(
                         "assets/icons/main/clothesIcon.svg",
-                        useInfoController.completeLists.length,
+                        controller.completeLists.length,
                         "수선 완료",
                         "/useInfoComplete"),
                   ],
@@ -98,14 +96,6 @@ class _MyUseInfoState extends State<MyUseInfo> {
                 //   );
                 // }
               })
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //   children: [
-          //     iconInfo("assets/icons/main/writeIcon.svg", useInfoController.readyLists.length, "대기 중", "/useInfoReady"),
-          //     iconInfo("assets/icons/main/chartIcon.svg", useInfoController.progressLists.length, "진행 중", "/useInfoProgress"),
-          //     iconInfo("assets/icons/main/clothesIcon.svg", useInfoController.completeLists.length, "수선 완료", "/useInfoComplete"),
-          //   ],
-          // ),
         ],
       ),
     );

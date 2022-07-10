@@ -2,6 +2,7 @@ import 'dart:ffi';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_woocommerce_api/flutter_woocommerce_api.dart';
 import 'package:flutter_woocommerce_api/models/customer.dart';
 import 'package:flutter_woocommerce_api/models/order.dart';
@@ -9,10 +10,16 @@ import 'package:get/get.dart';
 import 'package:needlecrew/db/wp-api.dart' as wp_api;
 import 'package:intl/intl.dart';
 
+import 'package:uuid/uuid.dart';
+
 class HomeController extends GetxController {
   static HomeController get to => Get.find();
 
   final isInitialized = false.obs;
+
+
+  // // login storage
+  // var storage = FlutterSecureStorage();
 
   // user update 내용
   final textController = TextEditingController();
@@ -25,7 +32,13 @@ class HomeController extends GetxController {
   // user update 항목
   RxString updateName = "".obs;
 
-  RxList userJoin = [].obs;
+  Map<String, String> userInputInfo = {
+    "gender" : "F",
+    "user_name" : "이름",
+    "email" : "이메일 주소",
+    "password" : "비밀번호",
+    "phoneNum" : "010123123123",
+  }.obs; // userJoin[0] : 성별 / userJoin[1] : 이름 / userJoin[2] : email / userJoin[3] : password / userJoin[4] : phoneNumber
 
   // user login - email
   RxString userEmail = "".obs;
@@ -43,6 +56,9 @@ class HomeController extends GetxController {
 
   RxString joinError = "".obs;
 
+  // user meta 정보
+  RxString userset = "".obs;
+
   @override
   void onInit() {
     initialize();
@@ -53,7 +69,6 @@ class HomeController extends GetxController {
   void onClose() {
     isInitialized.value = false;
     mainModalcheck.value = false;
-    userJoin.clear();
     super.onClose();
   }
 
@@ -72,15 +87,9 @@ class HomeController extends GetxController {
   }
 
   // 회원 가입 정보 저장
-  void joinUser(String user) {
-    for (int i = 0; i < userJoin.length; i++) {
-      if ((user == "여성" && userJoin[i] == "남성") ||
-          (user == "남성" && userJoin[i] == "여성")) {
-        userJoin.removeAt(i);
-      }
-    }
-    userJoin.add(user);
-    print("joinUserInfo ddddd" + userJoin.toString());
+  void setUserInfo(String key, String value) {
+    userInputInfo[key] = value;
+    print("joinUserInfo added !" + userInputInfo.toString());
     update();
   }
 
@@ -90,6 +99,27 @@ class HomeController extends GetxController {
     userPassword.value = password;
 
     update();
+  }
+
+  String userInfo(String userinfo) {
+    List<WooCustomerMetaData>? metaData = user.metaData;
+
+    for (int i = 0; i < metaData!.length; i++) {
+      if (userinfo == "전화번호") {
+        if (metaData[i].key == "phoneNum") {
+          userset.value = metaData[i].value;
+        }
+      } else if (userinfo == "주소") {
+        if (metaData[i].key == "default_address") {
+          userset.value = metaData[i].value;
+        }
+      } else if (userinfo == "결제 수단") {
+        if (metaData[i].key == "default_card") {
+          userset.value = metaData[i].value;
+        }
+      }
+    }
+    return userset.value;
   }
 
   // 초기화
@@ -134,22 +164,14 @@ class HomeController extends GetxController {
         .loginCustomer(username: email, password: password);
 
     try {
-      print("this login dddddd" + customer.toString());
+      print("this login " + customer.toString());
       token = await wp_api.wooCommerceApi
           .authenticateViaJWT(username: email, password: password);
 
-      // if (customer.toString().indexOf('invalid_email') != -1 ||
-      //     customer.toString().indexOf('invalid_username') != -1) {
-      //   loginCheck.value = '이메일 주소를 확인해주세요.';
-      //   print("로그인 실패! - 이메일 오류");
-      //   update();
-      //   return false;
-      // } else if (customer.toString().indexOf('incorrect_password') != -1) {
-      //   loginCheck.value = '비밀번호가 일치하지 않습니다.';
-      //   print("로그인 실패! - 비밀번호 오류 ${loginCheck.value}");
-      //   return false;
-      // } else {
       loginCheck.value = "";
+      await wp_api.storage.write(key: 'loginToken', value: token.toString());
+      // await storage.write(key: 'username', value: customer.)
+
       print("로그인 성공!!!!");
       Get.toNamed("/mainHome");
       // }
@@ -170,51 +192,38 @@ class HomeController extends GetxController {
     return true;
   }
 
+  // user join (회원가입)
   Future<bool> JoinUs() async {
     try {
-      final int index = userJoin[2].indexOf('@');
-      final String userName = userJoin[2].substring(0, index);
-
-      user = WooCustomer(
-        username: userName,
-        password: userJoin[3],
-        email: userJoin[2],
-        lastName: userJoin[1].substring(0, 1),
-        firstName: userJoin[1].substring(1, userJoin[1].length),
+      WooCustomer user = WooCustomer(
+        username: Uuid().v1(),
+        password: userInputInfo['password'],
+        email: userInputInfo['email'],
+        lastName: userInputInfo['user_name'].toString().substring(0, 1),
+        firstName: userInputInfo['user_name'].toString().substring(1),
+        metaData: [
+          WooCustomerMetaData(null, 'phoneNum', userInputInfo['phoneNum'].toString()),
+          WooCustomerMetaData(null, 'gender', userInputInfo['gender'].toString())
+        ]
       );
 
-      final result = wp_api.wooCommerceApi.createCustomer(user);
-
-      await result;
-
-
-      wp_api.Login(userJoin[2], userJoin[3]);
-
-      print("join member this " + user.toString());
-
-      // await wp_api.wooCommerceApi.updateCustomer(id: user.id!, data: {'phoneNum': userJoin[4]});
-      //
-      // if(user != null){
-      //   final metaRegister = wp_api.wooCommerceApi
-      //       .updateCustomer(id: user.id!, data: {'phoneNum': userJoin[4]});
-      //
-      //   await metaRegister;
-      //
-      //   user = await wp_api.wooCommerceApi
-      //       .loginCustomer(username: user.email!, password: user.password!);
-      //
-      //   token = await wp_api.wooCommerceApi.authenticateViaJWT(
-      //       username: user.email!, password: user.password!);
-      //
-      //   await wp_api.storage.write(key: 'loginToken', value: token.value);
-      //   await wp_api.storage
-      //       .write(key: 'username', value: user.lastName! + user.firstName!);
-      //
-      //   print("login user info    " + user.toString());
-      // }
-
-
-      print("회원가입 성공!!!!" + user.toString());
+      final result = await wp_api.wooCommerceApi.createCustomer(user);
+      if(result){
+        print("complete logged user " + result.toString());
+        await wp_api.Login(userInputInfo['email'].toString(), userInputInfo['password'].toString());
+        user = await wp_api.getUser();
+        // if(user.metaData == null){
+        //   user.metaData = [];
+        // }
+        // user.metaData?.add(WooCustomerMetaData(null, 'phoneNum', userInputInfo['phoneNum'].toString()));
+        // print("user metadata     " + await user.metaData.toString());
+        // await wp_api.wooCommerceApi.oldUpdateCustomer(wooCustomer: user);
+        //
+        // print("join member this " + user.toString());
+        // print("회원가입 성공!!!!" + user.toString());
+      }else{
+        print("가입 실패");
+      }
 
       Get.toNamed("/mainHome");
     } catch (e) {

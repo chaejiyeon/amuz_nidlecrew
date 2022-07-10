@@ -53,29 +53,15 @@ Future<void> joinUs(
 
     await update;
 
-    await wooCommerceApi.loginCustomer(username: email, password: password);
-
-
-    // user = await wooCommerceApi.loginCustomer(username: email, password: password);
-    //
-    // token = await wooCommerceApi.authenticateViaJWT(username: user.email, password: password);
-    //
-    // await storage.write(key: 'loginToken', value: token);
-    // await storage.write(key: 'username', value: user.lastName! + user.firstName!);
-    // customer = await wooCommerceApi.loginCustomer(username: user.email!, password: user.password!);
-
-    // token = await wooCommerceApi.authenticateViaJWT(username: user.email!, password: user.password!);
 
     if (user.username != null) {
 
       print(user.username.toString() + "회원가입 성공");
-      Get.toNamed('/mainHome');
     } else {
       print("error");
     }
   } catch (error) {
     if (error.toString().indexOf('registration-error-email-exists') != -1) {
-      Get.toNamed('/mainHome');
       print("로그인");
     } else {
       print("isError $error");
@@ -94,7 +80,7 @@ Future<bool> Login(String email, String password) async {
       userName = user.lastName! + user.firstName!;
       print("login 성공!!!!!!!!" + user.toString());
 
-      // Get.toNamed('/mainHome');
+      Get.toNamed('/mainHome');
     }else{
       print("login 실패!!!!!!!");
       // joinUs(name, email, password, phoneNum);
@@ -103,8 +89,11 @@ Future<bool> Login(String email, String password) async {
 
     await storage.write(key: 'loginToken', value: token);
     await storage.write(key: 'username', value: userName);
+
+    // String? thistoken = await storage.read(key: 'loginToken');
     print("login token " + token);
     print("login username " + userName);
+    // print("storage token " + thistoken.toString());
   }catch(e){
     print("login errer $e");
     return false;

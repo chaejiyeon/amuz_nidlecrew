@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:kpostal/kpostal.dart';
 import 'package:needlecrew/screens/main/mainHome.dart';
 import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
@@ -28,6 +30,14 @@ class _AddressInsertFormState extends State<AddressInsertForm> {
   final _textController = TextEditingController();
   late String selectAddress = "";
 
+  String postCode = '-';
+  String address = '-';
+  String latitude = '-';
+  String longitude = '-';
+  String kakaoLatitude = '-';
+  String kakaoLongitude = '-';
+
+
   @override
   void initState() {
     super.initState();
@@ -52,7 +62,7 @@ class _AddressInsertFormState extends State<AddressInsertForm> {
             SizedBox(
               height: 30,
             ),
-            CircleAddressSearch(widget.hinttext1),
+            searchAddress(widget.hinttext1),
             CircleAddressSearch(widget.hinttext2),
             Container(
               padding: EdgeInsets.only(top: 31),
@@ -76,22 +86,26 @@ class _AddressInsertFormState extends State<AddressInsertForm> {
     return Container(
       padding: EdgeInsets.only(bottom: 10),
       child: TextField(
+        onChanged: (value){
+          setState((){});
+        },
         controller: _textController,
         textAlign:
             widget.addressSearch == true ? TextAlign.center : TextAlign.start,
         decoration: InputDecoration(
-          suffixIcon: widget.addressSearch == false
-              ? IconButton(
-                  icon: Icon(CupertinoIcons.xmark_circle_fill),
+          contentPadding: EdgeInsets.only(left: 30,top: 16, bottom: 17),
+          suffixIcon:  IconButton(
+                  icon:_textController.text.isNotEmpty
+                      ? SvgPicture.asset("assets/icons/xmarkIcon_full.svg",) : Container(),
                   onPressed: () {
                     _textController.clear();
+                    setState((){});
                   },
-                )
-              : null,
+                ),
           hintText: title,
           hintStyle: TextStyle(
             color: widget.addressSearch == true
-                ? HexColor("#909090").withOpacity(0.7)
+                ? HexColor("#a5a5a5")
                 : Colors.black,
           ),
           border: OutlineInputBorder(
@@ -103,6 +117,44 @@ class _AddressInsertFormState extends State<AddressInsertForm> {
               color: HexColor("#d5d5d5"),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  // 주소 검색
+  Widget searchAddress(String text) {
+    return GestureDetector(
+      onTap: () async {
+        await Get.to(KpostalView(
+          useLocalServer: true,
+          localPort: 1024,
+          // kakaoKey: '{Add your KAKAO DEVELOPERS JS KEY}',
+          callback: (Kpostal result) {
+            setState(() {
+              this.postCode = result.postCode;
+              this.address = result.address;
+              this.latitude = result.latitude.toString();
+              this.longitude = result.longitude.toString();
+              this.kakaoLatitude = result.kakaoLatitude.toString();
+              this.kakaoLongitude = result.kakaoLongitude.toString();
+            });
+          },
+        ));
+      },
+      child: Container(
+        padding: EdgeInsets.only(left: widget.addressSearch == true ? 0 : 30,top: 16, bottom: 17),
+        margin: EdgeInsets.only(bottom: 10),
+        alignment: widget.addressSearch == true ? Alignment.center : null,
+        // height: 64,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(40),
+            border: Border.all(color: HexColor("#d5d5d5"))),
+        child: Text(
+          postCode != "-" && address != "-" ? address : "지번, 도로명, 건물명 검색",
+          style: TextStyle(color: widget.addressSearch == true
+              ? HexColor("#a5a5a5") : Colors.black, fontSize: 15),
         ),
       ),
     );

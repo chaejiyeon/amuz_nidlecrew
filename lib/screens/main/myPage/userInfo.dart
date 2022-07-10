@@ -45,19 +45,20 @@ class _UserInfoState extends State<UserInfo> {
                   UserInfoMenu(
                       appTitle: "회원 정보",
                       title: "전화번호",
-                      info: controller.user.metaData != null ? controller.user.metaData.toString() : "",
+                      info: controller.userInfo("전화번호") != null ? controller.userset.value : "",
                       line: true),
                   UserInfoMenu(
                       appTitle: "회원 정보",
                       title: "주소",
-                      info: controller.user.metaData != null
-                          ? controller.user.metaData.toString()
+                      info: controller.userInfo("주소") != null
+                          ? controller.userset.value
                           : "",
                       line: true),
                   UserInfoMenu(
                       appTitle: "회원 정보",
                       title: "결제 수단",
-                      info: "롯데카드(4892)",
+                      info: controller.userInfo("결제 수") != null
+                          ? controller.userset.value : "",
                       line: false),
                 ],
               ),

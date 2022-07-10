@@ -15,9 +15,21 @@ import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'myPage/userInfo.dart';
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 
-class MyPage extends StatelessWidget {
+class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
+
+  @override
+  State<MyPage> createState() => _MyPageState();
+}
+
+class _MyPageState extends State<MyPage> {
+  String? name = "";
+
+  Future<void> username() async {
+    name = await wp_api.storage.read(key: 'username');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,21 +66,40 @@ class MyPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Obx(
-                          () {
-                            if(controller.isInitialized.value) {
-                              return FontStyle(
-                                  text: controller.user.lastName.toString() +
-                                      controller.user.firstName.toString() +
-                                      "님",
-                                  fontbold: "bold",
-                                  fontsize: "lg",
-                                  fontcolor: Colors.black,
-                                  textdirectionright: false);
-                          }else{
-                              return Center(child: CircularProgressIndicator(),);
-                            }
-                          }),
+                        FutureBuilder(
+                            future: username(),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                return FontStyle(
+                                    text: controller.user.lastName.toString() +
+                                        controller.user.firstName.toString() +
+                                        "님",
+                                    fontbold: "bold",
+                                    fontsize: "lg",
+                                    fontcolor: Colors.black,
+                                    textdirectionright: false);
+                              } else {
+                                return Center(
+                                    child: CircularProgressIndicator());
+                              }
+                            }),
+                        // Obx(() {
+                        //   if (controller.isInitialized.value) {
+                        //     return FontStyle(
+                        //         text: controller.user.lastName.toString() +
+                        //             controller.user.firstName.toString() +
+                        //             "님",
+                        //         fontbold: "bold",
+                        //         fontsize: "lg",
+                        //         fontcolor: Colors.black,
+                        //         textdirectionright: false);
+                        //   } else {
+                        //     return Center(
+                        //       child: CircularProgressIndicator(),
+                        //     );
+                        //   }
+                        // }),
                         Text("니들크루와 함께"),
                         Text("일상의 작은 변화를 만들어봐요!"),
                       ],
@@ -105,10 +136,13 @@ class MyPage extends StatelessWidget {
                     MypageMenu(listTitle: "고객센터", widget: ServiceCenterInfo()),
                     MypageMenu(
                         listTitle: "서비스 정책", widget: ServicePolicyInfo()),
-                    MypageMenu(
-                        listTitle: "알림 설정", widget: DirectQuestion()),
+                    MypageMenu(listTitle: "알림 설정", widget: DirectQuestion()),
                     MypageMenu(listTitle: "공지사항", widget: AnnouncementInfo()),
-                    MypageMenu(listTitle: "로그아웃", widget: UserLogoutYesNo(titleText: "로그아웃 하시겠습니까?",)),
+                    MypageMenu(
+                        listTitle: "로그아웃",
+                        widget: UserLogoutYesNo(
+                          titleText: "로그아웃 하시겠습니까?",
+                        )),
                   ],
                 ),
               ),

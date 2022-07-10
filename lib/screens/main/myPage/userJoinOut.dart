@@ -1,8 +1,9 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:needlecrew/modal/mypage/userJoinOutDialog.dart';
 import 'package:needlecrew/screens/main/mainHome.dart';
 import 'package:needlecrew/widgets/fontStyle.dart';
 import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
-import 'package:needlecrew/widgets/myPage/mypageDropDown.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -15,6 +16,19 @@ class UserJoinOut extends StatefulWidget {
 }
 
 class _UserJoinOutState extends State<UserJoinOut> {
+  List<String> outList = [
+    '불편사항을 선택해주세요.',
+    '자주 사용하지 않아요',
+    '개인정보 유출이 우려돼요.',
+    '서비스 금액이 부담스러워요.',
+    '배송 및 주문에 불만이 있어요.',
+    '다른 플랫폼을 사용하고 있어요.',
+    '기타',
+  ];
+
+  String selectValue = "불편사항을 선택해주세요.";
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,10 +117,52 @@ class _UserJoinOutState extends State<UserJoinOut> {
                         fontsize: "",
                         fontbold: "bold",
                         fontcolor: Colors.black,textdirectionright: false),
-                    MypageDropDown(
-                      hintCheck: true,
-                      selectNum: 2,
-                      hint: "불편사항을 선택해주세요.",
+                    Container(
+                      margin: EdgeInsets.only(top: 10),
+                      height: 44,
+                      width: double.infinity,
+                      child:DropdownButtonHideUnderline(
+                        child: DropdownButton2(
+                          isExpanded: true,
+                          value: selectValue,
+                          onChanged: (value){
+                            setState((){
+                              selectValue = value.toString();
+                            });
+                          },
+                          hint: Text(
+                            outList[0],
+                            style: TextStyle(fontSize: 14, color: Colors.black),
+                          ),
+                          items: outList
+                              .map((item) => DropdownMenuItem<String>(
+                            value: item,
+                            child: Container(
+                              child: Text(
+                                item,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          ))
+                              .toList(),
+                          buttonWidth: 166,
+                          buttonHeight: 36,
+                          buttonPadding: EdgeInsets.only(left: 10, right: 14),
+                          buttonDecoration: BoxDecoration(
+                              border: Border.all(
+                                  color: HexColor("#ededed")
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.white),
+                          icon: SvgPicture.asset(
+                            "assets/icons/dropdownIcon.svg",
+                            color: HexColor("#909090"),
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),

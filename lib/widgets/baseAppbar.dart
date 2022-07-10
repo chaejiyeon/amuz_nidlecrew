@@ -14,7 +14,8 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: IconButton(
         onPressed: () {
-          Get.back();
+          Navigator.pop(context);
+          // Get.back();
         },
         icon: GestureDetector(child: SvgPicture.asset("assets/icons/prevIcon.svg", height: 19, width: 12,),),
       ),

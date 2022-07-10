@@ -29,6 +29,5 @@ class _AppbarItemState extends State<AppbarItem> {
           ),
         ),
       );
-    ;
   }
 }

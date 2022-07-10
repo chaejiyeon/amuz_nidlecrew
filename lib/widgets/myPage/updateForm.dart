@@ -1,3 +1,4 @@
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:needlecrew/getxController/homeController.dart';
 import 'package:needlecrew/screens/main/mainHome.dart';
 import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
@@ -55,15 +56,21 @@ class _UpdateFormState extends State<UpdateForm> {
                   height: 10,
                 ),
                 TextFormField(
+                  onChanged: (value){
+                    setState((){});
+                  },
                   controller: controller.textController,
                   style: TextStyle(height: 1),
+                  keyboardType: widget.hintText == "전화번호" ? TextInputType.emailAddress : null,
                   decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        icon: Icon(CupertinoIcons.xmark_circle_fill),
+
+                      suffixIcon: controller.textController.text.isNotEmpty ? IconButton(
+                        icon: SvgPicture.asset("assets/icons/xmarkIcon_full.svg",),
                         onPressed: () {
                           controller.textController.clear();
+                          setState((){});
                         },
-                      ),
+                      ) : null,
                       hintText: widget.hintText,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),

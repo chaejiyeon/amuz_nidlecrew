@@ -182,9 +182,9 @@ class _UserPhoneInsertState extends State<UserPhoneInsert> {
             onTap: () {
               // 문자 인증 성공시 메인화면으로 이동
               if (authOk) {
-                homeController.joinUser(editingcontroller[0].text);
+                homeController.setUserInfo("phoneNum", editingcontroller[0].text);
                 print("join user this " +
-                    homeController.userJoin.toString() +
+                    homeController.userInputInfo.toString() +
                     editingcontroller[0].text);
                 homeController.JoinUs();
               }
@@ -275,11 +275,12 @@ class _UserPhoneInsertState extends State<UserPhoneInsert> {
                 }
                 if (btnText == "확인") {
                   print("verification " + editingcontroller[1].text);
+                  print("auth id " + this.verificationId);
                   PhoneAuthCredential phoneAuthCredential =
                       PhoneAuthProvider.credential(
-                          verificationId: verificationId,
+                          verificationId: this.verificationId,
                           smsCode: editingcontroller[1].text);
-
+                  print(phoneAuthCredential);
                   phoneAuth(phoneAuthCredential);
                   print("this confirmAuth     " + confirmAuth);
                 }

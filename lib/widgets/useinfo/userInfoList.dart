@@ -11,13 +11,13 @@ final List<String> fixState = ['ready', 'progress', 'complete'];
 class UseInfoList extends StatefulWidget {
   final String fixState;
   final List<FixReady> fixItems;
-  final UseInfoController controller;
+  final Future myFuture;
 
   const UseInfoList(
       {Key? key,
       required this.fixState,
       required this.fixItems,
-      required this.controller})
+      required this.myFuture})
       : super(key: key);
 
   @override
@@ -25,16 +25,15 @@ class UseInfoList extends StatefulWidget {
 }
 
 class _UseInfoListState extends State<UseInfoList> {
-  // final UseInfoController controller = Get.put(UseInfoController());
+  final UseInfoController controller = Get.put(UseInfoController());
 
   int skeletonCount = 0;
 
-
-  late Future myFuture;
   @override
   void initState() {
-    setState((){skeletonCount = widget.fixItems.length;});
-    myFuture = widget.controller.getCompleteOrder();
+    // setState(() {
+    //   skeletonCount = widget.fixItems.length;
+    // });
     super.initState();
   }
 
@@ -47,43 +46,25 @@ class _UseInfoListState extends State<UseInfoList> {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: FutureBuilder(
-        future: myFuture,
+        future: widget.myFuture,
         builder: (context, snapshot) {
           bool isLoading = snapshot.connectionState == ConnectionState.waiting;
-          return widget.fixItems.length == 0
-                  ? EmptyFix()
-                  : ListView(
-                      padding: EdgeInsets.zero,
-                      children: List.generate(
-                          widget.fixItems.length,
-                          (index) => UserInfoListItem(
-                                fixReady: widget.fixItems[index],
-                                fixState: widget.fixState,
-                              )),
-                    );
+
+          return isLoading ? countSkeleton() : widget.fixItems.length > 0
+              ? ListView(
+                  padding: EdgeInsets.zero,
+                  children: List.generate(
+                      widget.fixItems.length,
+                      (index) => UserInfoListItem(
+                            fixReady: widget.fixItems[index],
+                            fixState: widget.fixState,
+                            myFuture: widget.myFuture,
+                          ),
+                  ),
+                )
+              : EmptyFix();
         },
       ),
-      //       Obx(() {
-      //
-      //   if (widget.controller.isInitialized.value) {
-      //
-      //     return widget.fixItems.length <= 0
-      //         ? EmptyFix() : ListView(
-      //       padding: EdgeInsets.zero,
-      //       children: List.generate(
-      //           widget.fixItems.length,
-      //               (index) =>
-      //               UserInfoListItem(
-      //                 fixReady: widget.fixItems[index],
-      //                 fixState: widget.fixState,
-      //               )),
-      //     );
-      //   } else {
-      //     return Center(
-      //       child: CircularProgressIndicator(),
-      //     );
-      //   }
-      // }),
     );
   }
 
@@ -106,13 +87,17 @@ class _UseInfoListState extends State<UseInfoList> {
   }
 
   Widget countSkeleton() {
-    return Shimmer.fromColors(
-      baseColor: Color.fromRGBO(240, 240, 240, 1),
-      highlightColor: Colors.white,
-      child: Column(
-        children:[ for(int i=0; i<skeletonCount; i++) skeletonItem()],
-      ),
-    );
+    return FutureBuilder(future : widget.myFuture, builder: (context, snapshot) {
+      return Shimmer.fromColors(
+        baseColor: Color.fromRGBO(240, 240, 240, 1),
+        highlightColor: Colors.white,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children:
+              List.generate(5, (index) => skeletonItem()),
+        ),
+      );
+    });
   }
 
   Widget skeletonItem() {

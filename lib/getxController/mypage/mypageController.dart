@@ -13,7 +13,6 @@ class MypageController extends GetxController{
   final isInitialized = false.obs;
 
 
-  RxBool mainModalcheck = false.obs;
 
   late WooCustomer user;
 
@@ -34,12 +33,6 @@ class MypageController extends GetxController{
   }
 
 
-  // 닫기 버튼 눌렸을 때
-  void isMainmodal(bool isClose){
-    mainModalcheck.value = isClose;
-
-    update();
-  }
 
   // 초기화
   Future<void> initialize() async {

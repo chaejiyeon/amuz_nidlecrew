@@ -18,7 +18,7 @@ class _DirectQuestionHideItemState extends State<DirectQuestionHideItem> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: HexColor("#d5d5d5"),
+            color: HexColor("#ededed"),
           ),
         ),
       ),

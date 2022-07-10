@@ -138,7 +138,7 @@ class _FixSelectState extends State<FixSelect> {
         LineItems(
           quantity: selectCount,
           productId: controller.productid.value,
-          variationId: variationId,
+          variationId: controller.radioId.value,
         ),
       ];
 
@@ -728,7 +728,7 @@ class _FixSelectState extends State<FixSelect> {
               value: name(optionName),
               onChanged: (value) {
                 controller.isRadioGroup(name(optionName));
-                controller.radioGroup.value = value.toString();
+                controller.radioId.value = variation.id!;
                 controller.iswholePrice(addPrice);
               },
             ),

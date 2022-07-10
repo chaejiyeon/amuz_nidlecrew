@@ -143,25 +143,6 @@ class _AddressInsertState extends State<AddressInsert> {
     return Container(
       child: TextField(
         controller: textEditingController,
-        // onTap: address == "-"
-        //     ? () async {
-        //         await Get.to(KpostalView(
-        //           useLocalServer: true,
-        //           localPort: 1024,
-        //           // kakaoKey: '{Add your KAKAO DEVELOPERS JS KEY}',
-        //           callback: (Kpostal result) {
-        //             setState(() {
-        //               this.postCode = result.postCode;
-        //               this.address = result.address;
-        //               this.latitude = result.latitude.toString();
-        //               this.longitude = result.longitude.toString();
-        //               this.kakaoLatitude = result.kakaoLatitude.toString();
-        //               this.kakaoLongitude = result.kakaoLongitude.toString();
-        //             });
-        //           },
-        //         ));
-        //       }
-        //     : null,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
           hintText: hintTxt,

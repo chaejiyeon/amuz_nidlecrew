@@ -163,7 +163,8 @@ class _PayTypeState extends State<PayType> {
             child: Row(
               children: [
                 IconButton(onPressed: () {
-                  Get.to(PayTypeAdd(isFirst: false,));
+                  Get.to(
+                      PayTypeAdd(isFirst: false,));
                 }, icon: icon1),
                 GestureDetector(
                     onTap: () {

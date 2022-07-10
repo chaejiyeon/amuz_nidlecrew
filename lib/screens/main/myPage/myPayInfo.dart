@@ -16,7 +16,7 @@ class MypayInfo extends StatefulWidget {
 }
 
 class _MypayInfoState extends State<MypayInfo> {
-  final int currentPage = 0;
+  int currentPage = 0;
 
   // 현재 년도 가져오기
   String getToday() {
@@ -44,17 +44,25 @@ class _MypayInfoState extends State<MypayInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MypageAppBar(title: "결제 내역", icon: "", widget: MainHome(), appbar: AppBar()),
+      backgroundColor: Colors.white,
+      appBar: MypageAppBar(
+          title: "결제 내역", icon: "", widget: MainHome(), appbar: AppBar()),
       body: Container(
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.only(right: 10, left: 10),
+              padding: EdgeInsets.only(left: 15, right: 15, top: 40),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        if (currentPage > 0) currentPage--;
+                      });
+                    },
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
                     icon: Icon(
                       CupertinoIcons.chevron_back,
                       color: HexColor("#909090"),
@@ -67,16 +75,24 @@ class _MypayInfoState extends State<MypayInfo> {
                           text: getToday() + "년 ",
                           fontsize: "md",
                           fontbold: "",
-                          fontcolor: Colors.black,textdirectionright: false),
+                          fontcolor: Colors.black,
+                          textdirectionright: false),
                       FontStyle(
                           text: month[currentPage] + "월",
                           fontsize: "md",
                           fontbold: "",
-                          fontcolor: Colors.black,textdirectionright: false),
+                          fontcolor: Colors.black,
+                          textdirectionright: false),
                     ],
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        if (currentPage < 12) currentPage++;
+                      });
+                    },
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
                     icon: Icon(
                       CupertinoIcons.forward,
                       color: HexColor("#909090"),
@@ -86,16 +102,24 @@ class _MypayInfoState extends State<MypayInfo> {
                 ],
               ),
             ),
+            SizedBox(
+              height: 11,
+            ),
             ListLine(
                 height: 1,
                 width: double.infinity,
                 lineColor: HexColor("#d5d5d5"),
                 opacity: 0.5),
+            SizedBox(
+              height: 29,
+            ),
             Expanded(
-              child: ListView(
-                children: [
-                  ListItem(),
-                ],
+              child: Container(
+                padding: EdgeInsets.only(left: 15, right: 15),
+                child: ListView(
+                  children:
+                      List.generate(month.length, (index) => ListItem(index)),
+                ),
               ),
             ),
           ],
@@ -104,69 +128,210 @@ class _MypayInfoState extends State<MypayInfo> {
     );
   }
 
-  Widget ListItem() {
+  Widget ListItem(int price) {
     return Container(
-      padding: EdgeInsets.only(top: 20),
-      child: Row(
-        children: [
-          Container(padding: EdgeInsets.all(10),child: SvgPicture.asset("assets/icons/myPage/pantsIcon.svg")),
-          SizedBox(width: 10,),
-          Expanded(
-            child: Container(
-              height: 70,
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: HexColor("#d5d5d5"),
-                  ),
+      padding: EdgeInsets.only(bottom: 29),
+      child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Container(
+            padding: EdgeInsets.all(10),
+            child: SvgPicture.asset("assets/icons/myPage/pantsIcon.svg")),
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: HexColor("#ededed"),
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FontStyle(
-                      text: "2022.01.01",
-                      fontsize: "",
-                      fontbold: "",
-                      fontcolor: HexColor("#909090"),textdirectionright: false),
-                  Container(
-                    padding: EdgeInsets.only(right: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        FontStyle(
-                            text: "하의-일반바지",
-                            fontsize: "",
-                            fontbold: "bold",
-                            fontcolor: Colors.black,textdirectionright: false),
-
-                        GestureDetector(
-                          child: Row(
+            ),
+            child: ExpansionTile(
+              tilePadding: EdgeInsets.zero,
+              collapsedIconColor: HexColor("#909090"),
+              title: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            FontStyle(
+                                text: "2022.01.01",
+                                fontsize: "",
+                                fontbold: "",
+                                fontcolor: HexColor("#909090"),
+                                textdirectionright: false),
+                            Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  FontStyle(
+                                      text: "하의-일반바지",
+                                      fontsize: "",
+                                      fontbold: "bold",
+                                      fontcolor: Colors.black,
+                                      textdirectionright: false),
+                                  GestureDetector(
+                                    child: Row(
+                                      children: [
+                                        FontStyle(
+                                            text: price.toString(),
+                                            fontsize: "",
+                                            fontbold: "bold",
+                                            fontcolor: Colors.black,
+                                            textdirectionright: false),
+                                        Text("원")
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 29,)
+                          ],
+                        ),
+                    ),
+                  ],
+                ),
+              children: [
+                Container(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Row(
+                    children: [
+                      Container(
+                          padding: EdgeInsets.all(10),
+                          child: SvgPicture.asset(
+                              "assets/icons/myPage/pantsIcon.svg")),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Container(
+                          height: 70,
+                          decoration: BoxDecoration(
+                            border: Border(
+                              bottom: BorderSide(
+                                color: HexColor("#d5d5d5"),
+                              ),
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               FontStyle(
-                                  text: "11,000",
-                                  fontsize: "",
-                                  fontbold: "bold",
-                                  fontcolor: Colors.black,textdirectionright: false),
-                              FontStyle(
-                                  text: "원",
+                                  text: "2022.01.01",
                                   fontsize: "",
                                   fontbold: "",
-                                  fontcolor: Colors.black,textdirectionright: false),
-                              SizedBox(width: 10,),
-                              Icon(CupertinoIcons.chevron_down, size: 20, color: HexColor("#909090"),),
+                                  fontcolor: HexColor("#909090"),
+                                  textdirectionright: false),
+                              Container(
+                                padding: EdgeInsets.only(right: 20),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    FontStyle(
+                                        text: "하의-일반바지",
+                                        fontsize: "",
+                                        fontbold: "bold",
+                                        fontcolor: Colors.black,
+                                        textdirectionright: false),
+                                    GestureDetector(
+                                      child: Row(
+                                        children: [
+                                          FontStyle(
+                                              text: price.toString(),
+                                              fontsize: "",
+                                              fontbold: "bold",
+                                              fontcolor: Colors.black,
+                                              textdirectionright: false),
+                                          FontStyle(
+                                              text: "원",
+                                              fontsize: "",
+                                              fontbold: "",
+                                              fontcolor: Colors.black,
+                                              textdirectionright: false),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                )
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ]),
     );
+
+    //   Container(
+    //   padding: EdgeInsets.only(top: 20),
+    //   child: Row(
+    //     children: [
+    //       Container(padding: EdgeInsets.all(10),child: SvgPicture.asset("assets/icons/myPage/pantsIcon.svg")),
+    //       SizedBox(width: 10,),
+    //       Expanded(
+    //         child: Container(
+    //           height: 70,
+    //           decoration: BoxDecoration(
+    //             border: Border(
+    //               bottom: BorderSide(
+    //                 color: HexColor("#d5d5d5"),
+    //               ),
+    //             ),
+    //           ),
+    //           child: Column(
+    //             crossAxisAlignment: CrossAxisAlignment.start,
+    //             children: [
+    //               FontStyle(
+    //                   text: "2022.01.01",
+    //                   fontsize: "",
+    //                   fontbold: "",
+    //                   fontcolor: HexColor("#909090"),textdirectionright: false),
+    //               Container(
+    //                 padding: EdgeInsets.only(right: 20),
+    //                 child: Row(
+    //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                   children: [
+    //                     FontStyle(
+    //                         text: "하의-일반바지",
+    //                         fontsize: "",
+    //                         fontbold: "bold",
+    //                         fontcolor: Colors.black,textdirectionright: false),
+    //
+    //                     GestureDetector(
+    //                       child: Row(
+    //                         children: [
+    //                           FontStyle(
+    //                               text: price.toString(),
+    //                               fontsize: "",
+    //                               fontbold: "bold",
+    //                               fontcolor: Colors.black,textdirectionright: false),
+    //                           FontStyle(
+    //                               text: "원",
+    //                               fontsize: "",
+    //                               fontbold: "",
+    //                               fontcolor: Colors.black,textdirectionright: false),
+    //                           SizedBox(width: 10,),
+    //                           Icon(CupertinoIcons.chevron_down, size: 20, color: HexColor("#909090"),),
+    //                         ],
+    //                       ),
+    //                     ),
+    //                   ],
+    //                 ),
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // );
   }
 }

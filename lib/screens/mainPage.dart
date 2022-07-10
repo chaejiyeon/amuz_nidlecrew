@@ -6,11 +6,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:needlecrew/db/wp-api.dart' as wp_api;
 
 import 'main/fixClothes.dart';
 import 'main/mainHome.dart';
 import 'main/myPage.dart';
 import 'main/useInfo.dart';
+
 
 class MainPage extends StatefulWidget {
   final int pageNum;
@@ -30,10 +32,12 @@ class _MainPageState extends State<MainPage> {
 
   @override
   void initState() {
-    super.initState();
+
     // controller.getUser();
+    super.initState();
 
     if(controller.mainModalcheck == false) {
+      // controller.getUser();
       // 메인 홈 진입 시 dialog
       Future.delayed(Duration.zero, () {
         showDialog(
@@ -131,8 +135,10 @@ class _MainPageState extends State<MainPage> {
           _currentIndex = page;
         });
       },
+      behavior: HitTestBehavior.opaque,
       child: Container(
         padding: EdgeInsets.all(10),
+        width: 80,
         height: 70,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

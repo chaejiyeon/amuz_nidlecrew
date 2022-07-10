@@ -74,11 +74,6 @@ class UseInfoController extends GetxController {
 
   // 해당 유저에 정보
   Future<void> getCompleteOrder() async {
-    readyLists.clear();
-    progressLists.clear();
-    completeLists.clear();
-    useLists.clear();
-
     try {
       user = await wp_api.getUser();
 
@@ -86,6 +81,11 @@ class UseInfoController extends GetxController {
         customer: user.id,
         status: ['fix-register', 'fix-ready', 'fix-picked', 'fix-arrive', 'fix-confirm', 'fix-select', 'processing', 'completed'],
       );
+
+      readyLists.clear();
+      progressLists.clear();
+      completeLists.clear();
+      useLists.clear();
 
       log("order status  ddfsd "+ orders.toString());
       // 수선 대기 단계별 state 설정

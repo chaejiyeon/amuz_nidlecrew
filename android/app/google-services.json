@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_a   pp_id": "1:12727198298:android:40c5e76a54a3fe79982e63",
+        "mobilesdk_app_id": "1:12727198298:android:40c5e76a54a3fe79982e63",
         "android_client_info": {
           "package_name": "com.amuz.needlecrew"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "12727198298-7sa60ooeph1vgcj0u2tddsc65nmr879k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.amuz.needlecrew",
+            "certificate_hash": "c38c610014cfbd63cfcbb233064a761a71ae20be"
+          }
+        },
         {
           "client_id": "12727198298-bo068kfaj3kbgnr19teureigh944sktq.apps.googleusercontent.com",
           "client_type": 3

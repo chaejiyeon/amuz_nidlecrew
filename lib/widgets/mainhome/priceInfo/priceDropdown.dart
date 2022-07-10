@@ -1,4 +1,4 @@
-import 'package:dropdown_below/dropdown_below.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -86,27 +86,7 @@ class _PriceDropDownState extends State<PriceDropDown> {
         padding: widget.selectNum == 4 ? EdgeInsets.only(left: 10) : EdgeInsets.only(left: 20, right: 20, top: 5, bottom: 5),
         child: Column(
           children: [
-            DropdownBelow(
-              itemWidth: widget.selectNum == 4 ? 140 : 320,
-              itemTextstyle: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black),
-              boxTextstyle: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black),
-              boxPadding: EdgeInsets.fromLTRB(13, 12, 13, 12),
-              boxWidth: double.infinity,
-              boxHeight: 41,
-              boxDecoration: BoxDecoration(
-                color: Colors.transparent,
-                border: Border.all(
-                  width: 1,
-                  color: HexColor("#909090").withOpacity(0.5),
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
+            DropdownButton2(
               icon: selected == "false"
                   ? SvgPicture.asset("assets/icons/dropdownupIcon.svg")
                   : SvgPicture.asset("assets/icons/dropdownIcon.svg"),

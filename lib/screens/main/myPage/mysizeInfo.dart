@@ -1,12 +1,13 @@
 import 'package:needlecrew/screens/main/mainHome.dart';
 import 'package:needlecrew/screens/main/myPage/mysizeOnePiece.dart';
-import 'package:needlecrew/screens/main/myPage/mysizeOuterInfo.dart';
 import 'package:needlecrew/screens/main/myPage/mysizePants.dart';
 import 'package:needlecrew/screens/main/myPage/mysizeShirt.dart';
 import 'package:needlecrew/screens/main/myPage/mysizeSkirt.dart';
 import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
 import 'package:needlecrew/widgets/myPage/mypageMenu.dart';
 import 'package:flutter/material.dart';
+
+import 'mysizeOuterCoatUpdate.dart';
 
 class MySizeInfo extends StatefulWidget {
   const MySizeInfo({Key? key}) : super(key: key);
@@ -30,7 +31,7 @@ class _MySizeInfoState extends State<MySizeInfo> {
             MypageMenu(listTitle: "바지", widget: MysizePants()),
             MypageMenu(listTitle: "스커트", widget: MysizeSkirt()),
             MypageMenu(listTitle: "원피스", widget: MysizeOnePiece()),
-            MypageMenu(listTitle: "아우터", widget: MysizeOuterInfo()),
+            MypageMenu(listTitle: "아우터", widget: MysizeOuterUpdate()),
           ],
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:needlecrew/models/useguideShopping.dart';
 import 'package:needlecrew/screens/main/alramInfo.dart';
 import 'package:needlecrew/screens/main/cartInfo.dart';
@@ -6,8 +7,6 @@ import 'package:needlecrew/widgets/appbarItem.dart';
 import 'package:needlecrew/widgets/fixClothes/fixClothesAppbar.dart';
 import 'package:needlecrew/widgets/mainhome/useguide/useguideTabview.dart';
 import 'package:needlecrew/widgets/myPage/mypageAppbar.dart';
-import 'package:dropdown_button2/custom_dropdown_button2.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -197,9 +196,6 @@ class _UseGuideDetailState extends State<UseGuideDetail>
                   );
                 }).toList(),
                 onTap: (index) {
-                  // setState((){
-                  //   currentTab = index;
-                  // });
                   VerticalScrollableTabBarStatus.setIndex(index);
                 },
               ),
